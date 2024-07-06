@@ -1,0 +1,22 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "indriveclone-e7372",
+          "appId": "1:299688625167:android:e8d8ea290e13e820320f7a",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "indriveclone-e7372",
+          "configurations": {
+            "android": "1:299688625167:android:e8d8ea290e13e820320f7a",
+            "ios": "1:299688625167:ios:6a5847d803b6c265320f7a"
+          }
+        }
+      }
+    }
+  }
+}
