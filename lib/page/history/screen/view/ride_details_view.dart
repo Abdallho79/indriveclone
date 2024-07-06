@@ -19,13 +19,13 @@ class RideDetailsView extends StatelessWidget {
       backgroundColor: AppColor.background_dark,
       appBar: AppBar(
         centerTitle: true,
-        title: Text("26 February 12:33"),
+        title: const Text("26 February 12:33"),
         actions: [
           IconButton(
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.delete,
                 color: Colors.red,
               ))
@@ -38,7 +38,8 @@ class RideDetailsView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                DriverPhoto(imagePath: AppImage.avatar, driverName: "Abdallh"),
+                const DriverPhoto(
+                    imagePath: AppImage.avatar, driverName: "Abdallh"),
                 CoustomIconTextColumn(
                     onPressed: () {},
                     text: "Support",
@@ -49,10 +50,10 @@ class RideDetailsView extends StatelessWidget {
                     iconData: Icons.receipt_long)
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Container(
+            SizedBox(
               height: 200,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
@@ -77,7 +78,7 @@ class RideDetailsView extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
@@ -91,10 +92,10 @@ class RideDetailsView extends StatelessWidget {
                 color: controller.rideDetails[index]["color"],
               );
             }),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             MyCoustomText(
@@ -103,7 +104,7 @@ class RideDetailsView extends StatelessWidget {
                 weight: FontWeight.normal,
                 size: 26,
                 textAlign: null),
-            MyCoustomText(
+            const MyCoustomText(
                 text: "Silver Oktavia, 1634 ABC",
                 color: Colors.white,
                 weight: FontWeight.normal,

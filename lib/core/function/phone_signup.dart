@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 String? verfid;
@@ -11,9 +13,7 @@ void phoneNumberSignUp(String phoneNumber) async {
       // print(e);
     },
     codeSent: (String verificationId, int? resendToken) async {
-      print("=================$verfid====================");
       verfid = verificationId;
-      print("=================$verfid====================");
     },
     codeAutoRetrievalTimeout: (String verificationId) {},
   );
@@ -31,7 +31,5 @@ sendCodeOTP(String smsCodeUser, Function function) async {
         function();
       }
     });
-  } catch (e) {
-    print(e);
-  }
+  } catch (e) {}
 }

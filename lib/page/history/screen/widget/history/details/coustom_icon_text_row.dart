@@ -17,12 +17,12 @@ class CoustomTextIconRow extends StatelessWidget {
             icon,
             color: color,
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           Text(
             text,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: const TextStyle(color: Colors.white, fontSize: 16),
           )
         ],
       ),

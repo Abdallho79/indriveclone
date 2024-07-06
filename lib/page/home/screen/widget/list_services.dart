@@ -26,7 +26,7 @@ class ListViewSerivces extends StatelessWidget {
         ),
         ServicesIcon(
           imagename: "City to city",
-          name: AppImage.city_to_city,
+          name: AppImage.citytocity,
           onTap: () {},
           onLongPress: () {},
           isActive: 3,

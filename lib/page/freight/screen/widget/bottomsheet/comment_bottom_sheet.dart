@@ -6,15 +6,17 @@ import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_ti
 import 'package:indriveclone/page/freight/controller/freight_controller.dart';
 
 class CommentBottomSheetFreight extends StatelessWidget {
+  const CommentBottomSheetFreight({super.key});
+
   @override
   Widget build(BuildContext context) {
     FreightController commentsController = Get.put(FreightController());
 
     return Container(
       height: 350,
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color.fromRGBO(33, 33, 33, 1),
+      padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+        color: Color.fromRGBO(33, 33, 33, 1),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -22,25 +24,25 @@ class CommentBottomSheetFreight extends StatelessWidget {
       ),
       child: ListView(
         children: [
-          RowTitle(title: "Desccription of the cargo"),
-          SizedBox(height: 10),
+          const RowTitle(title: "Desccription of the cargo"),
+          const SizedBox(height: 10),
           Form(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextField(
                     controller: commentsController.commentContrller,
                     maxLines: 5,
                     maxLength: 500,
                     enableIMEPersonalizedLearning: true,
                     cursorColor: Colors.white,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
                     decoration: InputDecoration(
                       hintText:
                           "For example: wardrobe 150/210 cm and five boxes with",
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           fontSize: 18,
                           color: Colors.grey,
                           fontWeight: FontWeight.w400),
@@ -48,19 +50,19 @@ class CommentBottomSheetFreight extends StatelessWidget {
                       filled: true,
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.white,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.white,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   BottomSheetButton(
                       onPressed: () {
                         commentsController.setComment(

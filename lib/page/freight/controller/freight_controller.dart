@@ -67,8 +67,7 @@ class FreightController extends GetxController {
   // < Fare >
 
   validate() {
-    if (!fareController!.text.isEmpty) {
-      print("==============${fareController!.text}=================");
+    if (fareController!.text.isNotEmpty) {
       if (80 <= int.parse(fareController!.text)) {
         fare = int.parse(fareController!.text);
         Get.back();
@@ -121,7 +120,6 @@ class FreightController extends GetxController {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     fareController!.dispose();
     commentContrller!.dispose();

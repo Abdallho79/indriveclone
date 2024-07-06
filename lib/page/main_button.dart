@@ -9,15 +9,14 @@ class MyMainButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      
-        style: ButtonStyle(
+        style: const ButtonStyle(
             shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12)))),
             backgroundColor: WidgetStatePropertyAll(AppColor.green)),
         onPressed: onPressed,
         child: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.black,
               fontSize: 24,
               fontWeight: FontWeight.w600,

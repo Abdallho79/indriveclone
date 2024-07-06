@@ -15,7 +15,7 @@ class TextAppove extends StatelessWidget {
           style: AppTheme.themeEnglish.textTheme.bodyLarge,
           textAlign: TextAlign.center,
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         Text(
@@ -23,15 +23,15 @@ class TextAppove extends StatelessWidget {
           style: AppTheme.themeEnglish.textTheme.bodyMedium,
           textAlign: TextAlign.center,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Text(
-          "${phonenumber}",
+          "$phonenumber",
           style: AppTheme.themeEnglish.textTheme.bodyMedium,
           textAlign: TextAlign.center,
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
       ],

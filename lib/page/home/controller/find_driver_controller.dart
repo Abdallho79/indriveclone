@@ -8,7 +8,7 @@ import 'package:indriveclone/core/function/polyline.dart';
 
 class FindDriverController extends GetxController {
   CameraPosition initialPosition =
-      CameraPosition(target: LatLng(31.024054, 31.417328), zoom: 14.45);
+      const CameraPosition(target: LatLng(31.024054, 31.417328), zoom: 14.45);
   String? darkMapStyle;
   Completer<GoogleMapController>? googleMapController;
   Set<Polyline> polylineSet = {};
@@ -30,23 +30,25 @@ class FindDriverController extends GetxController {
 
   addMarkers() {
     markers.add(Marker(
-        markerId: MarkerId("from"), position: LatLng(fromLat!, fromLong!)));
+        markerId: const MarkerId("from"),
+        position: LatLng(fromLat!, fromLong!)));
 
-    markers.add(
-        Marker(markerId: MarkerId("to"), position: LatLng(toLat!, toLong!)));
+    markers.add(Marker(
+        markerId: const MarkerId("to"), position: LatLng(toLat!, toLong!)));
   }
 
   // تحميل أسلوب الخريطة المظلم
   Future _loadMapStyles() async {
     darkMapStyle = await rootBundle.loadString(AppImage.darkmabtheme);
     final controller = await googleMapController!.future;
+    // ignore: deprecated_member_use
     controller.setMapStyle(darkMapStyle);
   }
 
   initPolyLine() async {
     Map<String, dynamic>? data =
         await getPolyLine(fromLat!, fromLong!, toLat!, toLong!);
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     polylineSet = data!["polylines"];
     distance = data["distance"];
     time = data["duration"];
@@ -57,11 +59,11 @@ class FindDriverController extends GetxController {
   @override
   void onInit() {
     googleMapController = Completer<GoogleMapController>();
-    fare =  32;
+    fare = 32;
     toLat = 31.014054;
-    toLong =31.024054;
+    toLong = 31.024054;
     fromLat = 31.014054;
-    fromLong =  31.024054;
+    fromLong = 31.024054;
 
     super.onInit();
 
@@ -69,4 +71,28 @@ class FindDriverController extends GetxController {
     _loadMapStyles();
     initPolyLine();
   }
+
+  List<Map<String, dynamic>> workers = [
+    {
+      "name": "Wael Salah",
+      "distance": "70 meters",
+      "carBrand": "Mercedes 2019",
+      "offer": "28 \$",
+      "avatar": AppImage.avatar,
+    },
+    {
+      "name": "Ahmed Ali",
+      "distance": "50 meters",
+      "carBrand": "BMW 2020",
+      "offer": "30 \$",
+      "avatar": AppImage.avatar,
+    },
+    {
+      "name": "Mohamed Hassan",
+      "distance": "100 meters",
+      "carBrand": "Toyota 2018",
+      "offer": "25 \$",
+      "avatar": AppImage.avatar,
+    },
+  ];
 }

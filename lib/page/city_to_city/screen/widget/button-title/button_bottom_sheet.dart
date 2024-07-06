@@ -13,11 +13,11 @@ class BottomSheetButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColor.green, // لون الزر الأخضر
-        minimumSize: Size(double.infinity, 50), // زر ممتد بعرض الشاشة
+        minimumSize: const Size(double.infinity, 50), // زر ممتد بعرض الشاشة
       ),
       child: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 20, color: Colors.black, decoration: TextDecoration.none),
       ),
     );

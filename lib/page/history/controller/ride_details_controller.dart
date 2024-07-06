@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:indriveclone/page/history/controller/history_controller.dart';
 
 class RideDetailsController extends HistoryController {
+  @override
+  // ignore: overridden_fields
   List rideDetails = [
     {
       "icon": Icons.circle,

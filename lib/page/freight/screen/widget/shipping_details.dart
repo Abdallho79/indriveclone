@@ -6,6 +6,8 @@ import 'package:indriveclone/page/freight/screen/widget/bottomsheet/vechicel_bot
 import 'package:indriveclone/page/main_widget.dart';
 
 class ShippingDetails extends StatelessWidget {
+  const ShippingDetails({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -14,17 +16,17 @@ class ShippingDetails extends StatelessWidget {
           builder: (controller) => TheMainWidget(
             onPressed: () {
               Get.bottomSheet(
-                  isDismissible: false, CommentBottomSheetFreight());
+                  isDismissible: false, const CommentBottomSheetFreight());
             },
             staticText: "Description of the cargo",
-            inputText: "${Get.find<FreightController>().comment}",
+            inputText: Get.find<FreightController>().comment,
           ),
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         GetBuilder<FreightController>(
           builder: (controller) => TheMainWidget(
             onPressed: () {
-              Get.bottomSheet(isDismissible: false, VechielBottomSheet());
+              Get.bottomSheet(isDismissible: false, const VechielBottomSheet());
             },
             staticText: "Which car is suitable",
             inputText: Get.find<FreightController>().choosencar,

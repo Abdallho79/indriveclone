@@ -17,10 +17,10 @@ class DriverPhoto extends StatelessWidget {
               width: 60,
               height: 60,
             )),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
-        Text(driverName, style: TextStyle(color: Colors.white))
+        Text(driverName, style: const TextStyle(color: Colors.white))
       ],
     );
   }

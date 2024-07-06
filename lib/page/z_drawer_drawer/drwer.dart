@@ -14,7 +14,7 @@ class MyDrawer extends StatelessWidget {
     MyDrawerController controller = Get.put(MyDrawerController());
     return Drawer(
       width: Get.width / 1.2,
-      backgroundColor: Color(0xff1C1F24),
+      backgroundColor: const Color(0xff1C1F24),
       child: ListView(
         children: [
           ProvileListTile(
@@ -25,11 +25,11 @@ class MyDrawer extends StatelessWidget {
             username: "Abdallh",
             rate: 3.6,
           ),
-          SizedBox(height: 15),
-          Divider(height: 0),
+          const SizedBox(height: 15),
+          const Divider(height: 0),
           ...buildCategoryWidgets(controller),
-          Divider(height: 0),
-          SizedBox(height: 15),
+          const Divider(height: 0),
+          const SizedBox(height: 15),
           ButtonDriverMode(onPressed: () {}),
         ],
       ),

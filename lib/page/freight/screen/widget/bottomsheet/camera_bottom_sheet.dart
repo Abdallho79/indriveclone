@@ -5,6 +5,8 @@ import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_ti
 import 'package:indriveclone/page/freight/controller/freight_controller.dart';
 
 class PictureOptionsBottomSheetAdd extends StatelessWidget {
+  const PictureOptionsBottomSheetAdd({super.key});
+
   @override
   Widget build(BuildContext context) {
     FreightController controller = Get.put(FreightController());
@@ -12,20 +14,20 @@ class PictureOptionsBottomSheetAdd extends StatelessWidget {
       height: 200,
       decoration: BoxDecoration(
         color: Colors.grey[900],
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20.0),
           topRight: Radius.circular(20.0),
         ),
       ),
       child: ListView(
         children: [
-          RowTitle(title: "Picture of your cargo"),
-          SizedBox(
+          const RowTitle(title: "Picture of your cargo"),
+          const SizedBox(
             height: 20,
           ),
           ListTile(
-            leading: Icon(Icons.camera_alt, color: Colors.white),
-            title: Text('Camera',
+            leading: const Icon(Icons.camera_alt, color: Colors.white),
+            title: const Text('Camera',
                 style: TextStyle(color: Colors.white, fontSize: 18)),
             onTap: () {
               controller.pickImage(ImageSource.camera);
@@ -33,8 +35,8 @@ class PictureOptionsBottomSheetAdd extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.photo, color: Colors.white),
-            title: Text('Choose from gallery',
+            leading: const Icon(Icons.photo, color: Colors.white),
+            title: const Text('Choose from gallery',
                 style: TextStyle(color: Colors.white, fontSize: 18)),
             onTap: () {
               controller.pickImage(ImageSource.gallery);
@@ -59,20 +61,20 @@ class PictureOptionsBottomSheetImage extends StatelessWidget {
       height: 250,
       decoration: BoxDecoration(
         color: Colors.grey[900],
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20.0),
           topRight: Radius.circular(20.0),
         ),
       ),
       child: ListView(
         children: [
-          RowTitle(title: "Picture of your cargo"),
-          SizedBox(
+          const RowTitle(title: "Picture of your cargo"),
+          const SizedBox(
             height: 20,
           ),
           ListTile(
-            leading: Icon(Icons.camera_alt, color: Colors.white),
-            title: Text('Retake',
+            leading: const Icon(Icons.camera_alt, color: Colors.white),
+            title: const Text('Retake',
                 style: TextStyle(color: Colors.white, fontSize: 18)),
             onTap: () {
               controller.updateImage(index, ImageSource.camera);
@@ -80,8 +82,8 @@ class PictureOptionsBottomSheetImage extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.photo, color: Colors.white),
-            title: Text('Choose from gallery',
+            leading: const Icon(Icons.photo, color: Colors.white),
+            title: const Text('Choose from gallery',
                 style: TextStyle(color: Colors.white, fontSize: 18)),
             onTap: () {
               controller.updateImage(index, ImageSource.gallery);
@@ -90,8 +92,8 @@ class PictureOptionsBottomSheetImage extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.delete, color: Colors.white),
-            title: Text('Delete',
+            leading: const Icon(Icons.delete, color: Colors.white),
+            title: const Text('Delete',
                 style: TextStyle(color: Colors.white, fontSize: 18)),
             onTap: () {
               controller.removeImage(index);

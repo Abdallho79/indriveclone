@@ -19,39 +19,40 @@ class ProvileListTile extends StatelessWidget {
         trailing: CoustomIconButton(
             onPressed: onPressed, icon: Icons.navigate_next_outlined),
         leading: ClipRRect(
+          borderRadius: BorderRadius.circular(100),
           child: Image.asset(
             Imagename,
           ),
-          borderRadius: BorderRadius.circular(100),
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               username,
-              style: TextStyle(color: Colors.white, fontSize: 22),
+              style: const TextStyle(color: Colors.white, fontSize: 22),
             ),
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               ...List.generate(5, (index) {
                 if (index <= (rate - 1).round()) {
-                  return Icon(
+                  return const Icon(
                     Icons.star,
                     color: Colors.orange,
                     size: 20, // يمكنك تغيير الحجم حسب الحاجة
                   );
-                } else
-                  return Icon(
+                } else {
+                  return const Icon(
                     Icons.star_border_outlined,
                     color: Colors.white,
                     size: 20, // يمكنك تغيير الحجم حسب الحاجة
                   );
+                }
               }),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Text(
                 "($rate)",
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: const TextStyle(color: Colors.white, fontSize: 14),
               )
             ]),
           ],

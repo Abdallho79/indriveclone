@@ -17,16 +17,16 @@ class SettingsView extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => HomeView()),
+            MaterialPageRoute(builder: (context) => const HomeView()),
             (route) => false);
         Get.find<MyDrawerController>().isActive = 1;
         return Future.value(true);
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Settings"),
+          title: const Text("Settings"),
         ),
-        drawer: MyDrawer(),
+        drawer: const MyDrawer(),
         body: ListView(
           children: [
             ...List.generate(
@@ -40,7 +40,7 @@ class SettingsView extends StatelessWidget {
             MaterialButton(
               height: 70,
               onPressed: () {},
-              child: Align(
+              child: const Align(
                 alignment: Alignment.centerLeft,
                 child: MyCoustomText(
                   text: "Delete account",
@@ -87,7 +87,7 @@ class SettingsButton extends StatelessWidget {
                 size: 22,
                 textAlign: TextAlign.start,
               ),
-              Spacer(),
+              const Spacer(),
               if (iconData != null)
                 Icon(
                   iconData,

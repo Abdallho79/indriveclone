@@ -5,6 +5,8 @@ import 'package:indriveclone/page/support/controller/support_controller.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
 
 class MessageList extends StatelessWidget {
+  const MessageList({super.key});
+
   @override
   Widget build(BuildContext context) {
     SupportController controller = Get.find();
@@ -12,7 +14,7 @@ class MessageList extends StatelessWidget {
       stream: controller.getMessagesStream(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -21,7 +23,7 @@ class MessageList extends StatelessWidget {
           builder: (_) {
             return ListView.builder(
               reverse: true,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               itemCount: controller.messagesList.length,
               itemBuilder: (context, index) {
                 var message = controller.messagesList[index];
@@ -32,29 +34,29 @@ class MessageList extends StatelessWidget {
                       isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
                   child: Container(
                     margin: isSentByMe
-                        ? EdgeInsets.only(
+                        ? const EdgeInsets.only(
                             left: 100, top: 10, bottom: 10, right: 10)
-                        : EdgeInsets.only(
+                        : const EdgeInsets.only(
                             left: 10, top: 10, bottom: 10, right: 100),
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         color: isSentByMe
                             ? AppColor.background_light
                             : Colors.grey,
                         borderRadius: !isSentByMe
-                            ? BorderRadius.only(
+                            ? const BorderRadius.only(
                                 bottomLeft: Radius.circular(15),
                                 bottomRight: Radius.circular(15),
                                 topRight: Radius.circular(15),
                               )
-                            : BorderRadius.only(
+                            : const BorderRadius.only(
                                 bottomLeft: Radius.circular(15),
                                 bottomRight: Radius.circular(15),
                                 topLeft: Radius.circular(15),
                               )),
                     child: Text(
                       message["text"]!,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 );

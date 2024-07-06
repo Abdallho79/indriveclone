@@ -19,14 +19,14 @@ class ServicesIcon extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       onLongPress: onLongPress,
-      child: Container(
+      child: SizedBox(
         // color: isActive == 1 ? const Color(0xff323943) : null,
         width: 100,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
             Image.asset(
-              "$name",
+              name,
               height: 80,
               width: 80,
             ),
@@ -35,7 +35,7 @@ class ServicesIcon extends StatelessWidget {
               left: 5,
               child: Text(
                 imagename,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),

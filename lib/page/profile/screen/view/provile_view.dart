@@ -7,7 +7,7 @@ import 'package:indriveclone/page/profile/controller/profile_controller.dart';
 class ProfileView extends StatelessWidget {
   final ProfileController profileController = Get.put(ProfileController());
 
-  ProfileView({Key? key}) : super(key: key);
+  ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +22,9 @@ class ProfileView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               backgroundColor: AppColor.green,
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
             ),
-            child: MyCoustomText(
+            child: const MyCoustomText(
                 text: "Save",
                 color: Colors.black,
                 weight: FontWeight.bold,
@@ -32,9 +32,9 @@ class ProfileView extends StatelessWidget {
                 textAlign: null)),
       ),
       appBar: AppBar(
-        title: Text('Profile settings'),
+        title: const Text('Profile settings'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -44,10 +44,10 @@ class ProfileView extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            CircleAvatar(
+            const CircleAvatar(
               radius: 100,
               backgroundColor: Colors.blue,
               child: Icon(
@@ -56,7 +56,7 @@ class ProfileView extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             buildProfileField(
               icon: Icons.person,
               label: 'First name',
@@ -84,7 +84,7 @@ class ProfileView extends StatelessWidget {
                 enabled: false,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -98,16 +98,16 @@ class ProfileView extends StatelessWidget {
     bool enabled = true,
   }) {
     return TextField(
-      style: TextStyle(fontSize: 16, decoration: TextDecoration.none),
+      style: const TextStyle(fontSize: 16, decoration: TextDecoration.none),
       cursorColor: Colors.white,
       controller: controller,
       enabled: enabled,
       decoration: InputDecoration(
           prefixIcon: Icon(icon, color: Colors.grey),
           hintText: label,
-          hintStyle: TextStyle(color: Colors.grey),
-          border: UnderlineInputBorder(),
-          focusedBorder: UnderlineInputBorder(
+          hintStyle: const TextStyle(color: Colors.grey),
+          border: const UnderlineInputBorder(),
+          focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white))),
     );
   }
@@ -116,26 +116,26 @@ class ProfileView extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           height: 200,
           child: Column(
             children: [
               ListTile(
-                title: Text('Cairo'),
+                title: const Text('Cairo'),
                 onTap: () {
                   profileController.locationController.text = 'Cairo';
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                title: Text('Alexandria'),
+                title: const Text('Alexandria'),
                 onTap: () {
                   profileController.locationController.text = 'Alexandria';
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                title: Text('Luxor'),
+                title: const Text('Luxor'),
                 onTap: () {
                   profileController.locationController.text = 'Luxor';
                   Navigator.pop(context);

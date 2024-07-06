@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
 import 'package:indriveclone/core/function/phone_signup.dart';
 import 'package:indriveclone/core/services/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class VerifyController extends GetxController {
   MyServices myServices = MyServices();
@@ -20,19 +21,7 @@ class VerifyController extends GetxController {
   String? email;
   Map userData = {};
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-  void openWhatsApp() async {
-    var whatsappUrl = "whatsapp://send?phone=+2001096366301";
-    print("========================openmetthod=====================");
 
-    if (await canLaunch(whatsappUrl)) {
-      await launch(whatsappUrl);
-      print("========================openWhatsApp=====================");
-    } else {
-      print("========================can'tWhatsApp=====================");
-
-      throw 'Could not launch $whatsappUrl';
-    }
-  }
 
   void onSubmit(String code) {
     sendCodeOTP(code, goToHomeView);
@@ -47,7 +36,7 @@ class VerifyController extends GetxController {
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       if (remainingSeconds > 1) {
         remainingSeconds--;
         update();

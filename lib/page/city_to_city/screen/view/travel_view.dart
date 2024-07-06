@@ -14,23 +14,24 @@ import 'package:indriveclone/page/z_drawer_drawer/drawer_controller.dart';
 import 'package:indriveclone/page/z_drawer_drawer/drwer.dart';
 
 class TravelView extends StatelessWidget {
-  const TravelView({Key? key}) : super(key: key);
+  const TravelView({super.key});
 
   @override
   Widget build(BuildContext context) {
     Get.put(TravelController());
+    // ignore: deprecated_member_use
     return WillPopScope(
       child: Scaffold(
         backgroundColor: AppColor.background_dark,
-        drawer: MyDrawer(),
+        drawer: const MyDrawer(),
         appBar: AppBar(
-          title: Text("City to city"),
+          title: const Text("City to city"),
         ),
-        body: TravelViewBody(),
+        body: const TravelViewBody(),
       ),
       onWillPop: () async {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => HomeView()),
+            MaterialPageRoute(builder: (context) => const HomeView()),
             (route) => false);
         Get.find<MyDrawerController>().isActive = 1;
         return Future.value(true); // Allow pop});
@@ -40,24 +41,26 @@ class TravelView extends StatelessWidget {
 }
 
 class TravelViewBody extends StatelessWidget {
+  const TravelViewBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       children: [
-        SizedBox(height: 20),
-        TravelMainWidget(),
-        SizedBox(height: 15),
-        RideTypeButtons(),
-        SizedBox(height: 15),
-        DateSelectionWidget(),
-        SizedBox(height: 15),
-        PassengerNumberWidget(),
-        SizedBox(height: 15),
-        FareOfferWidget(),
-        SizedBox(height: 15),
-        CommentsWidget(),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
+        const TravelMainWidget(),
+        const SizedBox(height: 15),
+        const RideTypeButtons(),
+        const SizedBox(height: 15),
+        const DateSelectionWidget(),
+        const SizedBox(height: 15),
+        const PassengerNumberWidget(),
+        const SizedBox(height: 15),
+        const FareOfferWidget(),
+        const SizedBox(height: 15),
+        const CommentsWidget(),
+        const SizedBox(height: 20),
         BottomButton(onPressed: () {}, title: "Find a driver"),
       ],
     );

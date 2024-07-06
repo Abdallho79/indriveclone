@@ -22,7 +22,7 @@ class MessageInputField extends StatelessWidget {
               hinttext: "",
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           IconButton(
@@ -39,7 +39,7 @@ class MessageInputField extends StatelessWidget {
                 controller.messageController.clear();
               }
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_forward,
               color: Colors.white,
             ),

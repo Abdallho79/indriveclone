@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:indriveclone/core/class/my_coustm_text.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
 
@@ -16,13 +15,13 @@ class ButtonDriverMode extends StatelessWidget {
         height: 60,
         width: Get.width,
         child: ElevatedButton(
-          style: ButtonStyle(
+          style: const ButtonStyle(
             shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12)))),
             backgroundColor: WidgetStatePropertyAll(AppColor.green),
           ),
           onPressed: onPressed,
-          child: MyCoustomText(
+          child: const MyCoustomText(
             text: 'Driver Mode',
             color: Colors.black,
             weight: FontWeight.normal,

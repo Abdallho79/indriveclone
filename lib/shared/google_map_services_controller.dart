@@ -8,13 +8,14 @@ import 'package:indriveclone/core/constant/image_app.dart';
 mixin GoogleMapServicesController {
   String? darkMapStyle;
   CameraPosition initialPosition =
-      CameraPosition(target: LatLng(31.024054, 31.417328), zoom: 14.45);
+      const CameraPosition(target: LatLng(31.024054, 31.417328), zoom: 14.45);
   Completer<GoogleMapController>? googleMapController;
   List<Marker> markers = [];
 
   Future loadMapStyles() async {
     darkMapStyle = await rootBundle.loadString(AppImage.darkmabtheme);
     final controller = await googleMapController!.future;
+    // ignore: deprecated_member_use
     controller.setMapStyle(darkMapStyle);
   }
 

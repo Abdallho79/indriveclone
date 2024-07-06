@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:indriveclone/core/class/status_request.dart';
@@ -34,8 +33,9 @@ class ConfrimController extends GetxController {
           "email": emailController!.text
         });
       }
-    } else
+    } else {
       Get.snackbar("failure", "Enter corect number", colorText: Colors.white);
+    }
   }
 
   @override
@@ -54,7 +54,6 @@ class ConfrimController extends GetxController {
     nameController!.dispose();
     emailController!.dispose();
     phoneController!.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 }

@@ -12,7 +12,7 @@ class FareFreight extends StatelessWidget {
     return GetBuilder<FreightController>(
       builder: (controller) => TheMainWidget(
         onPressed: () {
-          Get.bottomSheet(isDismissible: false, FareBottomSheetFreight());
+          Get.bottomSheet(isDismissible: false, const FareBottomSheetFreight());
         },
         staticText: "Offer your Fare",
         inputText: "${controller.fare}",

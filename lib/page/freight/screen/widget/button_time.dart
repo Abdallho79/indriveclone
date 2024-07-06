@@ -21,7 +21,7 @@ class TimeElevatedButton extends StatelessWidget {
             backgroundColor: WidgetStatePropertyAll(isActive == isActivenumber
                 ? Colors.white
                 : AppColor.background_light),
-            padding: WidgetStatePropertyAll(
+            padding: const WidgetStatePropertyAll(
                 EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
             shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40)))),

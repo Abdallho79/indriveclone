@@ -17,13 +17,13 @@ Widget buildFareAndTimeSection(HomeController controller) {
               child: TheMainWidget(
                 onPressed: () {
                   Get.bottomSheet(
-                      isDismissible: false, FareBottomSheetFreight());
+                      isDismissible: false, const FareBottomSheetFreight());
                 },
                 inputText: "${controller.recommendedFare}${controller.fare} \$",
                 staticText: "Fare",
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             MyCoustomText(
               text: "Time: ${controller.time}",
               color: Colors.white,
@@ -34,7 +34,7 @@ Widget buildFareAndTimeSection(HomeController controller) {
           ],
         );
       } else {
-        return SizedBox();
+        return const SizedBox();
       }
     },
   );

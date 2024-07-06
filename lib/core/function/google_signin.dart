@@ -3,14 +3,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 Future<Map<String, dynamic>?> signInWithGoogle() async {
   try {
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
-    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final FirebaseAuth auth = FirebaseAuth.instance;
 
     // تسجيل خروج المستخدم الحالي من Google (إن وجد)
-    await _googleSignIn.signOut();
+    await googleSignIn.signOut();
 
     // بدء عملية تسجيل الدخول
-    GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
     if (googleUser == null) {
       // العملية ألغيت من قبل المستخدم
@@ -28,8 +28,7 @@ Future<Map<String, dynamic>?> signInWithGoogle() async {
     );
 
     // تسجيل الدخول إلى Firebase باستخدام بيانات الاعتماد
-    UserCredential userCredential =
-        await _auth.signInWithCredential(credential);
+    UserCredential userCredential = await auth.signInWithCredential(credential);
     User? user = userCredential.user;
 
     if (user != null) {
@@ -48,7 +47,6 @@ Future<Map<String, dynamic>?> signInWithGoogle() async {
 
     return null;
   } catch (e) {
-    print('Error during Google sign in: $e');
     return null;
   }
 }

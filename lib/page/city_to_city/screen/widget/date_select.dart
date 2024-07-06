@@ -5,15 +5,17 @@ import 'package:indriveclone/page/city_to_city/screen/widget/bottomsheet/date_bo
 import 'package:indriveclone/page/main_widget.dart';
 
 class DateSelectionWidget extends StatelessWidget {
+  const DateSelectionWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<TravelController>(
       builder: (controller) => TheMainWidget(
         onPressed: () {
-          Get.bottomSheet(isDismissible: false, DateBottomSheetTravel());
+          Get.bottomSheet(isDismissible: false, const DateBottomSheetTravel());
         },
         staticText: "When",
-        inputText: "${controller.selectedDate}",
+        inputText: controller.selectedDate,
       ),
     );
   }

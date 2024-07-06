@@ -20,14 +20,14 @@ Future<Map<String, dynamic>?> getPolyLine(
     var point = responseBody['routes'][0]['overview_polyline']['points'];
     List<PointLatLng> result = polylinePoints.decodePolyline(point);
     if (result.isNotEmpty) {
-      result.forEach((PointLatLng pointlatlong) {
+      for (var pointlatlong in result) {
         polyline_cordinate
             .add(LatLng(pointlatlong.latitude, pointlatlong.longitude));
-      });
+      }
     }
     Polyline polyline = Polyline(
-      polylineId: PolylineId("line"),
-      color: Color.fromRGBO(36, 101, 187, 1),
+      polylineId: const PolylineId("line"),
+      color: const Color.fromRGBO(36, 101, 187, 1),
       width: 5,
       points: polyline_cordinate,
     );
@@ -37,7 +37,8 @@ Future<Map<String, dynamic>?> getPolyLine(
     var legs = responseBody['routes'][0]['legs'];
     if (legs != null && legs.isNotEmpty) {
       var leg = legs[0];
-      String distanceText = leg['distance']['text']; // المسافة كنص مثل "10.1 km"
+      String distanceText =
+          leg['distance']['text']; // المسافة كنص مثل "10.1 km"
       String durationText =
           leg['duration']['text']; // الوقت المستغرق كنص مثل "25 دقيقة"
       double distanceInKm =

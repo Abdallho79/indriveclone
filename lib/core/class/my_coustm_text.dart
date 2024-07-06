@@ -17,7 +17,7 @@ class MyCoustomText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      "$text",
+      text,
       maxLines: 1,
       softWrap: false,
       overflow: TextOverflow.ellipsis,

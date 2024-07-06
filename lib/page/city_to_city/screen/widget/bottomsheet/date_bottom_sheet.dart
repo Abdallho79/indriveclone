@@ -6,16 +6,18 @@ import 'package:indriveclone/page/city_to_city/screen/widget/button-title/button
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_title.dart';
 
 class DateBottomSheetTravel extends StatelessWidget {
+  const DateBottomSheetTravel({super.key});
+
   @override
   Widget build(BuildContext context) {
     Get.put(TravelController());
 
     return Container(
       height: 500,
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey[900],
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
@@ -24,8 +26,8 @@ class DateBottomSheetTravel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          RowTitle(title: "Departure date"),
-          SizedBox(height: 10),
+          const RowTitle(title: "Departure date"),
+          const SizedBox(height: 10),
           Expanded(
             child: GetBuilder<TravelController>(
               builder: (controller) {
@@ -38,9 +40,9 @@ class DateBottomSheetTravel extends StatelessWidget {
                         Get.back();
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 5),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 20),
                         decoration: BoxDecoration(
                           color:
                               controller.selectedDate == controller.days[index]
@@ -50,7 +52,7 @@ class DateBottomSheetTravel extends StatelessWidget {
                         ),
                         child: Text(
                           controller.days[index],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.white,
                           ),
@@ -62,7 +64,7 @@ class DateBottomSheetTravel extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           BottomSheetButton(onPressed: () {}, title: "Next")
         ],
       ),

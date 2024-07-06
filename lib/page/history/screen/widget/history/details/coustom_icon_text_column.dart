@@ -16,17 +16,17 @@ class CoustomIconTextColumn extends StatelessWidget {
     return Column(
       children: [
         IconButton(
-            style: ButtonStyle(
+            style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(AppColor.green)),
             iconSize: 35,
             onPressed: onPressed,
             icon: Icon(iconData)),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
         Text(
-          "$text",
-          style: TextStyle(color: Colors.white),
+          text,
+          style: const TextStyle(color: Colors.white),
         )
       ],
     );

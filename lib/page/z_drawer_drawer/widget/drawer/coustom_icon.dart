@@ -16,7 +16,7 @@ class CoustomIconButton extends StatelessWidget {
         size: 30,
         color: Colors.white,
       ),
-      style: ButtonStyle(
+      style: const ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(AppColor.background_light)),
     );
   }

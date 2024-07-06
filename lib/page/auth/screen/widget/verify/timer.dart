@@ -13,7 +13,7 @@ class TimerText extends StatelessWidget {
         style: AppTheme.themeEnglish.textTheme.bodyMedium,
         TextSpan(children: [
           TextSpan(text: "youcan".tr),
-          TextSpan(text: "${seconds}"),
+          TextSpan(text: "$seconds"),
           TextSpan(text: "seconds".tr),
         ]));
   }

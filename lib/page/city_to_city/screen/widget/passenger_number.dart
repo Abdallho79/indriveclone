@@ -5,6 +5,8 @@ import 'package:indriveclone/page/city_to_city/screen/widget/bottomsheet/number_
 import 'package:indriveclone/page/main_widget.dart';
 
 class PassengerNumberWidget extends StatelessWidget {
+  const PassengerNumberWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<TravelController>(
@@ -12,7 +14,7 @@ class PassengerNumberWidget extends StatelessWidget {
         onPressed: () {
           Get.bottomSheet(
             isDismissible: false,
-            NumberPassengersBottomSheetTravel(),
+            const NumberPassengersBottomSheetTravel(),
           );
         },
         staticText: controller.isPrivteRide

@@ -3,7 +3,7 @@ import 'package:indriveclone/core/constant/color_app.dart';
 
 class AppTheme {
   static ThemeData themeEnglish = ThemeData(
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
           backgroundColor: AppColor.background_dark,
           iconTheme: IconThemeData(color: Colors.white),
           titleTextStyle: TextStyle(color: Colors.white, fontSize: 24)),
@@ -20,16 +20,16 @@ class AppTheme {
           decoration: TextDecoration.underline,
           decorationColor: Colors.grey[400],
         ),
-        bodyLarge: TextStyle(
+        bodyLarge: const TextStyle(
             fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
-        bodyMedium: TextStyle(
+        bodyMedium: const TextStyle(
             fontSize: 18,
-            color: const Color.fromARGB(255, 211, 211, 211),
+            color: Color.fromARGB(255, 211, 211, 211),
             fontWeight: FontWeight.w500),
       ));
   static ThemeData themeArabic = ThemeData(
       textTheme: TextTheme(
-    bodyLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    bodyLarge: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
     bodyMedium: TextStyle(
         fontSize: 16, color: Colors.grey[600], fontWeight: FontWeight.w500),
   ));

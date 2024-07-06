@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:indriveclone/core/constant/image_app.dart';
 import 'package:indriveclone/page/auth/controller/verify_controller.dart';
-import 'package:indriveclone/page/auth/screen/widget/login/social_button.dart';
 import 'package:indriveclone/page/auth/screen/widget/verify/otp_text.dart';
 import 'package:indriveclone/page/auth/screen/widget/verify/resend_button.dart';
 import 'package:indriveclone/page/auth/screen/widget/verify/text_appove.dart';
@@ -20,22 +18,24 @@ class VerifyView extends StatelessWidget {
         ),
         body: GetBuilder<VerifyController>(
           builder: (controller) => ListView(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             children: [
-            TextAppove(phonenumber: controller.phoneNumber,),
+              TextAppove(
+                phonenumber: controller.phoneNumber,
+              ),
               OtpText(
                 onSubmit: (code) {
                   controller.onSubmit(code);
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               GetBuilder<VerifyController>(
                 builder: (controller) =>
                     TimerText(seconds: controller.remainingSeconds),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               if (controller.resendCodeEnabled)
@@ -45,17 +45,9 @@ class VerifyView extends StatelessWidget {
                             controller.reSendCode();
                           },
                         )),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
-              if (controller.whatsapp)
-                SocialButton(
-                    onTap: () {
-                      controller.openWhatsApp();
-                    },
-                    keytitle: "openwhats".tr,
-                    image: AppImage.whatsapp,
-                    height55facebook45googlr: 65),
             ],
           ),
         ));

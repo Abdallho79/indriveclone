@@ -5,15 +5,17 @@ import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_ti
 import 'package:indriveclone/page/home/controller/home_controller.dart';
 
 class FareBottomSheetHome extends StatelessWidget {
+  const FareBottomSheetHome({super.key});
+
   @override
   Widget build(BuildContext context) {
     HomeController fareController = Get.put(HomeController());
 
     return Container(
       height: 300,
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color.fromRGBO(33, 33, 33, 1),
+      padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+        color: Color.fromRGBO(33, 33, 33, 1),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -23,38 +25,38 @@ class FareBottomSheetHome extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Center(child: RowTitle(title: "Offer your fare")),
-          SizedBox(height: 10),
+          const Center(child: RowTitle(title: "Offer your fare")),
+          const SizedBox(height: 10),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: fareController.fareController,
                   keyboardType: TextInputType.number,
                   cursorColor: Colors.white,
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
                     prefixText: 'EGP ',
                     prefixStyle: TextStyle(color: Colors.white, fontSize: 26),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: const Color.fromRGBO(33, 33, 33, 1),
+                        color: Color.fromRGBO(33, 33, 33, 1),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: const Color.fromRGBO(33, 33, 33, 1),
+                        color: Color.fromRGBO(33, 33, 33, 1),
                       ),
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   endIndent: 60,
                   indent: 60,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 BottomSheetButton(
                     onPressed: () {
                       fareController.validate();

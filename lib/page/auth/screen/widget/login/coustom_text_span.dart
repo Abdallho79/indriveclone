@@ -18,15 +18,13 @@ class CoustomTextSpan extends StatelessWidget {
             ),
             TextSpan(
               text: "termsofuse".tr,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Colors.white,
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  // Handle terms of use tap
-                  print("Terms of Use tapped");
                 },
             ),
             TextSpan(
@@ -35,15 +33,13 @@ class CoustomTextSpan extends StatelessWidget {
             ),
             TextSpan(
               text: "privcy".tr,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Colors.white,
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  // Handle privacy tap
-                  print("Privacy of Use tapped");
                 },
             ),
           ],

@@ -20,7 +20,7 @@ class TheMainWidget extends StatelessWidget {
       onPressed: onPressed,
       color: AppColor.background_light,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -29,7 +29,7 @@ class TheMainWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyCoustomText(
-                    text: "$staticText",
+                    text: staticText,
                     color: Colors.grey[500],
                     weight: FontWeight.normal,
                     size: 14,
@@ -37,7 +37,7 @@ class TheMainWidget extends StatelessWidget {
                 Container(
                   constraints: BoxConstraints(maxWidth: Get.width - 90),
                   child: MyCoustomText(
-                      text: "$inputText",
+                      text: inputText,
                       color: Colors.white,
                       weight: FontWeight.normal,
                       size: 18,
@@ -47,7 +47,7 @@ class TheMainWidget extends StatelessWidget {
             ),
           if (inputText.isEmpty || inputText == "0")
             MyCoustomText(
-                text: "$staticText",
+                text: staticText,
                 color: Colors.grey[500],
                 weight: FontWeight.normal,
                 size: 16,

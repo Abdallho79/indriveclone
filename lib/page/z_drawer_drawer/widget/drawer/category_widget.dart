@@ -24,16 +24,16 @@ class DrawrerCategoriresWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Icon(
               icon,
-              color: Color.fromARGB(255, 117, 116, 116),
+              color: const Color.fromARGB(255, 117, 116, 116),
               size: 32,
             ),
-            SizedBox(width: 20), // إضافة مسافة بين الأيقونة والنص
+            const SizedBox(width: 20), // إضافة مسافة بين الأيقونة والنص
             Text(
               categoryname,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 24,
               ),

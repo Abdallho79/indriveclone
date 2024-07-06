@@ -14,7 +14,7 @@ class ResendButton extends StatelessWidget {
             shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15))),
             padding: WidgetStateProperty.all(
-              EdgeInsets.symmetric(
+              const EdgeInsets.symmetric(
                 vertical: 15.0,
               ),
             ),

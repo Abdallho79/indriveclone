@@ -106,10 +106,6 @@ class HomeController extends GetxController {
           fromLat!, fromLong!, toLat!, toLong!);
       distance = data["distance"];
       time = data["duration"];
-      print("====================");
-      print(distance);
-      print(time);
-      print("====================");
       fare = (distance * 5).toInt() <= 20 ? 20 : (distance * 5).toInt();
       isAllSelected = true;
     } else {
@@ -120,7 +116,7 @@ class HomeController extends GetxController {
 
   // Validate the fare and update the fare variable accordingly
   void validate() {
-    if (!fareController!.text.isEmpty) {
+    if (fareController!.text.isNotEmpty) {
       if (20 <= int.parse(fareController!.text)) {
         fare = int.parse(fareController!.text);
         recommendedFare = "";

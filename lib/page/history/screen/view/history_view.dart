@@ -19,21 +19,21 @@ class HistoryView extends StatelessWidget {
     return WillPopScope(
         onWillPop: () async {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => HomeView()),
+              MaterialPageRoute(builder: (context) => const HomeView()),
               (route) => false);
           Get.find<MyDrawerController>().isActive = 1;
           return Future.value(true); // Allow pop});
         },
         child: Scaffold(
           appBar: AppBar(
-            title: Text("My rides"),
+            title: const Text("My rides"),
           ),
-          drawer: MyDrawer(),
+          drawer: const MyDrawer(),
           body: Padding(
             padding: const EdgeInsets.all(15.0),
             child: ListView(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 InkWell(
@@ -45,18 +45,18 @@ class HistoryView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "26 February, 12:33",
                             style: TextStyle(color: Colors.white, fontSize: 16),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          Text(
+                          const Text(
                             "EGP : 55 ",
                             style: TextStyle(color: Colors.white, fontSize: 22),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           ...List.generate(controller.rideDetails.length,
@@ -67,10 +67,10 @@ class HistoryView extends StatelessWidget {
                               color: controller.rideDetails[index]["color"],
                             );
                           }),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
-                          Container(
+                          SizedBox(
                             height: 200,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),

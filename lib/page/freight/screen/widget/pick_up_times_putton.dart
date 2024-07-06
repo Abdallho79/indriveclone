@@ -5,6 +5,8 @@ import 'package:indriveclone/page/freight/screen/widget/bottomsheet/date_bottom_
 import 'package:indriveclone/page/freight/screen/widget/button_time.dart';
 
 class PickupTimeButtons extends StatelessWidget {
+  const PickupTimeButtons({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<FreightController>(
@@ -19,7 +21,7 @@ class PickupTimeButtons extends StatelessWidget {
             isActive: controller.pickuptime,
             isActivenumber: 1,
           ),
-          SizedBox(width: 15),
+          const SizedBox(width: 15),
           TimeElevatedButton(
             onPressed: () {
               controller.changePickUpStatus(2);
@@ -29,10 +31,10 @@ class PickupTimeButtons extends StatelessWidget {
             isActive: controller.pickuptime,
             isActivenumber: 2,
           ),
-          SizedBox(width: 15),
+          const SizedBox(width: 15),
           TimeElevatedButton(
             onPressed: () {
-              Get.bottomSheet(DateBottomSheetFreight());
+              Get.bottomSheet(const DateBottomSheetFreight());
               controller.changePickUpStatus(3);
             },
             text: controller.selectedDate == ""

@@ -21,7 +21,7 @@ class CoustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 65,
       child: TextFormField(
         enabled: (isEnable!),
@@ -30,8 +30,8 @@ class CoustomTextField extends StatelessWidget {
         validator: validator,
         cursorColor: Colors.white,
         style: isEnable!
-            ? TextStyle(fontSize: 16, color: Colors.white)
-            : TextStyle(fontSize: 16, color: AppColor.background_light),
+            ? const TextStyle(fontSize: 16, color: Colors.white)
+            : const TextStyle(fontSize: 16, color: AppColor.background_light),
         decoration: InputDecoration(
           suffix: suffix,
           filled: true,
@@ -41,14 +41,14 @@ class CoustomTextField extends StatelessWidget {
           hintStyle: AppTheme.themeEnglish.textTheme.labelSmall,
           hintText: "$hinttext".tr,
           contentPadding:
-              EdgeInsets.symmetric(vertical: 18.0, horizontal: 10.0),
+              const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10.0),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey),
+            borderSide: const BorderSide(color: Colors.grey),
             borderRadius: BorderRadius.circular(15),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Colors.white),
+            borderSide: const BorderSide(color: Colors.white),
           ),
         ),
       ),

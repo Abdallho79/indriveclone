@@ -7,16 +7,18 @@ import 'package:indriveclone/page/city_to_city/screen/widget/button-title/button
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_title.dart';
 
 class NumberPassengersBottomSheetTravel extends StatelessWidget {
+  const NumberPassengersBottomSheetTravel({super.key});
+
   @override
   Widget build(BuildContext context) {
     TravelController travelController = Get.put(TravelController());
 
     return Container(
       height: 220,
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey[900],
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
@@ -25,20 +27,20 @@ class NumberPassengersBottomSheetTravel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          RowTitle(title: "How many of you will go?"),
-          SizedBox(height: 10),
+          const RowTitle(title: "How many of you will go?"),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                       backgroundColor:
                           WidgetStatePropertyAll(AppColor.background_light)),
                   iconSize: 30,
                   onPressed: () {
                     travelController.inCeremnt();
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.add,
                     color: Colors.white,
                   )),
@@ -51,20 +53,20 @@ class NumberPassengersBottomSheetTravel extends StatelessWidget {
                     textAlign: TextAlign.center),
               ),
               IconButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                       backgroundColor:
                           WidgetStatePropertyAll(AppColor.background_light)),
                   iconSize: 30,
                   onPressed: () {
                     travelController.deCeremnt();
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.remove,
                     color: Colors.white,
                   ))
             ],
           ),
-          Spacer(),
+          const Spacer(),
           BottomSheetButton(
               onPressed: () {
                 travelController

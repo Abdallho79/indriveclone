@@ -7,8 +7,10 @@ class MyMiddaleWare extends GetMiddleware {
   @override
   int? get priority => 1;
   MyServices myServices = Get.find();
+  @override
   RouteSettings? redirect(String? route) {
     if (myServices.sharedPreferences.getString("phone_number") != null) {
+      // ignore: prefer_const_constructors
       return RouteSettings(name: AppRoute.homeview);
     }
     return null;

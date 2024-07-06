@@ -9,11 +9,11 @@ class HandlingDataView extends StatelessWidget {
   final Widget widget;
   final Future<void> Function() onRefresh;
   const HandlingDataView({
-    Key? key,
+    super.key,
     required this.statusRequest,
     required this.onRefresh,
     required this.widget,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

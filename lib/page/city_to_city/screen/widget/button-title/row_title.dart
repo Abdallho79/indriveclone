@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class RowTitle extends StatelessWidget {
   final String title;
@@ -16,8 +15,8 @@ class RowTitle extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 10.0, top: 8),
             child: Text(
-              '$title',
-              style: TextStyle(
+              title,
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -30,7 +29,7 @@ class RowTitle extends StatelessWidget {
         Expanded(
           flex: 1,
           child: IconButton(
-            icon: Icon(Icons.close, color: Colors.white),
+            icon: const Icon(Icons.close, color: Colors.white),
             onPressed: () => Get.back(),
           ),
         ),

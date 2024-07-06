@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:indriveclone/page/main_widget.dart';
 
 class TravelMainWidget extends StatelessWidget {
+  const TravelMainWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -11,7 +13,7 @@ class TravelMainWidget extends StatelessWidget {
           inputText: "Cairo , Street 55",
           staticText: "From",
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         TheMainWidget(

@@ -23,49 +23,49 @@ class FreightView extends StatelessWidget {
     return WillPopScope(
       child: Scaffold(
         backgroundColor: AppColor.background_dark,
-        drawer: MyDrawer(),
+        drawer: const MyDrawer(),
         appBar: AppBar(
-          title: Text("Freight"),
+          title: const Text("Freight"),
         ),
         body: ListView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TheMainWidget(
               onPressed: () {},
               inputText: "Cairo , Street 55",
               staticText: "Pickup location",
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             TheMainWidget(
               onPressed: () {},
               staticText: "Destination",
               inputText: '',
             ),
-            SizedBox(height: 15),
-            MyCoustomText(
+            const SizedBox(height: 15),
+            const MyCoustomText(
               text: "Pickup time",
               color: Colors.white,
               weight: FontWeight.normal,
               size: 18,
               textAlign: TextAlign.start,
             ),
-            SizedBox(height: 5),
-            PickupTimeButtons(),
-            SizedBox(height: 15),
-            ShippingDetails(),
-            SizedBox(height: 15),
-            ImagePickerAndViewer(),
-            SizedBox(height: 15),
-            FareFreight(),
-            SizedBox(height: 20),
+            const SizedBox(height: 5),
+            const PickupTimeButtons(),
+            const SizedBox(height: 15),
+            const ShippingDetails(),
+            const SizedBox(height: 15),
+            const ImagePickerAndViewer(),
+            const SizedBox(height: 15),
+            const FareFreight(),
+            const SizedBox(height: 20),
             BottomSheetButton(onPressed: () {}, title: "Find a driver"),
           ],
         ),
       ),
       onWillPop: () async {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => HomeView()),
+            MaterialPageRoute(builder: (context) => const HomeView()),
             (route) => false);
         Get.find<MyDrawerController>().isActive = 1;
         return Future.value(true); // Allow pop});

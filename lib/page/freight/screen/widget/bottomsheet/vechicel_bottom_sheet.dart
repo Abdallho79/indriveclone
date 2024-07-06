@@ -4,6 +4,8 @@ import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_ti
 import 'package:indriveclone/page/freight/controller/freight_controller.dart';
 
 class VechielBottomSheet extends StatelessWidget {
+  const VechielBottomSheet({super.key});
+
   @override
   Widget build(BuildContext context) {
     FreightController controller = Get.put(FreightController());
@@ -11,8 +13,8 @@ class VechielBottomSheet extends StatelessWidget {
     return Container(
       height: 300,
       // padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color.fromRGBO(33, 33, 33, 1),
+      decoration: const BoxDecoration(
+        color: Color.fromRGBO(33, 33, 33, 1),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -20,9 +22,9 @@ class VechielBottomSheet extends StatelessWidget {
       ),
       child: ListView(
         children: <Widget>[
-          RowTitle(title: "Which vechicle is suitable for you cargo?"),
-          SizedBox(height: 10),
-          SizedBox(height: 10),
+          const RowTitle(title: "Which vechicle is suitable for you cargo?"),
+          const SizedBox(height: 10),
+          const SizedBox(height: 10),
           VehicleOption(
             vehicleName: "(Rob3 Naa'l) (Dababa)",
             description:
@@ -36,7 +38,7 @@ class VechielBottomSheet extends StatelessWidget {
             car: controller.isNaal,
             carnumber: 1,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           VehicleOption(
             vehicleName: "Compact car",
             description:
@@ -66,6 +68,7 @@ class VehicleOption extends StatelessWidget {
   final int carnumber;
 
   const VehicleOption({
+    super.key,
     required this.vehicleName,
     required this.description,
     required this.dimensions,
@@ -79,7 +82,7 @@ class VehicleOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       color: car == carnumber
-          ? Color(0xff0C4769)
+          ? const Color(0xff0C4769)
           : const Color.fromRGBO(33, 33, 33, 1),
       onPressed: onTap,
       child: Row(
@@ -89,20 +92,20 @@ class VehicleOption extends StatelessWidget {
             size: 50,
             color: Colors.white,
           ),
-          SizedBox(width: 30),
+          const SizedBox(width: 30),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
                   vehicleName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       fontSize: 16,
                       decoration: TextDecoration.none),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   description,
                   style: TextStyle(
@@ -111,16 +114,16 @@ class VehicleOption extends StatelessWidget {
                       fontSize: 14,
                       decoration: TextDecoration.none),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   dimensions,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
                       fontSize: 12,
                       decoration: TextDecoration.none),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
               ],
             ),
           ),

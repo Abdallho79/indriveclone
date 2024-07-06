@@ -52,7 +52,7 @@ class HistoryController extends GetxController {
   }
 
   // الموقع الافتراضي للكاميرا
-  final CameraPosition initialPosition = CameraPosition(
+  final CameraPosition initialPosition = const CameraPosition(
     target: LatLng(31.024054, 31.417328),
     zoom: 12.56,
   );
@@ -69,12 +69,12 @@ class HistoryController extends GetxController {
   // إضافة العلامات إلى الخريطة
   void _addMarkers() {
     markers.addAll([
-      Marker(
+      const Marker(
         markerId: MarkerId("1"),
         position: LatLng(31.024054, 31.417328),
         infoWindow: InfoWindow(title: "Marker 1"),
       ),
-      Marker(
+      const Marker(
         markerId: MarkerId("2"),
         position: LatLng(31.030000, 31.420000),
         infoWindow: InfoWindow(title: "Marker 2"),
@@ -88,12 +88,12 @@ class HistoryController extends GetxController {
   // رسم الخطوط المتعددة على الخريطة
   void _drawPolyline() {
     polylineCoordinates.addAll([
-      LatLng(31.024054, 31.417328),
-      LatLng(31.030000, 31.420000),
+      const LatLng(31.024054, 31.417328),
+      const LatLng(31.030000, 31.420000),
     ]);
 
     polylines.add(Polyline(
-      polylineId: PolylineId('polyline_1'),
+      polylineId: const PolylineId('polyline_1'),
       visible: true,
       points: polylineCoordinates,
       color: Colors.blue,
@@ -109,10 +109,5 @@ class HistoryController extends GetxController {
     if (!googleMapController!.isCompleted) {
       googleMapController!.complete(controller);
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

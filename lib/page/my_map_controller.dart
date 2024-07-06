@@ -7,7 +7,7 @@ import 'package:indriveclone/core/constant/image_app.dart';
 
 class MyGoogleMapChosseLocationController extends GetxController {
   CameraPosition initialPosition =
-      CameraPosition(target: LatLng(31.024054, 31.417328), zoom: 14.45);
+      const CameraPosition(target: LatLng(31.024054, 31.417328), zoom: 14.45);
   Completer<GoogleMapController>? googleMapController;
   List<Marker> markers = [];
   bool isTimerRunning = false;
@@ -17,11 +17,11 @@ class MyGoogleMapChosseLocationController extends GetxController {
   String? darkMapStyle;
 
   addMarkers(double lat, double long) {
-    markers.add(Marker(markerId: MarkerId("1"), position: LatLng(lat, long)));
+    markers.add(
+        Marker(markerId: const MarkerId("1"), position: LatLng(lat, long)));
     if (markers.length > 3) {
       markers.removeAt(2);
     }
-    print("=========markers.length ${markers.length}===========");
     update();
   }
 
@@ -32,13 +32,13 @@ class MyGoogleMapChosseLocationController extends GetxController {
     placemarks =
         await placemarkFromCoordinates(location.latitude, location.longitude);
     Placemark place = placemarks![0];
-    print("=============================");
-    print("Place Name: ${place.name}");
-    print("Locality: ${place.locality}");
-    print("Sublocality: ${place.subLocality}");
-    print("Thoroughfare: ${place.thoroughfare}");
-    print("SubThoroughfare: ${place.subThoroughfare}");
-    print("=============================");
+    // print("=============================");
+    // print("Place Name: ${place.name}");
+    // print("Locality: ${place.locality}");
+    // print("Sublocality: ${place.subLocality}");
+    // print("Thoroughfare: ${place.thoroughfare}");
+    // print("SubThoroughfare: ${place.subThoroughfare}");
+    // print("=============================");
 
     if (placemarks!.isNotEmpty) {
       localityname = place.locality;

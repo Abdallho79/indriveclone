@@ -53,10 +53,8 @@ class LoginController extends GetxController {
   }
 
   void startTimer() async {
-    print("timer $onboarding");
-    await Future.delayed(Duration(milliseconds: 0)); // تأخير لمدة 1.5 ثانية
+    await Future.delayed(const Duration(milliseconds: 0)); // تأخير لمدة 1.5 ثانية
     onboarding = false;
-    print("timer $onboarding");
     update(); // إعادة رسم الواجهة بعد تغيير القيمة
   }
 
@@ -70,8 +68,9 @@ class LoginController extends GetxController {
           "email": ""
         });
       }
-    } else
+    } else {
       Get.snackbar("failure", "Enter correct number", colorText: Colors.white);
+    }
   }
 
   @override

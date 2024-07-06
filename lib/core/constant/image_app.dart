@@ -24,7 +24,7 @@ class AppImage {
   static const String cleaning = "$routeimage/cleaning.png";
   static const String ride = "$routeimage/ride.jpeg";
   static const String moto = "$routeimage/moto.png";
-  static const String city_to_city = "$routeimage/citytocitiy.png";
+  static const String citytocity = "$routeimage/citytocitiy.png";
   static const String privateride = "$routeimage/privateride.png";
   static const String sharedride = "$routeimage/sharedride.png";
 

@@ -15,23 +15,24 @@ class SupportView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SupportController controller = Get.put(SupportController());
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => HomeView()),
+            MaterialPageRoute(builder: (context) => const HomeView()),
             (route) => false);
         Get.find<MyDrawerController>().isActive = 1;
         return Future.value(true);
       },
       child: Scaffold(
         backgroundColor: AppColor.background_dark,
-        appBar: AppBarTitle(title: "Support"),
-        drawer: MyDrawer(),
+        appBar: const AppBarTitle(title: "Support"),
+        drawer: const MyDrawer(),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
+            const Expanded(
               child: MessageList(),
             ),
             MessageInputField(controller: controller),

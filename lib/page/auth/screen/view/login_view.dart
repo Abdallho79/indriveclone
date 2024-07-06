@@ -8,7 +8,7 @@ import 'package:indriveclone/core/function/google_signin.dart';
 import 'package:indriveclone/core/function/valid_input.dart';
 import 'package:indriveclone/core/shared/coustom_text_form_fireld.dart';
 import 'package:indriveclone/page/auth/controller/login_controller.dart';
-import 'package:indriveclone/page/auth/screen/widget/login/Coustom_Text_field.dart';
+import 'package:indriveclone/page/auth/screen/widget/login/coustom_text_field.dart';
 import 'package:indriveclone/page/auth/screen/widget/login/coustom_text_span.dart';
 import 'package:indriveclone/page/auth/screen/widget/login/login_button.dart';
 import 'package:indriveclone/page/auth/screen/widget/login/social_button.dart';
@@ -33,7 +33,7 @@ class LoginView extends StatelessWidget {
                     : Form(
                         key: controller.formstate,
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: ListView(
                             children: [
                               Column(
@@ -48,13 +48,13 @@ class LoginView extends StatelessWidget {
                                           .themeEnglish.textTheme.bodyLarge,
                                     ),
                                   ),
-                                  SizedBox(height: 15),
+                                  const SizedBox(height: 15),
                                   Text(
                                     "we'll".tr,
                                     style: AppTheme
                                         .themeEnglish.textTheme.bodyMedium,
                                   ),
-                                  SizedBox(height: 25),
+                                  const SizedBox(height: 25),
                                   CoustomTextField(
                                     validator: (val) {
                                       return validInput(2, 30, "text", val!);
@@ -64,9 +64,9 @@ class LoginView extends StatelessWidget {
                                     isEnable: true,
                                     hinttext: 'Enter your name',
                                   ),
-                                  SizedBox(height: 15),
-                                  CoustomTextFieldPhoneLgin(),
-                                  SizedBox(height: 30),
+                                  const SizedBox(height: 15),
+                                  const CoustomTextFieldPhoneLgin(),
+                                  const SizedBox(height: 30),
                                   LoginButton(
                                     onTap: () {
                                       controller.isLoadingStatusRequest();
@@ -78,7 +78,7 @@ class LoginView extends StatelessWidget {
                                     keytitle: 'Next',
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 15),
+                                    padding: const EdgeInsets.symmetric(vertical: 15),
                                     child: Text(
                                       "or".tr,
                                       style: AppTheme
@@ -88,10 +88,10 @@ class LoginView extends StatelessWidget {
                                   SocialButton(
                                     onTap: () async {
                                       controller.isLoadingStatusRequest();
-                                      Map? _userData = await signInWithGoogle();
-                                      if (_userData != null) {
+                                      Map? userData = await signInWithGoogle();
+                                      if (userData != null) {
                                         controller.isGoogleLogin = true;
-                                        controller.setUserData(_userData);
+                                        controller.setUserData(userData);
                                         controller.doneLoadingStatusRequest();
                                       }
                                       controller.doneLoadingStatusRequest();
@@ -100,8 +100,8 @@ class LoginView extends StatelessWidget {
                                     image: AppImage.google,
                                     height55facebook45googlr: 45,
                                   ),
-                                  SizedBox(height: 15),
-                                  CoustomTextSpan(),
+                                  const SizedBox(height: 15),
+                                  const CoustomTextSpan(),
                                 ],
                               ),
                             ],
@@ -120,11 +120,11 @@ class CustomTextField extends StatelessWidget {
   final TextInputType inputType;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.hintText,
     this.inputType = TextInputType.text,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -139,9 +139,9 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         hintStyle: AppTheme.themeEnglish.textTheme.labelSmall,
-        contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
       ),
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
     );
   }
 }

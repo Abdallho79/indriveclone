@@ -32,7 +32,7 @@ class AddPhoto extends StatelessWidget {
               right: 0,
               child: IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   size: 30,
                   Icons.add,
                   color: AppColor.green,

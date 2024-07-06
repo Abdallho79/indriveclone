@@ -13,7 +13,7 @@ class MapHomeController extends GetxController {
   String? time;
 
   CameraPosition initialPosition =
-      CameraPosition(target: LatLng(31.024054, 31.417328), zoom: 14.45);
+      const CameraPosition(target: LatLng(31.024054, 31.417328), zoom: 14.45);
   Completer<GoogleMapController>? googleMapController;
   List<Marker> markers = [];
   bool isContainerActive = true;
@@ -30,6 +30,7 @@ class MapHomeController extends GetxController {
   Future _loadMapStyles() async {
     darkMapStyle = await rootBundle.loadString(AppImage.darkmabtheme);
     final controller = await googleMapController!.future;
+    // ignore: deprecated_member_use
     controller.setMapStyle(darkMapStyle);
   }
 
@@ -68,20 +69,16 @@ class MapHomeController extends GetxController {
     // Clear the old polyline coordinates and polylines
     Map<String, dynamic>? data =
         await getPolyLine(fromLat, fromLong, toLat, toLong);
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     polylineSet = data!["polylines"];
     distance = data["distance"];
     time = data["duration"];
-    print("====================");
-    print(distance);
-    print(time);
-    print("====================");
     update();
     return data;
   }
 
   // Get the current location of the user and update the initial position
-  Future<void> _getCurrentLocation() async {
+  Future<void> getCurrentLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 

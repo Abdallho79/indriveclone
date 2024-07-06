@@ -6,19 +6,21 @@ import 'package:indriveclone/page/freight/controller/freight_controller.dart';
 import 'package:indriveclone/page/freight/screen/widget/bottomsheet/camera_bottom_sheet.dart';
 
 class ImagePickerAndViewer extends StatelessWidget {
+  const ImagePickerAndViewer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MyCoustomText(
+        const MyCoustomText(
           text: "Picture of your cargo",
           color: Colors.white,
           weight: FontWeight.normal,
           size: 16,
           textAlign: TextAlign.start,
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         SizedBox(
           height: 100,
           child: Row(
@@ -29,10 +31,10 @@ class ImagePickerAndViewer extends StatelessWidget {
                 minWidth: 100,
                 height: 100,
                 onPressed: () {
-                  Get.bottomSheet(PictureOptionsBottomSheetAdd());
+                  Get.bottomSheet(const PictureOptionsBottomSheetAdd());
                 },
                 color: AppColor.background_light,
-                child: Icon(
+                child: const Icon(
                   Icons.add,
                   size: 40,
                   color: Colors.white,
@@ -41,7 +43,7 @@ class ImagePickerAndViewer extends StatelessWidget {
               Expanded(
                 child: GetBuilder<FreightController>(
                   builder: (controller) => controller.imagesList.isEmpty
-                      ? SizedBox.shrink()
+                      ? const SizedBox.shrink()
                       : ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: controller.imagesList.length,
@@ -52,7 +54,7 @@ class ImagePickerAndViewer extends StatelessWidget {
                               ));
                             },
                             child: Padding(
-                              padding: EdgeInsets.only(left: 10),
+                              padding: const EdgeInsets.only(left: 10),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(18),
                                 child: Image.file(

@@ -72,7 +72,7 @@ class LocalController extends GetxController {
         Get.changeTheme(AppTheme.themeArabic);
         break;
       default:
-        language = Locale("en");
+        language = const Locale("en");
         Get.updateLocale(language);
         Get.changeTheme(AppTheme.themeEnglish);
     }

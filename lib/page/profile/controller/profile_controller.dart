@@ -34,7 +34,7 @@ class ProfileController extends GetxController {
   ) async {
     try {
       // Create a reference to the current user's document
-      final userId = 'your_user_id'; // Replace with your logic to get user ID
+      const userId = 'your_user_id'; // Replace with your logic to get user ID
       final userRef =
           FirebaseFirestore.instance.collection('users').doc(userId);
 
@@ -50,10 +50,8 @@ class ProfileController extends GetxController {
       await userRef.update(userData);
 
       // Show success message or handle success
-      print('User data updated successfully');
     } catch (e) {
       // Handle error
-      print('Error updating user data: $e');
     }
   }
 }

@@ -21,7 +21,7 @@ class ConfrimView extends StatelessWidget {
               onPressed: () async {
                 await confrimController.logOutGoogle();
               },
-              icon: Icon(Icons.arrow_back)),
+              icon: const Icon(Icons.arrow_back)),
           elevation: 0,
         ),
         backgroundColor: AppColor.background_dark,
@@ -29,7 +29,7 @@ class ConfrimView extends StatelessWidget {
             builder: (controller) => Form(
                   key: controller.formstate,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: ListView(
                       children: [
                         Column(
@@ -39,11 +39,11 @@ class ConfrimView extends StatelessWidget {
                               "Confrim your information".tr,
                               style: AppTheme.themeEnglish.textTheme.bodyLarge,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
-                            AddPhoto(),
-                            SizedBox(
+                            const AddPhoto(),
+                            const SizedBox(
                               height: 20,
                             ),
                             CoustomTextField(
@@ -54,7 +54,7 @@ class ConfrimView extends StatelessWidget {
                                 isNumber: false,
                                 isEnable: true,
                                 hinttext: "name".tr),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             CoustomTextField(
@@ -65,14 +65,14 @@ class ConfrimView extends StatelessWidget {
                                 isNumber: false,
                                 isEnable: false,
                                 hinttext: "email".tr),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: CoustomTextFieldPhoneEmail(),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             LoginButton(
