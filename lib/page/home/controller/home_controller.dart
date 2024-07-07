@@ -32,6 +32,7 @@ class HomeController extends GetxController {
     super.onInit();
     fareController = TextEditingController();
     // Set initial values in shared preferences
+    myServices.sharedPreferences.setBool("isUserInTrackingMood", false);
     myServices.sharedPreferences.setString("user_id", "1");
     myServices.sharedPreferences.setString("email", "abdallhtest079@gmail.com");
     myServices.sharedPreferences.setString("phone_number", "+201096366301");

@@ -68,7 +68,7 @@ class MapHomeController extends GetxController {
       double fromLat, double fromLong, double toLat, double toLong) async {
     // Clear the old polyline coordinates and polylines
     Map<String, dynamic>? data =
-        await getPolyLine(fromLat, fromLong, toLat, toLong);
+        await getPolyLine(fromLat, fromLong, toLat, toLong, "user_line");
     await Future.delayed(const Duration(seconds: 1));
     polylineSet = data!["polylines"];
     distance = data["distance"];

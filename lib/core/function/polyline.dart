@@ -4,8 +4,8 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import "package:http/http.dart" as http;
 
-Future<Map<String, dynamic>?> getPolyLine(
-    double latStart, double longStart, double latDest, double longDest) async {
+Future<Map<String, dynamic>?> getPolyLine(double latStart, double longStart,
+    double latDest, double longDest, String idLine) async {
   Set<Polyline> polylineset = {};
   List<LatLng> polyline_cordinate = [];
   PolylinePoints polylinePoints = PolylinePoints();
@@ -26,7 +26,7 @@ Future<Map<String, dynamic>?> getPolyLine(
       }
     }
     Polyline polyline = Polyline(
-      polylineId: const PolylineId("line"),
+      polylineId: PolylineId(idLine),
       color: const Color.fromRGBO(36, 101, 187, 1),
       width: 5,
       points: polyline_cordinate,
@@ -43,10 +43,12 @@ Future<Map<String, dynamic>?> getPolyLine(
           leg['duration']['text']; // الوقت المستغرق كنص مثل "25 دقيقة"
       double distanceInKm =
           double.parse(distanceText.replaceAll(RegExp(r'[^\d\.]'), ''));
+      double timeInMin =
+          double.parse(durationText.replaceAll(RegExp(r'[^\d\.]'), ''));
       return {
         'polylines': polylineset,
         'distance': distanceInKm,
-        'duration': durationText,
+        'duration': timeInMin,
       };
     }
   }

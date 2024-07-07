@@ -11,7 +11,9 @@ class AppRoute {
   static const String settings = "/settings";
   static const String support = "/support";
   static const String profileview = "/profileview";
-  // Drawer
+  // Home
   static const String map = "/map";
   static const String finddriver = "/finddriver";
+  static const String trackingtohome = "/trackingtohome";
+  //
 }
