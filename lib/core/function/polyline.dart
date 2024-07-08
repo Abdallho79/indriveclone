@@ -3,14 +3,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import "package:http/http.dart" as http;
+import 'package:indriveclone/important.dart';
 
 Future<Map<String, dynamic>?> getPolyLine(double latStart, double longStart,
     double latDest, double longDest, String idLine) async {
   Set<Polyline> polylineset = {};
   List<LatLng> polyline_cordinate = [];
   PolylinePoints polylinePoints = PolylinePoints();
-  String apiKey =
-      'AIzaSyCl_KkP13mNm6W70N0osF_E2ADNa3bDTIc'; // Replace with your actual API key
+  String apiKey = googleMapKey; // Replace with your actual API key
   String url =
       "https://maps.googleapis.com/maps/api/directions/json?origin=$latStart,$longStart&destination=$latDest,$longDest&key=$apiKey";
 

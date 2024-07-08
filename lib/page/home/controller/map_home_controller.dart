@@ -10,7 +10,7 @@ import 'package:indriveclone/page/home/controller/home_controller.dart';
 class MapHomeController extends GetxController {
   Set<Polyline> polylineSet = {};
   double distance = 0;
-  String? time;
+  double? time;
 
   CameraPosition initialPosition =
       const CameraPosition(target: LatLng(31.024054, 31.417328), zoom: 14.45);
