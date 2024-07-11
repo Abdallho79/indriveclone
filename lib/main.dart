@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:indriveclone/core/localization/local_controller.dart';
 import 'package:indriveclone/core/localization/translitions.dart';
 import 'package:indriveclone/core/services/services.dart';
-import 'package:indriveclone/page/z_drawer_drawer/drawer_controller.dart';
+import 'package:indriveclone/intial_bindings.dart';
 import 'package:indriveclone/routing.dart';
 
 void main() async {
@@ -17,8 +17,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LocalController controller = Get.put(LocalController());
-    Get.put(MyDrawerController());
+
     return GetMaterialApp(
+      initialBinding: InitialBindings(),
       theme: controller.apptheme,
       locale: controller.language,
       translations: MyTranslitions(),

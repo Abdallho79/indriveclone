@@ -11,6 +11,8 @@ class HomeController extends GetxController {
   // Variables to store fare information
   String recommendedFare = "Recommended :  ";
   int fare = 0;
+  double distance = 0;
+  double time = 0;
 
   TextEditingController? fareController;
 
@@ -24,28 +26,8 @@ class HomeController extends GetxController {
   String toName = "";
   bool isAllSelected = false;
 
-  double initialLat = 31.024054;
-  double initialLong = 31.417328;
+  
 
-  @override
-  void onInit() {
-    super.onInit();
-    fareController = TextEditingController();
-    // Set initial values in shared preferences
-    myServices.sharedPreferences.setBool("isUserInTrackingMood", false);
-    myServices.sharedPreferences.setString("user_id", "1");
-    myServices.sharedPreferences.setString("email", "abdallhtest079@gmail.com");
-    myServices.sharedPreferences.setString("phone_number", "+201096366301");
-    myServices.sharedPreferences.setString("user_name", "Abdallh");
-    myServices.sharedPreferences.setDouble("user_lat", initialLat);
-    myServices.sharedPreferences.setDouble("user_long", initialLong);
-  }
-
-  @override
-  void dispose() {
-    fareController!.dispose();
-    super.dispose();
-  }
 
   // Navigate to the location selection screen and update the location in HomeController
   void goToChooseLocation(bool status) {
@@ -97,9 +79,6 @@ class HomeController extends GetxController {
     update();
   }
 
-  double distance = 0;
-  String time = "";
-
   // Check if both "from" and "to" locations are selected
   void setIsAllSelected() async {
     if (fromLong != null && toLong != null) {
@@ -133,5 +112,18 @@ class HomeController extends GetxController {
       Get.back();
       update();
     }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    fareController = TextEditingController();
+    // Set initial values in shared preferences
+  }
+
+  @override
+  void dispose() {
+    fareController!.dispose();
+    super.dispose();
   }
 }

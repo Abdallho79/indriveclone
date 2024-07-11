@@ -68,7 +68,7 @@ class CoustomTextFieldPhoneLgin extends GetView<LoginController> {
           const TextInputType.numberWithOptions(signed: true, decimal: true),
       onInputChanged: (PhoneNumber number) {
         controller.phoneNumber = number.phoneNumber;
-        controller.phoneKey = number.dialCode;
+        // controller.phoneKey = number.dialCode;
       },
       onInputValidated: (bool value) {
         controller.isPhoneNumberTrue = value;

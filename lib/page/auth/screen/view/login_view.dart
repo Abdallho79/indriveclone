@@ -24,90 +24,72 @@ class LoginView extends StatelessWidget {
       body: GetBuilder<LoginController>(
           builder: (controller) => HandlingDataView(
                 statusRequest: controller.statusRequest,
-                widget: controller.onboarding
-                    ? Image.asset(
-                        AppImage.onboarding,
-                        height: Get.height,
-                        width: Get.width,
-                      )
-                    : Form(
-                        key: controller.formstate,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: ListView(
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(height: Get.height / 5),
-                                  Center(
-                                    child: Text(
-                                      "join_us".tr,
-                                      style: AppTheme
-                                          .themeEnglish.textTheme.bodyLarge,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  Text(
-                                    "we'll".tr,
-                                    style: AppTheme
-                                        .themeEnglish.textTheme.bodyMedium,
-                                  ),
-                                  const SizedBox(height: 25),
-                                  CoustomTextField(
-                                    validator: (val) {
-                                      return validInput(2, 30, "text", val!);
-                                    },
-                                    controller: controller.nameController,
-                                    isNumber: false,
-                                    isEnable: true,
-                                    hinttext: 'Enter your name',
-                                  ),
-                                  const SizedBox(height: 15),
-                                  const CoustomTextFieldPhoneLgin(),
-                                  const SizedBox(height: 30),
-                                  LoginButton(
-                                    onTap: () {
-                                      controller.isLoadingStatusRequest();
-
-                                      controller.isGoogleLogin = false;
-                                      controller.goToVerifyPage();
-                                      controller.doneLoadingStatusRequest();
-                                    },
-                                    keytitle: 'Next',
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 15),
-                                    child: Text(
-                                      "or".tr,
-                                      style: AppTheme
-                                          .themeEnglish.textTheme.labelMedium,
-                                    ),
-                                  ),
-                                  SocialButton(
-                                    onTap: () async {
-                                      controller.isLoadingStatusRequest();
-                                      Map? userData = await signInWithGoogle();
-                                      if (userData != null) {
-                                        controller.isGoogleLogin = true;
-                                        controller.setUserData(userData);
-                                        controller.doneLoadingStatusRequest();
-                                      }
-                                      controller.doneLoadingStatusRequest();
-                                    },
-                                    keytitle: "google",
-                                    image: AppImage.google,
-                                    height55facebook45googlr: 45,
-                                  ),
-                                  const SizedBox(height: 15),
-                                  const CoustomTextSpan(),
-                                ],
+                widget: Form(
+                  key: controller.formstate,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: ListView(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(height: Get.height / 5),
+                            Center(
+                              child: Text(
+                                "join_us".tr,
+                                style:
+                                    AppTheme.themeEnglish.textTheme.bodyLarge,
                               ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(height: 15),
+                            Text(
+                              "we'll".tr,
+                              style: AppTheme.themeEnglish.textTheme.bodyMedium,
+                            ),
+                            const SizedBox(height: 25),
+                            CoustomTextField(
+                              validator: (val) {
+                                return validInput(2, 30, "text", val!);
+                              },
+                              controller: controller.nameController,
+                              isNumber: false,
+                              isEnable: true,
+                              hinttext: 'Enter your name',
+                            ),
+                            const SizedBox(height: 15),
+                            const CoustomTextFieldPhoneLgin(),
+                            const SizedBox(height: 30),
+                            LoginButton(
+                              onTap: () {
+                                controller.goToVerifyPage();
+                              },
+                              keytitle: 'Next',
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              child: Text(
+                                "or".tr,
+                                style:
+                                    AppTheme.themeEnglish.textTheme.labelMedium,
+                              ),
+                            ),
+                            SocialButton(
+                              onTap: () async {
+                               await controller.logInWithGoogle();
+                              },
+                              keytitle: "google",
+                              image: AppImage.google,
+                              height55facebook45googlr: 45,
+                            ),
+                            const SizedBox(height: 15),
+                            const CoustomTextSpan(),
+                          ],
                         ),
-                      ),
+                      ],
+                    ),
+                  ),
+                ),
                 onRefresh: controller.isThereInternet,
               )),
     );
@@ -139,7 +121,8 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         hintStyle: AppTheme.themeEnglish.textTheme.labelSmall,
-        contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
       ),
       style: const TextStyle(color: Colors.white),
     );

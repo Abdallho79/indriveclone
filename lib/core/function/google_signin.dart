@@ -1,11 +1,8 @@
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 Future<Map<String, dynamic>?> signInWithGoogle() async {
   try {
     final GoogleSignIn googleSignIn = GoogleSignIn();
-    final FirebaseAuth auth = FirebaseAuth.instance;
 
     // تسجيل خروج المستخدم الحالي من Google (إن وجد)
     await googleSignIn.signOut();
@@ -15,6 +12,7 @@ Future<Map<String, dynamic>?> signInWithGoogle() async {
 
     if (googleUser == null) {
       // العملية ألغيت من قبل المستخدم
+      print("=======google null===========");
       return null;
     }
 
@@ -22,32 +20,23 @@ Future<Map<String, dynamic>?> signInWithGoogle() async {
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
 
-    // إنشاء بيانات الاعتماد لتسجيل الدخول إلى Firebase
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+    // إنشاء بيانات المستخدم
+    final Map<String, dynamic> userData = {
+      'name': googleUser.displayName,
+      'email': googleUser.email,
+      'uid': googleUser.id,
+      'photoUrl': googleUser.photoUrl,
+      'accessToken': googleAuth.accessToken,
+      'idToken': googleAuth.idToken,
+    };
+    print("============================");
+    print(googleUser.photoUrl);
+    print("============================");
 
-    // تسجيل الدخول إلى Firebase باستخدام بيانات الاعتماد
-    UserCredential userCredential = await auth.signInWithCredential(credential);
-    User? user = userCredential.user;
-
-    if (user != null) {
-      // إنشاء خريطة تحتوي على بيانات المستخدم
-      final Map<String, dynamic> userData = {
-        'name': user.displayName,
-        'email': user.email,
-        'uid': user.uid,
-        'photoUrl': user.photoURL,
-        'accessToken': googleAuth.accessToken,
-        'idToken': googleAuth.idToken,
-      };
-
-      return userData;
-    }
-
-    return null;
+    return userData;
   } catch (e) {
+    print("=======google error===========");
+
     return null;
   }
 }

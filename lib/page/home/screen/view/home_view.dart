@@ -73,7 +73,7 @@ class MyBottomSheet extends StatelessWidget {
           topRight: Radius.circular(15),
         ),
       ),
-      height: 300,
+      height: 350,
       width: Get.width,
       child: buildBottomSheetContent(homeController),
     );

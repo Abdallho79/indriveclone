@@ -6,8 +6,8 @@ import 'package:indriveclone/page/z_drawer_drawer/widget/drawer/appbar_title.dar
 import 'package:indriveclone/core/class/my_coustm_text.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
 
-class TrackingToHomeView extends StatelessWidget {
-  const TrackingToHomeView({super.key});
+class TrackingToUserHomeView extends StatelessWidget {
+  const TrackingToUserHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {

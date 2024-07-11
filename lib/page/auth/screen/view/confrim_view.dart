@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/core/constant/theme_app.dart';
 import 'package:indriveclone/core/function/valid_input.dart';
@@ -14,12 +15,12 @@ class ConfrimView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ConfrimController confrimController = Get.put(ConfrimController());
+    Get.put(ConfrimController());
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
               onPressed: () async {
-                await confrimController.logOutGoogle();
+                Get.back();
               },
               icon: const Icon(Icons.arrow_back)),
           elevation: 0,
@@ -42,7 +43,7 @@ class ConfrimView extends StatelessWidget {
                             const SizedBox(
                               height: 15,
                             ),
-                            const AddPhoto(),
+                             AddPhoto(),
                             const SizedBox(
                               height: 20,
                             ),

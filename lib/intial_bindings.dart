@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
+import 'package:indriveclone/page/z_drawer_drawer/drawer_controller.dart';
+import 'core/class/crud.dart';
 
 class InitialBindings extends Bindings {
   @override
   void dependencies() {
     // Start
-    // Get.put(Crud());
+    Get.put(Curd());
+    Get.put(MyDrawerController());
   }
 }

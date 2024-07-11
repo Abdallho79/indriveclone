@@ -17,7 +17,8 @@ class GoogleMapContentHome extends StatelessWidget {
             child: GetBuilder<MapHomeController>(
               builder: (controller) {
                 return GoogleMap(
-                  initialCameraPosition: controller.initialPosition,
+                  zoomControlsEnabled: false,
+                  initialCameraPosition: controller.initialPosition!,
                   markers: controller.markers.toSet(),
                   polylines: controller.polylineSet,
                   mapType: MapType.normal,

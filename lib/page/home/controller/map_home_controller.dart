@@ -1,38 +1,21 @@
 import 'dart:async';
-import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:indriveclone/core/constant/image_app.dart';
 import 'package:indriveclone/core/function/polyline.dart';
-import 'package:indriveclone/page/home/controller/home_controller.dart';
+import 'package:indriveclone/core/services/services.dart';
 
-class MapHomeController extends GetxController {
+import '../../../shared/google_map_services_controller.dart';
+
+class MapHomeController extends GetxController with CoustomGoogleMap {
+  MyServices myServices = Get.find();
   Set<Polyline> polylineSet = {};
-  double distance = 0;
+  double? distance;
   double? time;
+  double? initialLat;
+  double? initialLong;
 
-  CameraPosition initialPosition =
-      const CameraPosition(target: LatLng(31.024054, 31.417328), zoom: 14.45);
-  Completer<GoogleMapController>? googleMapController;
   List<Marker> markers = [];
   bool isContainerActive = true;
-  String? darkMapStyle;
-
-  @override
-  void onInit() {
-    super.onInit();
-    googleMapController = Completer<GoogleMapController>();
-    _loadMapStyles();
-  }
-
-  // Load dark map style from assets
-  Future _loadMapStyles() async {
-    darkMapStyle = await rootBundle.loadString(AppImage.darkmabtheme);
-    final controller = await googleMapController!.future;
-    // ignore: deprecated_member_use
-    controller.setMapStyle(darkMapStyle);
-  }
 
   // Toggle the status of the container based on camera movement
   void changeContainerStatus(bool isCameraMoving) {
@@ -41,11 +24,6 @@ class MapHomeController extends GetxController {
   }
 
   // Initialize Google Map controller when the map is created
-  void onMapCreated(GoogleMapController controller) {
-    if (!googleMapController!.isCompleted) {
-      googleMapController!.complete(controller);
-    }
-  }
 
   // Add or update markers on the map
   void addMarkers(double lat, double long, bool isFrom) {
@@ -78,17 +56,18 @@ class MapHomeController extends GetxController {
   }
 
   // Get the current location of the user and update the initial position
-  Future<void> getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+  getCurrentLocation() {
+    initialLat = myServices.sharedPreferences.getDouble("lat");
+    initialLong = myServices.sharedPreferences.getDouble("long");
+    initialPosition =
+        CameraPosition(target: LatLng(initialLat!, initialLong!), zoom: 14);
+  }
 
-    HomeController homeController = Get.find();
-    homeController.initialLat = position.latitude;
-    homeController.initialLong = position.longitude;
-
-    initialPosition = CameraPosition(
-        target: LatLng(position.latitude, position.longitude), zoom: 14.45);
-
-    update();
+  @override
+  void onInit() {
+    super.onInit();
+    getCurrentLocation();
+    googleMapController = Completer<GoogleMapController>();
+    loadMapStyles();
   }
 }

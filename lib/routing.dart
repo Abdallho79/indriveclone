@@ -2,6 +2,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
 import 'package:indriveclone/middleware.dart';
 import 'package:indriveclone/page/auth/screen/view/confrim_view.dart';
+import 'package:indriveclone/page/auth/screen/view/login_view.dart';
 import 'package:indriveclone/page/auth/screen/view/verify_view.dart';
 import 'package:indriveclone/page/city_to_city/screen/view/travel_view.dart';
 import 'package:indriveclone/page/find_driver/screen/view/find_driver_view.dart';
@@ -17,17 +18,17 @@ import 'package:indriveclone/page/support/screen/view/support_view.dart';
 
 List<GetPage<dynamic>>? getPages = [
   GetPage(
+      name: "/",
+      page: () => const LoginView(),
+      // middlewares: [MyMiddaleWare()]
+      ),
+  GetPage(
     name: AppRoute.trackingtohome,
-    page: () => const TrackingToHomeView(),
+    page: () => const TrackingToUserHomeView(),
   ),
   GetPage(
     name: AppRoute.finddriver,
     page: () => const FindDriverView(),
-  ),
-  GetPage(
-    name: AppRoute.login,
-    page: () => const HomeView(),
-    // middlewares: [MyMiddaleWare()]
   ),
   GetPage(
     name: AppRoute.profileview,

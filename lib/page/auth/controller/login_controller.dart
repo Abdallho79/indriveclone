@@ -1,41 +1,104 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:indriveclone/core/class/handling_status_request.dart';
 import 'package:indriveclone/core/class/status_request.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
 import 'package:indriveclone/core/function/check_internet.dart';
+import 'package:indriveclone/core/function/google_signin.dart';
 import 'package:indriveclone/core/services/services.dart';
+import 'package:indriveclone/page/auth/data/remote/login.dart';
 
 class LoginController extends GetxController {
-  MyServices myservices = Get.find();
-  GlobalKey<FormState> formstate = GlobalKey<FormState>();
   StatusRequest statusRequest = StatusRequest.none;
+  MyServices myservices = Get.find();
+  LoginData loginData = LoginData(Get.find());
+  GlobalKey<FormState> formstate = GlobalKey<FormState>();
   TextEditingController? nameController;
-  bool onboarding = true;
-  late Timer timer;
+
+  String? email;
   String? phoneNumber;
-  String? phoneKey;
+  int? id;
+  double? initalLat;
+  double? initalLong;
+
   bool isPhoneNumberTrue = false;
-  bool isGoogleLogin = false; // 1 => google  , false => none
+
   Map? _userData = {};
+
+  initialPosition() async {
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
+    if (permission != LocationPermission.deniedForever ||
+        permission == LocationPermission.denied) {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      initalLat = position.latitude;
+      initalLong = position.longitude;
+      myservices.sharedPreferences.setDouble("lat", initalLat!);
+      myservices.sharedPreferences.setDouble("long", initalLong!);
+    } else {
+      // lat & long for white house
+      myservices.sharedPreferences.setDouble("lat", 31.024054);
+      myservices.sharedPreferences.setDouble("long", 31.417328);
+    }
+  }
 
   Future<void> isThereInternet() async {
     if (await checkInternet()) {
       statusRequest = StatusRequest.none;
-      update();
     } else {
       statusRequest = StatusRequest.offlinefailure;
-      update(); // تحديث الحالة لإعادة بناء الواجهة
     }
-  }
-
-  isLoadingStatusRequest() {
-    statusRequest = StatusRequest.loading;
     update();
   }
 
-  doneLoadingStatusRequest() {
+  addUser() async {
+    statusRequest = StatusRequest.loading;
+    update();
+    var response =
+        await loginData.insertData(phoneNumber!, nameController!.text);
+    statusRequest = handlingStatusRequestData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == "success") {
+        email = response["data"]["users_google"];
+        id = response["data"]["users_id"];
+      } else {
+        statusRequest = StatusRequest.nodatafailure;
+      }
+    }
+    update();
+  }
+
+  goToVerifyPage() async {
+    if (isPhoneNumberTrue) {
+      if (formstate.currentState!.validate()) {
+        await addUser();
+        Get.toNamed(AppRoute.verifyview, arguments: {
+          "number": phoneNumber,
+          "name": nameController!.text,
+          "email": email,
+          "id": id,
+        });
+      }
+    } else {
+      Get.snackbar("failure", "Enter correct number", colorText: Colors.white);
+    }
+  }
+
+  // close all exceptions
+
+  logInWithGoogle() async {
+    statusRequest = StatusRequest.loading;
+    update();
+    Map? userData = await signInWithGoogle();
+    if (userData != null) {
+      setUserData(userData);
+      statusRequest = StatusRequest.success;
+      update();
+    }
     statusRequest = StatusRequest.success;
     update();
   }
@@ -48,36 +111,13 @@ class LoginController extends GetxController {
   goToConfirmData() {
     Get.toNamed(AppRoute.confrimview, arguments: {
       "data": _userData,
-      "isgoogle": isGoogleLogin,
     });
-  }
-
-  void startTimer() async {
-    await Future.delayed(const Duration(milliseconds: 0)); // تأخير لمدة 1.5 ثانية
-    onboarding = false;
-    update(); // إعادة رسم الواجهة بعد تغيير القيمة
-  }
-
-  goToVerifyPage() {
-    if (isPhoneNumberTrue) {
-      if (formstate.currentState!.validate()) {
-        Get.toNamed(AppRoute.verifyview, arguments: {
-          "isgoogle": isGoogleLogin,
-          "number": phoneNumber,
-          "name": nameController!.text,
-          "email": ""
-        });
-      }
-    } else {
-      Get.snackbar("failure", "Enter correct number", colorText: Colors.white);
-    }
   }
 
   @override
   void onInit() {
-    startTimer();
-    isThereInternet();
     nameController = TextEditingController();
+    initialPosition();
     super.onInit();
   }
 

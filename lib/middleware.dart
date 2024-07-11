@@ -10,8 +10,7 @@ class MyMiddaleWare extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     if (myServices.sharedPreferences.getString("phone_number") != null) {
-      if (myServices.sharedPreferences.getBool("isUserInTrackingMood") ==
-          true) {
+      if (myServices.sharedPreferences.getBool("isUserInTrackingMood") == true) {
         return const RouteSettings(name: AppRoute.trackingtohome);
       }
       // ignore: prefer_const_constructors

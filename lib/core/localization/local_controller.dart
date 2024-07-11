@@ -30,27 +30,22 @@ class LocalController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      return Get.snackbar("notice", "Open Location Services");
+      return Get.snackbar("notice", "Open Location Services",
+          colorText: Colors.white);
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return Get.snackbar("notice", "Open Location Services");
+        return Get.snackbar("notice", "Open Location Services",
+            colorText: Colors.white);
       }
     }
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
       return Get.snackbar(
-          "notice", "You can't use this app without location permission");
+          "notice", "You can't get a good expirence without location permission",
+          colorText: Colors.white);
     }
   }
 
