@@ -4,7 +4,6 @@ import 'package:indriveclone/core/class/handling_data_view.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/core/constant/image_app.dart';
 import 'package:indriveclone/core/constant/theme_app.dart';
-import 'package:indriveclone/core/function/google_signin.dart';
 import 'package:indriveclone/core/function/valid_input.dart';
 import 'package:indriveclone/core/shared/coustom_text_form_fireld.dart';
 import 'package:indriveclone/page/auth/controller/login_controller.dart';
@@ -22,76 +21,111 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.background_dark,
       body: GetBuilder<LoginController>(
-          builder: (controller) => HandlingDataView(
-                statusRequest: controller.statusRequest,
-                widget: Form(
-                  key: controller.formstate,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: ListView(
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(height: Get.height / 5),
-                            Center(
-                              child: Text(
-                                "join_us".tr,
-                                style:
-                                    AppTheme.themeEnglish.textTheme.bodyLarge,
-                              ),
-                            ),
-                            const SizedBox(height: 15),
-                            Text(
-                              "we'll".tr,
-                              style: AppTheme.themeEnglish.textTheme.bodyMedium,
-                            ),
-                            const SizedBox(height: 25),
-                            CoustomTextField(
-                              validator: (val) {
-                                return validInput(2, 30, "text", val!);
-                              },
-                              controller: controller.nameController,
-                              isNumber: false,
-                              isEnable: true,
-                              hinttext: 'Enter your name',
-                            ),
-                            const SizedBox(height: 15),
-                            const CoustomTextFieldPhoneLgin(),
-                            const SizedBox(height: 30),
-                            LoginButton(
-                              onTap: () {
-                                controller.goToVerifyPage();
-                              },
-                              keytitle: 'Next',
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 15),
-                              child: Text(
-                                "or".tr,
-                                style:
-                                    AppTheme.themeEnglish.textTheme.labelMedium,
-                              ),
-                            ),
-                            SocialButton(
-                              onTap: () async {
-                               await controller.logInWithGoogle();
-                              },
-                              keytitle: "google",
-                              image: AppImage.google,
-                              height55facebook45googlr: 45,
-                            ),
-                            const SizedBox(height: 15),
-                            const CoustomTextSpan(),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                onRefresh: controller.isThereInternet,
-              )),
+        builder: (controller) => HandlingDataView(
+          statusRequest: controller.statusRequest,
+          widget: Form(
+            key: controller.formstate,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: _buildListView(controller),
+            ),
+          ),
+          onRefresh: controller.isThereInternet,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildListView(LoginController controller) {
+    return ListView(
+      children: [
+        _buildHeaderSection(),
+        _buildFormFields(controller),
+        _buildLoginButton(controller),
+        _buildOrText(),
+        _buildSocialButton(controller),
+        _buildFooterText(),
+      ],
+    );
+  }
+
+  Widget _buildHeaderSection() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(height: Get.height / 5),
+        Center(
+          child: Text(
+            "join_us".tr,
+            style: AppTheme.themeEnglish.textTheme.bodyLarge,
+          ),
+        ),
+        const SizedBox(height: 15),
+        Text(
+          "we'll".tr,
+          style: AppTheme.themeEnglish.textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 25),
+      ],
+    );
+  }
+
+  Widget _buildFormFields(LoginController controller) {
+    return Column(
+      children: [
+        CoustomTextField(
+          validator: (val) {
+            return validInput(2, 30, "text", val!);
+          },
+          controller: controller.nameController,
+          isNumber: false,
+          isEnable: true,
+          hinttext: 'Enter your name',
+        ),
+        const SizedBox(height: 15),
+        const CoustomTextFieldPhoneLgin(),
+        const SizedBox(height: 30),
+      ],
+    );
+  }
+
+  Widget _buildLoginButton(LoginController controller) {
+    return LoginButton(
+      onTap: () {
+        controller.goToVerifyPage();
+      },
+      keytitle: 'Next',
+    );
+  }
+
+  Widget _buildOrText() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Text(
+        "or".tr,
+        style: AppTheme.themeEnglish.textTheme.labelMedium,
+      ),
+    );
+  }
+
+  Widget _buildSocialButton(LoginController controller) {
+    return SocialButton(
+      onTap: () async {
+        await controller.logInWithGoogle();
+      },
+      keytitle: "google",
+      image: AppImage.google,
+      height55facebook45googlr: 45,
+    );
+  }
+
+  Widget _buildFooterText() {
+    return const Column(
+      children: [
+        SizedBox(height: 15),
+        CoustomTextSpan(),
+      ],
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:indriveclone/core/constant/image_app.dart';
 
-mixin CoustomGoogleMap {
+mixin CoustomGoogleMapMixIn {
   CameraPosition? initialPosition;
   Completer<GoogleMapController>? googleMapController;
   String? darkMapStyle;
@@ -22,4 +22,6 @@ mixin CoustomGoogleMap {
     // ignore: deprecated_member_use
     controller.setMapStyle(darkMapStyle);
   }
+
+  getCurrentLocation();
 }

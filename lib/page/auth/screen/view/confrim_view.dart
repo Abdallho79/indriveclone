@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/core/constant/theme_app.dart';
 import 'package:indriveclone/core/function/valid_input.dart';

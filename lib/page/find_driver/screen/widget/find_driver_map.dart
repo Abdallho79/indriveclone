@@ -17,7 +17,7 @@ class GoogleMapContentFindDriver extends StatelessWidget {
             child: GetBuilder<FindDriverController>(
               builder: (controller) {
                 return GoogleMap(
-                  initialCameraPosition: controller.initialPosition,
+                  initialCameraPosition: controller.initialPosition!,
                   markers: controller.markers.toSet(),
                   polylines: controller.polylineSet,
                   mapType: MapType.normal,

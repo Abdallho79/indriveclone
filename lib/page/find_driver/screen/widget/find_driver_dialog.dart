@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/class/my_coustm_text.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
+import 'package:indriveclone/linkapi_app.dart';
 import 'package:indriveclone/page/find_driver/controller/find_driver_controller.dart';
 
 void showWorkerDialog(
@@ -18,20 +19,20 @@ void showWorkerDialog(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.asset(
-                    controller.workers[index]["avatar"],
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+              // Center(
+              //   child: ClipRRect(
+              //     borderRadius: BorderRadius.circular(100),
+              //     child: Image.network(
+              //       "${AppLink.imagesPerson}/${controller.drivers[index].driverProfilePictureUrl!}",
+              //       width: 100,
+              //       height: 100,
+              //       fit: BoxFit.cover,
+              //     ),
+              //   ),
+              // ),
               const SizedBox(height: 10),
               MyCoustomText(
-                text: "name: ${controller.workers[index]["name"]}",
+                text: "name: ${controller.drivers[index].driverName}",
                 color: Colors.white,
                 weight: FontWeight.w600,
                 size: 20,
@@ -40,7 +41,7 @@ void showWorkerDialog(
               const SizedBox(height: 10),
               MyCoustomText(
                 text:
-                    "Distance to reach you: ${controller.workers[index]["distance"]}",
+                    "Distance to reach you: ${controller.drivers[index].distance!.toStringAsFixed(2)}",
                 color: Colors.white,
                 weight: FontWeight.normal,
                 size: 16,
@@ -48,22 +49,22 @@ void showWorkerDialog(
               ),
               const SizedBox(height: 10),
               MyCoustomText(
-                text: "Car Brand: ${controller.workers[index]["carBrand"]}",
+                text: "Car Brand: ${controller.drivers[index].driverCarModel}",
                 color: Colors.white,
                 weight: FontWeight.normal,
                 size: 16,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
-              MyCoustomText(
-                text: "Offer: ${controller.workers[index]["offer"]} \$",
-                color: controller.workers[index]["offer"] <= controller.fare
-                    ? AppColor.green
-                    : Colors.red[400],
-                weight: FontWeight.normal,
-                size: 16,
-                textAlign: TextAlign.center,
-              ),
+              // MyCoustomText(
+              //   text: "Offer: ${controller.drivers[index]["offer"]} \$",
+              //   color: controller.drivers[index]["offer"] <= controller.fare
+              //       ? AppColor.green
+              //       : Colors.red[400],
+              //   weight: FontWeight.normal,
+              //   size: 16,
+              //   textAlign: TextAlign.center,
+              // ),
               Row(
                 children: [
                   Expanded(

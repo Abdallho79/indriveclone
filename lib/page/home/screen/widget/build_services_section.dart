@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get.dart';
 import 'package:indriveclone/page/home/controller/home_controller.dart';
 import 'package:indriveclone/page/home/screen/widget/list_services.dart';
 

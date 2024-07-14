@@ -25,7 +25,7 @@ class FindDriverBottomSheet extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 40.0),
         child: ListView.builder(
-          itemCount: controller.workers.length,
+          itemCount: controller.drivers.length,
           itemBuilder: (context, index) {
             return WorkerCard(controller: controller, index: index);
           },

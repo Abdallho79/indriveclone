@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:indriveclone/core/localization/local_controller.dart';
 import 'package:indriveclone/core/localization/translitions.dart';
 import 'package:indriveclone/core/services/services.dart';
-import 'package:indriveclone/intial_bindings.dart';
+import 'package:indriveclone/core/middleware/intial_bindings.dart';
 import 'package:indriveclone/routing.dart';
 
 void main() async {

@@ -6,8 +6,6 @@ import 'package:file_picker/file_picker.dart';
 Future<File?> pickImageFromCamera() async {
   final picker = ImagePicker();
   final pickedFile = await picker.pickImage(source: ImageSource.camera);
-  print("============pickedFile==========");
-  print(pickedFile);
   if (pickedFile != null) {
     return File(pickedFile.path); // تحويل XFile إلى File
   } else {
@@ -17,7 +15,7 @@ Future<File?> pickImageFromCamera() async {
 
 Future<File?> pickFileFromStorage() async {
   FilePickerResult? result = await FilePicker.platform.pickFiles(
-    type: FileType.custom, // تحديد نوع الملفات المسموح بها
+    type: FileType.image, // تحديد نوع الملفات المسموح بها
     allowedExtensions: [
       'jpg', 'jpeg', 'png', 'svg', 'bmp', 'gif', 'tiff', 'webp', 'heic',
       'ico', // امتدادات الصور الشائعة بالحروف الصغيرة

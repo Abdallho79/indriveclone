@@ -28,7 +28,7 @@ SizedBox _buildFindDriverButton(HomeController controller) {
     width: Get.width,
     child: MyMainButton(
       onPressed: () {
-        controller.goToFindDriver();
+        controller.findDriver();
       },
       title: "Find driver",
     ),

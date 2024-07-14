@@ -43,15 +43,32 @@ class LocalController extends GetxController {
     }
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      return Get.snackbar(
-          "notice", "You can't get a good expirence without location permission",
+      return Get.snackbar("notice",
+          "You can't get a good expirence without location permission",
           colorText: Colors.white);
+    }
+  }
+
+  initialPosition() async {
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
+    if (permission != LocationPermission.deniedForever ||
+        permission == LocationPermission.denied) {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      myServices.sharedPreferences.setDouble("lat", position.latitude);
+      myServices.sharedPreferences.setDouble("long", position.longitude);
+    } else {
+      // lat & long for white house
+      myServices.sharedPreferences.setDouble("lat", 31.024054);
+      myServices.sharedPreferences.setDouble("long", 31.417328);
     }
   }
 
   @override
   void onInit() {
     requestPermissoinLocation();
+    initialPosition();
     String locale = myServices.sharedPreferences.getString("locale") == null
         ? Get.deviceLocale!.languageCode
         : myServices.sharedPreferences.getString("locale")!;

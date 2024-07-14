@@ -37,7 +37,7 @@ class ConfrimController extends GetxController {
     statusRequest = StatusRequest.loading;
     update();
     var response = await loginData.insertDataGoogle(
-        phoneNumber!, nameController!.text, emailController!.text, file);
+        phoneNumber!, emailController!.text, nameController!.text, file);
     statusRequest = handlingStatusRequestData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == "success") {
@@ -59,7 +59,7 @@ class ConfrimController extends GetxController {
           "number": phoneNumber,
           "name": nameController!.text,
           "email": emailController!.text,
-          "id" : id
+          "id": id
         });
       }
     } else {

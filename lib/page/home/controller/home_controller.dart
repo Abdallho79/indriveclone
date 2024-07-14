@@ -1,33 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:indriveclone/core/class/handling_status_request.dart';
+import 'package:indriveclone/core/class/status_request.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
+import 'package:indriveclone/core/function/check_internet.dart';
 import 'package:indriveclone/core/services/services.dart';
-import 'package:indriveclone/page/home/controller/map_home_controller.dart';
+import 'package:indriveclone/mixin/required_deatils.dart';
+import 'package:indriveclone/page/home/data/model/driver_model.dart';
+import 'package:indriveclone/page/home/data/remote/find_driver_data.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxController with RequiredDeatilsMixIn {
   MyServices myServices = Get.find();
-  MapHomeController mapController = Get.find();
-
+  FindDriverData findDriverData = FindDriverData(Get.find());
+  StatusRequest statusRequest = StatusRequest.none;
+  List<DriverModel> data = [];
   // Variables to store fare information
-  String recommendedFare = "Recommended :  ";
-  int fare = 0;
   double distance = 0;
   double time = 0;
-
-  TextEditingController? fareController;
-
-  // Variables to store the "from" and "to" locations
   bool? isClientFrom;
-  double? fromLat;
-  double? fromLong;
-  String fromName = "";
-  double? toLat;
-  double? toLong;
-  String toName = "";
+
   bool isAllSelected = false;
 
-  
+  findDriver() async {
+    _statusMethod(StatusRequest.loading);
+    var response = await findDriverData.findDriver(fromLat!, fromLong!);
+    statusRequest = handlingStatusRequestData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == "success") {
+        List responsedata = response["data"];
+        print("=======================");
+        print(responsedata);
+        print("=======================");
+        data.addAll(responsedata.map((e) => DriverModel.fromJson(e)));
+        goToFindDriver();
+      } else {
+        statusRequest = StatusRequest.nodatafailure;
+      }
+    }
+    update();
+  }
 
+  _statusMethod(StatusRequest status) {
+    statusRequest = status;
+    update();
+  }
+
+  Future<void> isThereInternet() async {
+    if (await checkInternet()) {
+      statusRequest = StatusRequest.none;
+    } else {
+      statusRequest = StatusRequest.offlinefailure;
+    }
+    update();
+  }
 
   // Navigate to the location selection screen and update the location in HomeController
   void goToChooseLocation(bool status) {
@@ -38,79 +63,43 @@ class HomeController extends GetxController {
         setLocation(
             lat: value["lat"],
             long: value["long"],
-            name: value["name"],
+            name: value["name"] ?? "doesn't named",
             isFrom: isClientFrom!);
+        setIsAllSelected();
+        update();
       }
     });
   }
 
   // Navigate to the find driver screen with the necessary arguments
   void goToFindDriver() {
-    Get.toNamed(AppRoute.finddriver, arguments: {
-      "fromlat": fromLat,
-      "fromlong": fromLong,
-      "tolat": toLat,
-      "tolong": toLong,
-      "fare": fare,
-    });
-  }
-
-  // Set the location (from/to) and update the respective variables
-  void setLocation({
-    required double lat,
-    required double long,
-    required String name,
-    required bool isFrom,
-  }) {
-    if (isFrom) {
-      fromLat = lat;
-      fromLong = long;
-      fromName = name;
-      setIsAllSelected();
-      mapController.addMarkers(lat, long, isFrom);
+    if (fromLong != null && toLong != null) {
+      Get.toNamed(AppRoute.finddriver, arguments: {
+        "fromlat": fromLat,
+        "fromlong": fromLong,
+        "tolat": toLat,
+        "tolong": toLong,
+        "fare": fare,
+        "data": data,
+      });
     } else {
-      toLat = lat;
-      toLong = long;
-      toName = name;
-      setIsAllSelected();
-      mapController.addMarkers(lat, long, isFrom);
+      Get.snackbar("Error", "Choose From & To", colorText: Colors.white);
     }
-
-    update();
   }
 
   // Check if both "from" and "to" locations are selected
   void setIsAllSelected() async {
     if (fromLong != null && toLong != null) {
+      _statusMethod(StatusRequest.loading);
       Map data = await mapController.drawPolyline(
           fromLat!, fromLong!, toLat!, toLong!);
       distance = data["distance"];
       time = data["duration"];
       fare = (distance * 5).toInt() <= 20 ? 20 : (distance * 5).toInt();
       isAllSelected = true;
+      _statusMethod(StatusRequest.success);
     } else {
       isAllSelected = false;
-    }
-    update();
-  }
-
-  // Validate the fare and update the fare variable accordingly
-  void validate() {
-    if (fareController!.text.isNotEmpty) {
-      if (20 <= int.parse(fareController!.text)) {
-        fare = int.parse(fareController!.text);
-        recommendedFare = "";
-        Get.back();
-        update();
-      } else {
-        recommendedFare = "Recommended :  ";
-        update();
-        Get.snackbar("Error", "Fare Can't be less than 20");
-      }
-    } else {
-      recommendedFare = "Recommended :  ";
-      Get.back();
-      update();
     }
   }
 

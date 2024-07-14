@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/class/handling_status_request.dart';
 import 'package:indriveclone/core/class/status_request.dart';
@@ -21,30 +20,10 @@ class LoginController extends GetxController {
   String? email;
   String? phoneNumber;
   int? id;
-  double? initalLat;
-  double? initalLong;
 
   bool isPhoneNumberTrue = false;
 
   Map? _userData = {};
-
-  initialPosition() async {
-    LocationPermission permission;
-    permission = await Geolocator.requestPermission();
-    if (permission != LocationPermission.deniedForever ||
-        permission == LocationPermission.denied) {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      initalLat = position.latitude;
-      initalLong = position.longitude;
-      myservices.sharedPreferences.setDouble("lat", initalLat!);
-      myservices.sharedPreferences.setDouble("long", initalLong!);
-    } else {
-      // lat & long for white house
-      myservices.sharedPreferences.setDouble("lat", 31.024054);
-      myservices.sharedPreferences.setDouble("long", 31.417328);
-    }
-  }
 
   Future<void> isThereInternet() async {
     if (await checkInternet()) {
@@ -117,7 +96,6 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     nameController = TextEditingController();
-    initialPosition();
     super.onInit();
   }
 

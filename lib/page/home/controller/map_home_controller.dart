@@ -4,9 +4,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:indriveclone/core/function/polyline.dart';
 import 'package:indriveclone/core/services/services.dart';
 
-import '../../../shared/google_map_services_controller.dart';
+import '../../../mixin/google_map_services_controller.dart';
 
-class MapHomeController extends GetxController with CoustomGoogleMap {
+class MapHomeController extends GetxController with CoustomGoogleMapMixIn {
   MyServices myServices = Get.find();
   Set<Polyline> polylineSet = {};
   double? distance;
@@ -51,11 +51,11 @@ class MapHomeController extends GetxController with CoustomGoogleMap {
     polylineSet = data!["polylines"];
     distance = data["distance"];
     time = data["duration"];
-    update();
     return data;
   }
 
   // Get the current location of the user and update the initial position
+  @override
   getCurrentLocation() {
     initialLat = myServices.sharedPreferences.getDouble("lat");
     initialLong = myServices.sharedPreferences.getDouble("long");
@@ -67,7 +67,7 @@ class MapHomeController extends GetxController with CoustomGoogleMap {
   void onInit() {
     super.onInit();
     getCurrentLocation();
-    googleMapController = Completer<GoogleMapController>();
+    super.googleMapController = Completer<GoogleMapController>();
     loadMapStyles();
   }
 }

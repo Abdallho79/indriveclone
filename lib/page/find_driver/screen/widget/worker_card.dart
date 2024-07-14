@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:indriveclone/core/class/my_coustm_text.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
+import 'package:indriveclone/linkapi_app.dart';
 import 'package:indriveclone/page/find_driver/controller/find_driver_controller.dart';
 import 'package:indriveclone/page/find_driver/screen/widget/find_driver_dialog.dart';
 
@@ -19,34 +20,34 @@ class WorkerCard extends StatelessWidget {
           showWorkerDialog(context, controller, index);
         },
         subtitle: Text(
-          "${controller.workers[index]["distance"]}, 9 mins",
+          "${controller.drivers[index].distance!.toStringAsFixed(2)} km , 9 mins",
           style: const TextStyle(color: Colors.white, fontSize: 16),
         ),
         title: MyCoustomText(
-          text: controller.workers[index]["name"],
+          text: controller.drivers[index].driverName!,
           color: Colors.white,
           weight: FontWeight.w600,
           size: 20,
           textAlign: TextAlign.start,
         ),
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: Image.asset(
-            controller.workers[index]["avatar"],
-            width: 50,
-            height: 50,
-            fit: BoxFit.cover,
-          ),
-        ),
-        trailing: MyCoustomText(
-          text: "Offer: ${controller.workers[index]["offer"]} \$",
-          color: controller.workers[index]["offer"] <= controller.fare
-              ? AppColor.green
-              : Colors.red[400],
-          weight: FontWeight.normal,
-          size: 16,
-          textAlign: TextAlign.center,
-        ),
+        // leading: ClipRRect(
+        //   borderRadius: BorderRadius.circular(100),
+        //   child: Image.asset(
+        //     "${AppLink.imagesPerson}/${controller.drivers[index].driverProfilePictureUrl!}",
+        //     width: 50,
+        //     height: 50,
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
+        // trailing: MyCoustomText(
+        //   text: "Offer: ${controller.drivers[index]["offer"]} \$",
+        //   color: controller.drivers[index]["offer"] <= controller.fare
+        //       ? AppColor.green
+        //       : Colors.red[400],
+        //   weight: FontWeight.normal,
+        //   size: 16,
+        //   textAlign: TextAlign.center,
+        // ),
       ),
     );
   }
