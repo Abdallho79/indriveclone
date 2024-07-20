@@ -44,7 +44,7 @@ class GoogleMapChooseLocation extends StatelessWidget {
             Positioned(
               bottom: 0,
               left: 0,
-              right: 0,
+              right: 40,
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: SizedBox(

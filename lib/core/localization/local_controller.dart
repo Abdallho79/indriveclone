@@ -30,36 +30,38 @@ class LocalController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Get.snackbar("notice", "Open Location Services",
-          colorText: Colors.white);
+      Get.snackbar("notice", "Open Location Services", colorText: Colors.white);
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Get.snackbar("notice", "Open Location Services",
+        Get.snackbar("notice", "Open Location Services",
             colorText: Colors.white);
       }
     }
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      return Get.snackbar("notice",
+      Get.snackbar("notice",
           "You can't get a good expirence without location permission",
           colorText: Colors.white);
     }
+    await initialPosition();
   }
 
-  initialPosition() async {
+  Future<void> initialPosition() async {
     LocationPermission permission;
+    Position position;
+
     permission = await Geolocator.requestPermission();
-    if (permission != LocationPermission.deniedForever ||
-        permission == LocationPermission.denied) {
-      Position position = await Geolocator.getCurrentPosition(
+    if (permission != LocationPermission.deniedForever &&
+        permission != LocationPermission.denied) {
+      position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       myServices.sharedPreferences.setDouble("lat", position.latitude);
       myServices.sharedPreferences.setDouble("long", position.longitude);
     } else {
-      // lat & long for white house
+      // استخدام إحداثيات البيت الأبيض في حالة عدم توفر الإذن
       myServices.sharedPreferences.setDouble("lat", 31.024054);
       myServices.sharedPreferences.setDouble("long", 31.417328);
     }
@@ -68,7 +70,6 @@ class LocalController extends GetxController {
   @override
   void onInit() {
     requestPermissoinLocation();
-    initialPosition();
     String locale = myServices.sharedPreferences.getString("locale") == null
         ? Get.deviceLocale!.languageCode
         : myServices.sharedPreferences.getString("locale")!;

@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:indriveclone/core/class/status_request.dart';
 import 'package:indriveclone/core/function/polyline.dart';
 import 'package:indriveclone/core/services/services.dart';
 
-import '../../../mixin/google_map_services_controller.dart';
+import '../../../shared/mixin/google_map_services_controller.dart';
 
 class MapHomeController extends GetxController with CoustomGoogleMapMixIn {
   MyServices myServices = Get.find();
@@ -13,25 +14,39 @@ class MapHomeController extends GetxController with CoustomGoogleMapMixIn {
   double? time;
   double? initialLat;
   double? initialLong;
+  StatusRequest statusRequest = StatusRequest.none;
 
   List<Marker> markers = [];
   bool isContainerActive = true;
 
-  // Toggle the status of the container based on camera movement
   void changeContainerStatus(bool isCameraMoving) {
     isContainerActive = isCameraMoving;
+  }
+
+  changeStatusRequset(StatusRequest status) {
+    statusRequest = status;
     update();
   }
 
-  // Initialize Google Map controller when the map is created
+  @override
+  onMapCreated(GoogleMapController controller) {
+    changeStatusRequset(StatusRequest.loading);
+    googleMapController = controller;
+    changeStatusRequset(StatusRequest.success);
+    loadMapStyles();
+  }
 
-  // Add or update markers on the map
-  void addMarkers(double lat, double long, bool isFrom) {
+  void addMarkers(double lat, double long, bool isFrom) async {
+    int type = isFrom ? 1 : 2;
+    await setCoustomIconn(type);
     String markerId = isFrom ? "from" : "to";
+
     Marker marker = Marker(
-      markerId: MarkerId(markerId),
-      position: LatLng(lat, long),
-    );
+        markerId: MarkerId(markerId),
+        position: LatLng(lat, long),
+        // ignore: deprecated_member_use
+        icon: BitmapDescriptor.fromBytes(customMarker));
+
     int index = markers.indexWhere((m) => m.markerId.value == markerId);
     if (index != -1) {
       markers[index] = marker;
@@ -41,20 +56,18 @@ class MapHomeController extends GetxController with CoustomGoogleMapMixIn {
     update();
   }
 
-// Draw polyline between two points on the map
   Future<Map> drawPolyline(
       double fromLat, double fromLong, double toLat, double toLong) async {
-    // Clear the old polyline coordinates and polylines
     Map<String, dynamic>? data =
         await getPolyLine(fromLat, fromLong, toLat, toLong, "user_line");
     await Future.delayed(const Duration(seconds: 1));
     polylineSet = data!["polylines"];
     distance = data["distance"];
     time = data["duration"];
+
     return data;
   }
 
-  // Get the current location of the user and update the initial position
   @override
   getCurrentLocation() {
     initialLat = myServices.sharedPreferences.getDouble("lat");
@@ -67,7 +80,11 @@ class MapHomeController extends GetxController with CoustomGoogleMapMixIn {
   void onInit() {
     super.onInit();
     getCurrentLocation();
-    super.googleMapController = Completer<GoogleMapController>();
-    loadMapStyles();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    googleMapController!.dispose();
   }
 }

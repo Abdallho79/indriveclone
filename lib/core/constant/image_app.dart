@@ -15,6 +15,9 @@ class AppImage {
   static const String whatsapp = "$routeimage/whatsapp.png";
   // Google Map
   static const String carmarker = "$routeicon/car.png";
+  static const String markerfrom = "$routeimage/green.png";
+  static const String markerto = "$routeimage/blue.png";
+  static const String markerdriver = "$routeimage/red.png";
   static const String darkmabtheme = "$routemabtheme/darkmab.json";
   // services
   static const String delivery = "$routeimage/delivery.png";

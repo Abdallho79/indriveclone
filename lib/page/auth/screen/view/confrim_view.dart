@@ -42,13 +42,13 @@ class ConfrimView extends StatelessWidget {
                             const SizedBox(
                               height: 15,
                             ),
-                             AddPhoto(),
+                            const AddPhoto(),
                             const SizedBox(
                               height: 20,
                             ),
                             CoustomTextField(
                                 validator: (val) {
-                                  return validInput(2, 50, "name", val!);
+                                  return validInput(2, 50, "text", val!);
                                 },
                                 controller: controller.nameController,
                                 isNumber: false,

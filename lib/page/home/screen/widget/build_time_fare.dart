@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/class/my_coustm_text.dart';
-import 'package:indriveclone/page/home/screen/widget/fare_bottom_sheet.dart';
 import 'package:indriveclone/page/main_widget.dart';
+import 'package:indriveclone/shared/bottomsheet/fare_bottom_sheet.dart';
 
 import '../../controller/home_controller.dart';
 
-Widget buildFareAndTimeSection(HomeController controller) {
+GetBuilder buildFareAndTimeSection(HomeController controller) {
   return GetBuilder<HomeController>(
     builder: (controller) {
       if (controller.isAllSelected) {
@@ -18,7 +18,11 @@ Widget buildFareAndTimeSection(HomeController controller) {
               child: TheMainWidget(
                 onPressed: () {
                   Get.bottomSheet(
-                      isDismissible: false, const FareBottomSheetHome());
+                    isDismissible: false,
+                    FareBottomSheet(
+                      controller: controller,
+                    ),
+                  );
                 },
                 inputText: "${controller.recommendedFare}${controller.fare} \$",
                 staticText: "Fare",

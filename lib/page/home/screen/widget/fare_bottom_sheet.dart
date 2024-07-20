@@ -59,7 +59,8 @@ class FareBottomSheetHome extends StatelessWidget {
                 const SizedBox(height: 20),
                 BottomSheetButton(
                     onPressed: () {
-                      fareController.validate(20);
+                      fareController.setFare();
+                      
                     },
                     title: "Done")
               ],

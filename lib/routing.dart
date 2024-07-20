@@ -15,10 +15,17 @@ import 'package:indriveclone/page/my_map.dart';
 import 'package:indriveclone/page/profile/screen/view/provile_view.dart';
 import 'package:indriveclone/page/settings/screen/view/settings_view.dart';
 import 'package:indriveclone/page/support/screen/view/support_view.dart';
+// import 'package:indriveclone/test.dart';
 
 List<GetPage<dynamic>>? getPages = [
+  // GetPage(
+  //     name: "/", page: () => const IconTest()),
   GetPage(
-      name: "/", page: () => const LoginView(), middlewares: [MyMiddaleWare()]),
+      name: "/", page: () => const LoginView(),
+      
+      middlewares: [MyMiddaleWare()]
+      
+      ),
   GetPage(
       name: AppRoute.trackingtohome,
       page: () => const TrackingToUserHomeView()),

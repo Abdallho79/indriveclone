@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LocalController controller = Get.put(LocalController());
-
     return GetMaterialApp(
       initialBinding: InitialBindings(),
       theme: controller.apptheme,
@@ -30,10 +29,3 @@ class MyApp extends StatelessWidget {
 }
 
 
-
-
-// import 'package:indriveclone/firebase_options.dart';
-// import 'package:firebase_core/firebase_core.dart';
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );

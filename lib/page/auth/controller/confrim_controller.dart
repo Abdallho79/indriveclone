@@ -6,7 +6,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:indriveclone/core/class/handling_status_request.dart';
 import 'package:indriveclone/core/class/status_request.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
-import 'package:indriveclone/core/function/coustom_print.dart';
 import 'package:indriveclone/core/services/services.dart';
 import 'package:indriveclone/page/auth/data/remote/login.dart';
 
@@ -43,7 +42,6 @@ class ConfrimController extends GetxController {
       if (response['status'] == "success") {
         emailController!.text = response["data"]["users_google"];
         id = response["data"]["users_id"];
-        MyPrint([id, emailController]);
         statusRequest = StatusRequest.nodatafailure;
       }
     }

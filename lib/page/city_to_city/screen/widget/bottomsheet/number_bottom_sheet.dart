@@ -38,7 +38,7 @@ class NumberPassengersBottomSheetTravel extends StatelessWidget {
                           WidgetStatePropertyAll(AppColor.background_light)),
                   iconSize: 30,
                   onPressed: () {
-                    travelController.inCeremnt();
+                    travelController.incrementPassengers();
                   },
                   icon: const Icon(
                     Icons.add,
@@ -58,7 +58,7 @@ class NumberPassengersBottomSheetTravel extends StatelessWidget {
                           WidgetStatePropertyAll(AppColor.background_light)),
                   iconSize: 30,
                   onPressed: () {
-                    travelController.deCeremnt();
+                    travelController.decrementPassengers();
                   },
                   icon: const Icon(
                     Icons.remove,

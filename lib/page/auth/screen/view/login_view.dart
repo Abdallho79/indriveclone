@@ -105,6 +105,7 @@ class LoginView extends StatelessWidget {
       child: Text(
         "or".tr,
         style: AppTheme.themeEnglish.textTheme.labelMedium,
+        textAlign: TextAlign.center,
       ),
     );
   }

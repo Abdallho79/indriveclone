@@ -5,42 +5,23 @@ import 'package:indriveclone/core/class/status_request.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
 import 'package:indriveclone/core/function/check_internet.dart';
 import 'package:indriveclone/core/services/services.dart';
-import 'package:indriveclone/mixin/required_deatils.dart';
+import 'package:indriveclone/shared/mixin/required_deatils.dart';
+import 'package:indriveclone/page/home/controller/map_home_controller.dart';
 import 'package:indriveclone/page/home/data/model/driver_model.dart';
 import 'package:indriveclone/page/home/data/remote/find_driver_data.dart';
 
-class HomeController extends GetxController with RequiredDeatilsMixIn {
+class HomeController extends GetxController with RequiredDeatils {
   MyServices myServices = Get.find();
   FindDriverData findDriverData = FindDriverData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
   List<DriverModel> data = [];
-  // Variables to store fare information
   double distance = 0;
   double time = 0;
   bool? isClientFrom;
-
   bool isAllSelected = false;
+  MapHomeController mapController = Get.find();
 
-  findDriver() async {
-    _statusMethod(StatusRequest.loading);
-    var response = await findDriverData.findDriver(fromLat!, fromLong!);
-    statusRequest = handlingStatusRequestData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == "success") {
-        List responsedata = response["data"];
-        print("=======================");
-        print(responsedata);
-        print("=======================");
-        data.addAll(responsedata.map((e) => DriverModel.fromJson(e)));
-        goToFindDriver();
-      } else {
-        statusRequest = StatusRequest.nodatafailure;
-      }
-    }
-    update();
-  }
-
-  _statusMethod(StatusRequest status) {
+  void _statusMethod(StatusRequest status) {
     statusRequest = status;
     update();
   }
@@ -54,24 +35,42 @@ class HomeController extends GetxController with RequiredDeatilsMixIn {
     update();
   }
 
-  // Navigate to the location selection screen and update the location in HomeController
+  Future<void> findDriver() async {
+    data.clear();
+    _statusMethod(StatusRequest.loading);
+    var response = await findDriverData.findDriver(fromLat!, fromLong!);
+    statusRequest = handlingStatusRequestData(response);
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == "success") {
+        List responsedata = response["data"];
+        data.addAll(responsedata.map((e) => DriverModel.fromJson(e)));
+        goToFindDriver();
+      } else {
+        statusRequest = StatusRequest.nodatafailure;
+      }
+    }
+    update();
+  }
+
+  @override
   void goToChooseLocation(bool status) {
     isClientFrom = status;
     Get.toNamed(AppRoute.map, arguments: {"isClientFrom": isClientFrom})
         ?.then((value) {
       if (value != null) {
-        setLocation(
+        setLocationHomeMap(
             lat: value["lat"],
             long: value["long"],
             name: value["name"] ?? "doesn't named",
             isFrom: isClientFrom!);
+        mapController.addMarkers(value["lat"], value["long"], isClientFrom!);
         setIsAllSelected();
         update();
       }
     });
   }
 
-  // Navigate to the find driver screen with the necessary arguments
+  @override
   void goToFindDriver() {
     if (fromLong != null && toLong != null) {
       Get.toNamed(AppRoute.finddriver, arguments: {
@@ -87,7 +86,6 @@ class HomeController extends GetxController with RequiredDeatilsMixIn {
     }
   }
 
-  // Check if both "from" and "to" locations are selected
   void setIsAllSelected() async {
     if (fromLong != null && toLong != null) {
       _statusMethod(StatusRequest.loading);
@@ -95,8 +93,9 @@ class HomeController extends GetxController with RequiredDeatilsMixIn {
           fromLat!, fromLong!, toLat!, toLong!);
       distance = data["distance"];
       time = data["duration"];
-      fare = (distance * 5).toInt() <= 20 ? 20 : (distance * 5).toInt();
       isAllSelected = true;
+      await calcDistance();
+      calcMinFare();
       _statusMethod(StatusRequest.success);
     } else {
       isAllSelected = false;
@@ -104,10 +103,15 @@ class HomeController extends GetxController with RequiredDeatilsMixIn {
   }
 
   @override
+  void setFare() {
+    fareValidate();
+    update();
+  }
+
+  @override
   void onInit() {
     super.onInit();
     fareController = TextEditingController();
-    // Set initial values in shared preferences
   }
 
   @override

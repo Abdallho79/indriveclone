@@ -15,17 +15,17 @@ class CoustomTextFieldPhoneLgin extends GetView<LoginController> {
     return InternationalPhoneNumberInput(
       cursorColor: Colors.white,
       searchBoxDecoration: const InputDecoration(
-        focusedBorder:
-            UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-        border:
-            UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-        filled: true,
-        counterStyle: TextStyle(color: Colors.red),
-        fillColor: AppColor.background_light,
-        focusColor: Colors.black,
-        labelText: "Search by Country Key or Name",
-        labelStyle: TextStyle(fontSize: 20, color: AppColor.background_dark),
-      ),
+          focusedBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+          border:
+              UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+          filled: true,
+          counterStyle: TextStyle(color: Colors.red),
+          fillColor: Colors.white,
+          focusColor: Colors.black,
+          labelStyle: TextStyle(fontSize: 20, color: AppColor.background_dark),
+          hintStyle: TextStyle(color: Colors.black)),
+
       textStyle: const TextStyle(
         // number which user will enter number
         color: Colors.white,

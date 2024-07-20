@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:indriveclone/page/city_to_city/controller/travel_controller.dart';
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/button_bottom_sheet.dart';
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_title.dart';
+import 'package:indriveclone/shared/mixin/required_deatils.dart';
 
-class FareBottomSheetTravel extends StatelessWidget {
-  const FareBottomSheetTravel({super.key});
+// ignore: must_be_immutable
+class FareBottomSheet extends StatelessWidget {
+  late RequiredDeatils controller;
+
+  FareBottomSheet({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    TravelController fareController = Get.put(TravelController());
-
     return Container(
-      height: 330,
+      height: 300,
       padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(
         color: Color.fromRGBO(33, 33, 33, 1),
@@ -25,7 +25,7 @@ class FareBottomSheetTravel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const RowTitle(title: "Offer your fare"),
+          const Center(child: RowTitle(title: "Offer your fare")),
           const SizedBox(height: 10),
           Center(
             child: Column(
@@ -33,7 +33,7 @@ class FareBottomSheetTravel extends StatelessWidget {
               children: [
                 const SizedBox(height: 20),
                 TextFormField(
-                  controller: fareController.fareController,
+                  controller: controller.fareController,
                   keyboardType: TextInputType.number,
                   cursorColor: Colors.white,
                   style: const TextStyle(color: Colors.white),
@@ -59,7 +59,7 @@ class FareBottomSheetTravel extends StatelessWidget {
                 const SizedBox(height: 20),
                 BottomSheetButton(
                     onPressed: () {
-                      fareController.setFare();
+                      controller.setFare();
                     },
                     title: "Done")
               ],

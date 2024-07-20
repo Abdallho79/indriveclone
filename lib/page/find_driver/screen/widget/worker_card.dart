@@ -20,7 +20,7 @@ class WorkerCard extends StatelessWidget {
           showWorkerDialog(context, controller, index);
         },
         subtitle: Text(
-          "${controller.drivers[index].distance!.toStringAsFixed(2)} km , 9 mins",
+          "${controller.drivers[index].distance!.toStringAsFixed(2)} km ",
           style: const TextStyle(color: Colors.white, fontSize: 16),
         ),
         title: MyCoustomText(
@@ -30,15 +30,15 @@ class WorkerCard extends StatelessWidget {
           size: 20,
           textAlign: TextAlign.start,
         ),
-        // leading: ClipRRect(
-        //   borderRadius: BorderRadius.circular(100),
-        //   child: Image.asset(
-        //     "${AppLink.imagesPerson}/${controller.drivers[index].driverProfilePictureUrl!}",
-        //     width: 50,
-        //     height: 50,
-        //     fit: BoxFit.cover,
-        //   ),
-        // ),
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(80),
+          child: Image.network(
+            "${AppLink.imagesPerson}/${controller.drivers[index].driverProfilePictureUrl!}",
+            width: 50,
+            height: 50,
+            fit: BoxFit.cover,
+          ),
+        ),
         // trailing: MyCoustomText(
         //   text: "Offer: ${controller.drivers[index]["offer"]} \$",
         //   color: controller.drivers[index]["offer"] <= controller.fare

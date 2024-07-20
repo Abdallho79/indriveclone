@@ -7,7 +7,7 @@ class FindDriverData {
 
   findDriver(double lat  , double long) async {
 
-    var response = await crud.postData(AppLink.findDiver, {
+    var response = await crud.postData(AppLink.findDiverInCity, {
       "user_long" : long.toString() ,
       "user_lat" : lat.toString()
     });

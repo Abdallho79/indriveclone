@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:indriveclone/page/home/controller/home_controller.dart';
 import 'package:indriveclone/page/home/screen/widget/list_services.dart';
 
-Widget buildServicesSection(HomeController controller) {
+GetBuilder buildServicesSection(HomeController controller) {
   return GetBuilder<HomeController>(
     builder: (controller) {
       if (controller.isAllSelected) {

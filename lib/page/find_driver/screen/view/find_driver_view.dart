@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:indriveclone/core/class/handling_data_view.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/page/find_driver/controller/find_driver_controller.dart';
 import 'package:indriveclone/page/find_driver/screen/widget/find_driver_bottom_sheet.dart';
@@ -12,14 +13,15 @@ class FindDriverView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(FindDriverController());
-    return const Scaffold(
-      backgroundColor: AppColor.background_dark,
-      bottomSheet: FindDriverBottomSheet(),
-      appBar: AppBarTitle(title: "Find driver"),
-      body: GoogleMapContentFindDriver(),
-    );
+    return GetBuilder<FindDriverController>(
+        builder: (controller) => HandlingDataView(
+            statusRequest: controller.statusRequest,
+            onRefresh: controller.isThereInternet,
+            widget: const Scaffold(
+              backgroundColor: AppColor.background_dark,
+              bottomSheet: FindDriverBottomSheet(),
+              appBar: AppBarTitle(title: "Find driver"),
+              body: GoogleMapContentFindDriver(),
+            )));
   }
 }
-
-
-

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
-import 'package:indriveclone/page/city_to_city/controller/travel_controller.dart';
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/button_bottom_sheet.dart';
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_title.dart';
+import 'package:indriveclone/page/freight/controller/freight_controller.dart';
+import 'package:indriveclone/shared/mixin/required_deatils.dart';
 
-class CommentBottomSheetTravel extends StatelessWidget {
-  const CommentBottomSheetTravel({super.key});
+// ignore: must_be_immutable
+class CommentBottomSheetFreight extends StatelessWidget {
+  late RequiredDeatils controller;
+  CommentBottomSheetFreight({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    TravelController commentsController = Get.put(TravelController());
+    FreightController commentsController = Get.put(FreightController());
 
     return Container(
       height: 350,
@@ -24,7 +27,7 @@ class CommentBottomSheetTravel extends StatelessWidget {
       ),
       child: ListView(
         children: [
-          const RowTitle(title: "Comments"),
+          const RowTitle(title: "Desccription of the cargo"),
           const SizedBox(height: 10),
           Form(
             child: Center(
@@ -33,13 +36,19 @@ class CommentBottomSheetTravel extends StatelessWidget {
                 children: [
                   const SizedBox(height: 20),
                   TextField(
-                    controller: commentsController.commentController,
+                    controller: commentsController.commentContrller,
                     maxLines: 5,
                     maxLength: 500,
                     enableIMEPersonalizedLearning: true,
                     cursorColor: Colors.white,
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
                     decoration: InputDecoration(
+                      hintText:
+                          "For example: wardrobe 150/210 cm and five boxes with",
+                      hintStyle: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w400),
                       fillColor: AppColor.background_light,
                       filled: true,
                       enabledBorder: OutlineInputBorder(
@@ -60,7 +69,7 @@ class CommentBottomSheetTravel extends StatelessWidget {
                   BottomSheetButton(
                       onPressed: () {
                         commentsController.setComment(
-                            commentsController.commentController!.text);
+                            commentsController.commentContrller!.text);
                         Get.back();
                       },
                       title: "Done")

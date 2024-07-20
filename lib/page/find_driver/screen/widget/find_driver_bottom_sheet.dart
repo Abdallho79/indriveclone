@@ -20,7 +20,7 @@ class FindDriverBottomSheet extends StatelessWidget {
           topRight: Radius.circular(15),
         ),
       ),
-      constraints: BoxConstraints(maxHeight: Get.height / 2.2),
+      constraints: BoxConstraints(maxHeight: Get.height / 2.7),
       width: Get.width,
       child: Padding(
         padding: const EdgeInsets.only(top: 40.0),

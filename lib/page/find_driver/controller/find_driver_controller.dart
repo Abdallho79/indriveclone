@@ -1,49 +1,80 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:indriveclone/core/class/status_request.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
+import 'package:indriveclone/core/function/check_internet.dart';
 import 'package:indriveclone/core/function/polyline.dart';
-import 'package:indriveclone/mixin/google_map_services_controller.dart';
+import 'package:indriveclone/shared/mixin/google_map_services_controller.dart';
 import 'package:indriveclone/page/home/data/model/driver_model.dart';
 
 class FindDriverController extends GetxController with CoustomGoogleMapMixIn {
-  // initialPosition =
-  //     const CameraPosition(target: LatLng(31.024054, 31.417328), zoom: 14.45);
-
   Set<Polyline> polylineSet = {};
   double? distance;
   double? time;
+  StatusRequest statusRequest = StatusRequest.none;
   List<Marker> markers = [];
   List<DriverModel> drivers = [];
+
   late int driverid;
   late DriverModel selectedDriverData;
+
   int? fare;
   double? fromLat;
   double? fromLong;
   double? toLat;
   double? toLong;
+    Future<void> isThereInternet() async {
+    if (await checkInternet()) {
+      statusRequest = StatusRequest.none;
+    } else {
+      statusRequest = StatusRequest.offlinefailure;
+    }
+    update();
+  }
+  changeStatusRequset(StatusRequest status) {
+    statusRequest = status;
+    update();
+  }
 
   void selectedDriver(int index) {
     selectedDriverData = drivers[index];
+    goToTrackingView();
   }
 
-  void addMarkers() {
+  @override
+  onMapCreated(GoogleMapController controller) {
+    changeStatusRequset(StatusRequest.loading);
+    googleMapController = controller;
+    changeStatusRequset(StatusRequest.success);
+    super.loadMapStyles();
+  }
+
+  void addMarkers() async {
     markers.clear();
+    await setCoustomIconn(1);
     markers.add(Marker(
         markerId: const MarkerId("userfrom"),
-        position: LatLng(fromLat!, fromLong!)));
+        position: LatLng(fromLat!, fromLong!),
+        icon: BitmapDescriptor.fromBytes(customMarker)));
+    await setCoustomIconn(2);
     markers.add(Marker(
-        markerId: const MarkerId("userto"), position: LatLng(toLat!, toLong!)));
+        markerId: const MarkerId("userto"),
+        position: LatLng(toLat!, toLong!),
+        icon: BitmapDescriptor.fromBytes(customMarker)));
+    await setCoustomIconn(3);
     for (var driver in drivers) {
       markers.add(Marker(
-        markerId: MarkerId(driver.driverName!),
-        position: LatLng(driver.driverLatitude!, driver.driverLongitude!),
-        infoWindow: InfoWindow(
-          title: driver.driverName,
-          snippet: "${driver.driverCarModel}",
-        ),
-      ));
+          markerId: MarkerId(driver.driverName!),
+          position: LatLng(driver.driverLatitude!, driver.driverLongitude!),
+          infoWindow: InfoWindow(
+            title: driver.driverName,
+            snippet: "${driver.driverCarModel}",
+          ),
+          icon: BitmapDescriptor.fromBytes(customMarker)));
     }
   }
 
@@ -63,10 +94,20 @@ class FindDriverController extends GetxController with CoustomGoogleMapMixIn {
         CameraPosition(target: LatLng(fromLat!, fromLong!), zoom: 14);
   }
 
+  Future<void> changeCameraPosition(double lat, double long) async {
+    await googleMapController!.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(lat, long),
+          zoom: 14.0,
+        ),
+      ),
+    );
+  }
+
   @override
   void onInit() {
     super.onInit();
-    googleMapController = Completer<GoogleMapController>();
     fare = Get.arguments["fare"];
     toLat = Get.arguments["tolat"];
     toLong = Get.arguments["tolong"];
@@ -74,24 +115,30 @@ class FindDriverController extends GetxController with CoustomGoogleMapMixIn {
     fromLong = Get.arguments["fromlong"];
     drivers = Get.arguments["data"];
     addMarkers();
-    loadMapStyles();
     initPolyLine();
     getCurrentLocation();
   }
 
   goToTrackingView() {
     if (time != null) {
+      print("=====32=======${polylineSet.toString()}===========");
       Get.offAllNamed(AppRoute.trackingtohome, arguments: {
-        "userfromlat": fromLat,
-        "userfromlong": fromLong,
+        "selectedDriverData": selectedDriverData,
+        "distance": distance,
+        "timeusertohome": time,
+        "fare": fare,
         "usertolat": toLat,
         "usertolong": toLong,
-        "driverfromlat": selectedDriverData.driverLatitude,
-        "driverfromlong": selectedDriverData.driverLongitude,
-        "polylinefromtouser": polylineSet,
-        "distanceusertohome": distance,
-        "timeusertohome": time,
+        "userfromlat": fromLat,
+        "userfromlong": fromLong,
+        "po": polylineSet,
       });
     }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    googleMapController!.dispose();
   }
 }

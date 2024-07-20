@@ -14,22 +14,22 @@ void showWorkerDialog(
         backgroundColor: AppColor.background_light,
         contentPadding: EdgeInsets.zero,
         content: Container(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(30.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // Center(
-              //   child: ClipRRect(
-              //     borderRadius: BorderRadius.circular(100),
-              //     child: Image.network(
-              //       "${AppLink.imagesPerson}/${controller.drivers[index].driverProfilePictureUrl!}",
-              //       width: 100,
-              //       height: 100,
-              //       fit: BoxFit.cover,
-              //     ),
-              //   ),
-              // ),
+              Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.network(
+                    "${AppLink.imagesPerson}/${controller.drivers[index].driverProfilePictureUrl!}",
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
               const SizedBox(height: 10),
               MyCoustomText(
                 text: "name: ${controller.drivers[index].driverName}",
@@ -41,7 +41,7 @@ void showWorkerDialog(
               const SizedBox(height: 10),
               MyCoustomText(
                 text:
-                    "Distance to reach you: ${controller.drivers[index].distance!.toStringAsFixed(2)}",
+                    "Distance to reach you: ${controller.drivers[index].distance!.toStringAsFixed(2)} Km",
                 color: Colors.white,
                 weight: FontWeight.normal,
                 size: 16,
@@ -56,15 +56,24 @@ void showWorkerDialog(
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
-              // MyCoustomText(
-              //   text: "Offer: ${controller.drivers[index]["offer"]} \$",
-              //   color: controller.drivers[index]["offer"] <= controller.fare
-              //       ? AppColor.green
-              //       : Colors.red[400],
-              //   weight: FontWeight.normal,
-              //   size: 16,
-              //   textAlign: TextAlign.center,
-              // ),
+              MyCoustomText(
+                text:
+                    "Car Plate: ${controller.drivers[index].driverCarLicensePlate}",
+                color: Colors.white,
+                weight: FontWeight.normal,
+                size: 16,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
+              MyCoustomText(
+                text:
+                    "phone number: ${controller.drivers[index].driverPhoneNumber}",
+                color: Colors.white,
+                weight: FontWeight.normal,
+                size: 16,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Expanded(
@@ -73,7 +82,7 @@ void showWorkerDialog(
                           backgroundColor:
                               WidgetStatePropertyAll(AppColor.green)),
                       onPressed: () {
-                        controller.goToTrackingView();
+                        controller.selectedDriver(index);
                       },
                       child: const MyCoustomText(
                         text: "Order",
@@ -91,12 +100,15 @@ void showWorkerDialog(
                     child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
-                              WidgetStatePropertyAll(Colors.red[400])),
+                              WidgetStatePropertyAll(Colors.blue[400])),
                       onPressed: () {
+                        controller.changeCameraPosition(
+                            controller.drivers[index].driverLatitude!,
+                            controller.drivers[index].driverLongitude!);
                         Get.back();
                       },
                       child: const MyCoustomText(
-                        text: "Cancel",
+                        text: "View",
                         color: Colors.white,
                         weight: FontWeight.normal,
                         size: 16,

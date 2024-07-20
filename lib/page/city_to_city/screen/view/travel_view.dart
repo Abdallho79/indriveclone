@@ -45,11 +45,15 @@ class TravelViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TravelController controller = Get.put(TravelController());
+
     return ListView(
       padding: const EdgeInsets.all(15),
       children: [
         const SizedBox(height: 20),
-        const TravelMainWidget(),
+        buildChooseLocationWidget(controller, true, "From"),
+        const SizedBox(height: 15),
+        buildChooseLocationWidget(controller, false, "To"),
         const SizedBox(height: 15),
         const RideTypeButtons(),
         const SizedBox(height: 15),
@@ -61,7 +65,11 @@ class TravelViewBody extends StatelessWidget {
         const SizedBox(height: 15),
         const CommentsWidget(),
         const SizedBox(height: 20),
-        BottomButton(onPressed: () {}, title: "Find a driver"),
+        BottomButton(
+            onPressed: () {
+              // controller.isAllSelected();
+            },
+            title: "Find a driver"),
       ],
     );
   }
