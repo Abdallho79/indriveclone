@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:indriveclone/page/city_to_city/controller/travel_controller.dart';
+import 'package:indriveclone/page/freight/controller/freight_controller.dart';
 import 'package:indriveclone/page/main_widget.dart';
 
-GetBuilder buildChooseLocationWidget(
-    TravelController controller, bool isFrom, String staticText) {
-  return GetBuilder<TravelController>(
+GetBuilder buildChooseLocationFright(
+    FreightController controller, bool isFrom, String staticText) {
+  return GetBuilder<FreightController>(
     builder: (controller) => SizedBox(
       height: 50,
       child: TheMainWidget(

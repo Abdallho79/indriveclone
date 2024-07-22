@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/page/freight/controller/freight_controller.dart';
-import 'package:indriveclone/page/freight/screen/widget/bottomsheet/date_bottom_sheet.dart';
 import 'package:indriveclone/page/freight/screen/widget/button_time.dart';
+import 'package:indriveclone/shared/bottomsheet/date_bottom_sheet.dart';
 
 class PickupTimeButtons extends StatelessWidget {
   const PickupTimeButtons({super.key});
@@ -34,12 +34,16 @@ class PickupTimeButtons extends StatelessWidget {
           const SizedBox(width: 15),
           TimeElevatedButton(
             onPressed: () {
-              Get.bottomSheet(const DateBottomSheetFreight());
+              controller.generateDays();
+              Get.bottomSheet(DateBottomSheet(
+                controller: controller,
+                isTravel: false,
+              ));
               controller.changePickUpStatus(3);
             },
-            text: controller.selectedDate == ""
+            text: controller.allDate == ""
                 ? "Schedule delivery"
-                : controller.selectedDate,
+                : controller.allDate,
             isActive: controller.pickuptime,
             isActivenumber: 3,
           ),

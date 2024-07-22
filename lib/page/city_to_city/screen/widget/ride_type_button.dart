@@ -9,7 +9,7 @@ class RideTypeButtons extends StatelessWidget {
   const RideTypeButtons({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  GetBuilder build(BuildContext context) {
     Get.find<TravelController>();
 
     return GetBuilder<TravelController>(

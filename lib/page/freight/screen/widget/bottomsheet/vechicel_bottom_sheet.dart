@@ -22,7 +22,10 @@ class VechielBottomSheet extends StatelessWidget {
       ),
       child: ListView(
         children: <Widget>[
-          const RowTitle(title: "Which vechicle is suitable for you cargo?"),
+          RowTitle(
+            title: "Which vechicle is suitable for you cargo?",
+            onPressed: () {},
+          ),
           const SizedBox(height: 10),
           const SizedBox(height: 10),
           VehicleOption(

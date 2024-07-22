@@ -5,14 +5,16 @@ import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/page/city_to_city/controller/travel_controller.dart';
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/button_bottom_sheet.dart';
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_title.dart';
+import 'package:indriveclone/shared/mixin/required_deatils.dart';
 
-class NumberPassengersBottomSheetTravel extends StatelessWidget {
-  const NumberPassengersBottomSheetTravel({super.key});
+// ignore: must_be_immutable
+class NumberPassengersBottomSheet extends StatelessWidget {
+  final RequiredDeatils controller;
+
+  const NumberPassengersBottomSheet({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    TravelController travelController = Get.put(TravelController());
-
     return Container(
       height: 220,
       padding: const EdgeInsets.all(16),
@@ -27,7 +29,12 @@ class NumberPassengersBottomSheetTravel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const RowTitle(title: "How many of you will go?"),
+          RowTitle(
+            title: "How many of you will go?",
+            onPressed: () {
+              Get.back();
+            },
+          ),
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,7 +45,7 @@ class NumberPassengersBottomSheetTravel extends StatelessWidget {
                           WidgetStatePropertyAll(AppColor.background_light)),
                   iconSize: 30,
                   onPressed: () {
-                    travelController.incrementPassengers();
+                    controller.incrementPassengers();
                   },
                   icon: const Icon(
                     Icons.add,
@@ -46,7 +53,7 @@ class NumberPassengersBottomSheetTravel extends StatelessWidget {
                   )),
               GetBuilder<TravelController>(
                 builder: (controller) => MyCoustomText(
-                    text: "${controller.numberPassengers}",
+                    text: "${controller.numberPassengersCounter}",
                     color: Colors.white,
                     weight: FontWeight.bold,
                     size: 24,
@@ -58,7 +65,7 @@ class NumberPassengersBottomSheetTravel extends StatelessWidget {
                           WidgetStatePropertyAll(AppColor.background_light)),
                   iconSize: 30,
                   onPressed: () {
-                    travelController.decrementPassengers();
+                    controller.decrementPassengers();
                   },
                   icon: const Icon(
                     Icons.remove,
@@ -69,8 +76,7 @@ class NumberPassengersBottomSheetTravel extends StatelessWidget {
           const Spacer(),
           BottomSheetButton(
               onPressed: () {
-                travelController
-                    .selectPassengers(travelController.numberPassengers);
+                controller.selectPassengers(controller.numberPassengersCounter);
                 Get.back();
               },
               title: "Done")

@@ -13,11 +13,9 @@ import 'package:indriveclone/page/home/data/remote/find_driver_data.dart';
 class HomeController extends GetxController with RequiredDeatils {
   MyServices myServices = Get.find();
   FindDriverData findDriverData = FindDriverData(Get.find());
-  StatusRequest statusRequest = StatusRequest.none;
   List<DriverModel> data = [];
   double distance = 0;
   double time = 0;
-  bool? isClientFrom;
   bool isAllSelected = false;
   MapHomeController mapController = Get.find();
 
@@ -62,9 +60,9 @@ class HomeController extends GetxController with RequiredDeatils {
             lat: value["lat"],
             long: value["long"],
             name: value["name"] ?? "doesn't named",
-            isFrom: isClientFrom!);
-        mapController.addMarkers(value["lat"], value["long"], isClientFrom!);
-        setIsAllSelected();
+            isFrom: isClientFrom);
+        mapController.addMarkers(value["lat"], value["long"], isClientFrom);
+        checkIsAllSelected();
         update();
       }
     });
@@ -86,7 +84,8 @@ class HomeController extends GetxController with RequiredDeatils {
     }
   }
 
-  void setIsAllSelected() async {
+  @override
+  void checkIsAllSelected() async {
     if (fromLong != null && toLong != null) {
       _statusMethod(StatusRequest.loading);
       Map data = await mapController.drawPolyline(
@@ -95,8 +94,9 @@ class HomeController extends GetxController with RequiredDeatils {
       time = data["duration"];
       isAllSelected = true;
       await calcDistance();
-      calcMinFare();
+      calcMinFareTravel();
       _statusMethod(StatusRequest.success);
+      fareController!.text = fare.toString();
     } else {
       isAllSelected = false;
     }

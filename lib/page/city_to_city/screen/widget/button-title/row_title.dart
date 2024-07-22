@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class RowTitle extends StatelessWidget {
   final String title;
-  const RowTitle({super.key, required this.title});
+  final void Function() onPressed;
+  const RowTitle({super.key, required this.title, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,8 @@ class RowTitle extends StatelessWidget {
         Expanded(
           flex: 1,
           child: IconButton(
-            icon: const Icon(Icons.close, color: Colors.white),
-            onPressed: () => Get.back(),
-          ),
+              icon: const Icon(Icons.close, color: Colors.white),
+              onPressed: onPressed),
         ),
       ],
     );

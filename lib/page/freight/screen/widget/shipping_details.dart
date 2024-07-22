@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/page/freight/controller/freight_controller.dart';
-import 'package:indriveclone/page/freight/screen/widget/bottomsheet/comment_bottom_sheet.dart';
 import 'package:indriveclone/page/freight/screen/widget/bottomsheet/vechicel_bottom_sheet.dart';
 import 'package:indriveclone/page/main_widget.dart';
+import 'package:indriveclone/shared/bottomsheet/comment_bottom_sheet.dart';
 
 class ShippingDetails extends StatelessWidget {
   const ShippingDetails({super.key});
@@ -16,7 +16,10 @@ class ShippingDetails extends StatelessWidget {
           builder: (controller) => TheMainWidget(
             onPressed: () {
               Get.bottomSheet(
-                  isDismissible: false, const CommentBottomSheetFreight());
+                  isDismissible: false,
+                  CommentBottomSheet(
+                    controller: controller,
+                  ));
             },
             staticText: "Description of the cargo",
             inputText: Get.find<FreightController>().comment,

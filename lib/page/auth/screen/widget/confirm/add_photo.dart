@@ -53,8 +53,7 @@ class AddPhoto extends StatelessWidget {
               right: 0,
               child: IconButton(
                 onPressed: () {
-                  Get.bottomSheet(
-                      TakePhoto("Take A photo", confrimController));
+                  Get.bottomSheet(TakePhoto("Take A photo", confrimController));
                 },
                 icon: const Icon(
                   size: 30,
@@ -80,7 +79,10 @@ Container TakePhoto(String title, ConfrimController controller) {
     ),
     child: ListView(
       children: [
-        const RowTitle(title: "Take a photo"),
+         RowTitle(
+          title: "Take a photo"
+          ,onPressed: () {},
+        ),
         ListTile(
           leading: const Icon(Icons.camera_alt, color: Colors.white),
           title: const Text('Camera',

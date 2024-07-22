@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:indriveclone/core/class/status_request.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
+import 'package:indriveclone/core/function/check_internet.dart';
 import 'package:indriveclone/shared/mixin/required_deatils.dart';
 
 class TravelController extends GetxController with RequiredDeatils {
-  int numberPassengers = 1;
   List isThereTravel = [];
 
-  bool isClientFrom = false;
+  Future<void> isThereInternet() async {
+    if (await checkInternet()) {
+      statusRequest = StatusRequest.none;
+    } else {
+      statusRequest = StatusRequest.offlinefailure;
+    }
+    update();
+  }
+
+  updataStatus(StatusRequest status) {
+    statusRequest = status;
+    update();
+  }
 
   void changeRideStatus(bool status) {
     isPrivteRide = status;
@@ -16,37 +29,22 @@ class TravelController extends GetxController with RequiredDeatils {
     } else {
       super.PrivteRidefare = 50;
     }
-    calcMinFare();
+    calcMinFareTravel();
     update();
   }
 
   @override
-  void setComment(String text) {
-    comment = text;
-    update();
-  }
-
-  @override
-  void setFare() {
-    fareValidate();
-    update();
-  }
-
-  void setGenerateDays() {
-    generateDays();
-    update();
-  }
-
   void incrementPassengers() {
-    if (numberPassengers < 30) {
-      numberPassengers++;
+    if (numberPassengersCounter < 30) {
+      numberPassengersCounter++;
     }
     update();
   }
 
+  @override
   void decrementPassengers() {
-    if (numberPassengers > 1) {
-      numberPassengers--;
+    if (numberPassengersCounter > 1) {
+      numberPassengersCounter--;
     }
     update();
   }
@@ -62,20 +60,18 @@ class TravelController extends GetxController with RequiredDeatils {
             long: value["long"],
             name: value["name"] ?? "doesn't named",
             isFrom: isClientFrom);
+        if (fromLat != null && toLat != null) {
+          addLoading();
+        }
         update();
       }
     });
   }
 
-  void selectDate(String date) {
-    selectedDate = date;
-    update();
-  }
-
-  void selectPassengers(int number) {
-    numberPassengers1 = number;
-    calcMinFare();
-    update();
+  addLoading() async {
+    updataStatus(StatusRequest.loading);
+    await Future.delayed(const Duration(seconds: 3));
+    updataStatus(StatusRequest.success);
   }
 
   @override
@@ -94,19 +90,64 @@ class TravelController extends GetxController with RequiredDeatils {
   }
 
   @override
+  void setComment(String text) {
+    super.comment = text;
+    update();
+  }
+
+  @override
+  void setFare() {
+    super.fareValidate();
+    update();
+  }
+
+  @override
+  void SelectDate(String date) {
+    super.selectedDate = date;
+    update();
+  }
+
+  @override
+  void SelectHour(String date) {
+    super.selectedDateHour = date;
+    update();
+  }
+
+  @override
+  void setAllDate(String date) {
+    super.allDate = date;
+    update();
+  }
+
+  @override
+  void selectPassengers(int numberOfPassengers) {
+    super.numberPassengersShow = numberOfPassengers;
+    super.calcMinFareTravel();
+    update();
+  }
+
+  @override
   void onInit() {
     super.onInit();
-    fareController = TextEditingController();
-    commentController = TextEditingController();
-      super.PrivteRidefare = 100;
-    setGenerateDays();
-    calcMinFare();
+    super.fareController = TextEditingController();
+    super.commentController = TextEditingController();
+    super.PrivteRidefare = 100;
+    super.calcMinFareTravel();
   }
 
   @override
   void dispose() {
-    fareController!.dispose();
-    commentController!.dispose();
+    super.fareController!.dispose();
+    super.commentController!.dispose();
     super.dispose();
+  }
+
+  @override
+  void checkIsAllSelected() {
+    if (fromName != "" && toName != "" && allDate != "") {
+      Get.offAllNamed(AppRoute.travelview);
+    } else {
+      Get.snackbar("Error", "Please enter all data", colorText: Colors.white);
+    }
   }
 }

@@ -7,9 +7,9 @@ import 'package:indriveclone/page/freight/controller/freight_controller.dart';
 import 'package:indriveclone/shared/mixin/required_deatils.dart';
 
 // ignore: must_be_immutable
-class CommentBottomSheetFreight extends StatelessWidget {
+class CommentBottomSheet extends StatelessWidget {
   late RequiredDeatils controller;
-  CommentBottomSheetFreight({super.key, required this.controller});
+  CommentBottomSheet({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,12 @@ class CommentBottomSheetFreight extends StatelessWidget {
       ),
       child: ListView(
         children: [
-          const RowTitle(title: "Desccription of the cargo"),
+          RowTitle(
+            title: "Desccription of the cargo",
+            onPressed: () {
+              Get.back();
+            },
+          ),
           const SizedBox(height: 10),
           Form(
             child: Center(
@@ -36,7 +41,7 @@ class CommentBottomSheetFreight extends StatelessWidget {
                 children: [
                   const SizedBox(height: 20),
                   TextField(
-                    controller: commentsController.commentContrller,
+                    controller: commentsController.commentController,
                     maxLines: 5,
                     maxLength: 500,
                     enableIMEPersonalizedLearning: true,
@@ -69,7 +74,7 @@ class CommentBottomSheetFreight extends StatelessWidget {
                   BottomSheetButton(
                       onPressed: () {
                         commentsController.setComment(
-                            commentsController.commentContrller!.text);
+                            commentsController.commentController!.text);
                         Get.back();
                       },
                       title: "Done")

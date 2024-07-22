@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/button_bottom_sheet.dart';
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_title.dart';
 import 'package:indriveclone/shared/mixin/required_deatils.dart';
@@ -25,14 +26,21 @@ class FareBottomSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Center(child: RowTitle(title: "Offer your fare")),
+          Center(
+              child: RowTitle(
+            title: "Offer your fare",
+            onPressed: () {
+              Get.back();
+              controller.setFare();
+            },
+          )),
           const SizedBox(height: 10),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
-                TextFormField(
+                TextField(
                   controller: controller.fareController,
                   keyboardType: TextInputType.number,
                   cursorColor: Colors.white,

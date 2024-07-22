@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/page/city_to_city/controller/travel_controller.dart';
-import 'package:indriveclone/page/city_to_city/screen/widget/bottomsheet/number_bottom_sheet.dart';
 import 'package:indriveclone/page/main_widget.dart';
+import 'package:indriveclone/shared/bottomsheet/number_bottom_sheet.dart';
 
 class PassengerNumberWidget extends StatelessWidget {
   const PassengerNumberWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  GetBuilder build(BuildContext context) {
     return GetBuilder<TravelController>(
       builder: (controller) => TheMainWidget(
         onPressed: () {
           Get.bottomSheet(
             isDismissible: false,
-            const NumberPassengersBottomSheetTravel(),
+            NumberPassengersBottomSheet(controller: controller),
           );
         },
         staticText: controller.isPrivteRide
             ? "Number of passengers"
             : "Number of seats",
-        inputText: "${controller.numberPassengers1}",
+        inputText: "${controller.numberPassengersShow}",
       ),
     );
   }

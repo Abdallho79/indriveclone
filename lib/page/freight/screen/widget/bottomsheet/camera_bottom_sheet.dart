@@ -21,7 +21,10 @@ class PictureOptionsBottomSheetAdd extends StatelessWidget {
       ),
       child: ListView(
         children: [
-          const RowTitle(title: "Picture of your cargo"),
+          RowTitle(
+            title: "Picture of your cargo",
+            onPressed: () {},
+          ),
           const SizedBox(
             height: 20,
           ),
@@ -68,7 +71,7 @@ class PictureOptionsBottomSheetImage extends StatelessWidget {
       ),
       child: ListView(
         children: [
-          const RowTitle(title: "Picture of your cargo"),
+           RowTitle(title: "Picture of your cargo", onPressed: () {  },),
           const SizedBox(
             height: 20,
           ),

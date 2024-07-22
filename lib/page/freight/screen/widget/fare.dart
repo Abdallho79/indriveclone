@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/page/freight/controller/freight_controller.dart';
-import 'package:indriveclone/page/freight/screen/widget/bottomsheet/fare_bottom_sheet.dart';
 import 'package:indriveclone/page/main_widget.dart';
+import 'package:indriveclone/shared/bottomsheet/fare_bottom_sheet.dart';
 
 class FareFreight extends StatelessWidget {
   const FareFreight({super.key});
@@ -12,7 +12,19 @@ class FareFreight extends StatelessWidget {
     return GetBuilder<FreightController>(
       builder: (controller) => TheMainWidget(
         onPressed: () {
-          Get.bottomSheet(isDismissible: false, const FareBottomSheetFreight());
+          if (controller.fareController!.text == "") {
+            controller.fareController!.text = "0";
+          }
+          controller.fareController!.text =
+              controller.minfare >= int.parse(controller.fareController!.text)
+                  ? controller.minfare.toString()
+                  : controller.fareController!.text;
+
+          Get.bottomSheet(
+              isDismissible: false,
+              FareBottomSheet(
+                controller: controller,
+              ));
         },
         staticText: "Offer your Fare",
         inputText: "${controller.fare}",

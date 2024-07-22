@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:indriveclone/core/class/handling_data_view.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/page/city_to_city/controller/travel_controller.dart';
 import 'package:indriveclone/page/city_to_city/screen/widget/bottom_button.dart';
@@ -20,23 +21,28 @@ class TravelView extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(TravelController());
     // ignore: deprecated_member_use
-    return WillPopScope(
-      child: Scaffold(
-        backgroundColor: AppColor.background_dark,
-        drawer: const MyDrawer(),
-        appBar: AppBar(
-          title: const Text("City to city"),
-        ),
-        body: const TravelViewBody(),
-      ),
-      onWillPop: () async {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const HomeView()),
-            (route) => false);
-        Get.find<MyDrawerController>().isActive = 1;
-        return Future.value(true); // Allow pop});
-      },
-    );
+    return GetBuilder<TravelController>(builder: (controller) {
+      return HandlingDataView(
+          statusRequest: controller.statusRequest,
+          onRefresh: controller.isThereInternet,
+          widget: WillPopScope(
+            child: Scaffold(
+              backgroundColor: AppColor.background_dark,
+              drawer: const MyDrawer(),
+              appBar: AppBar(
+                title: const Text("City to city"),
+              ),
+              body: const TravelViewBody(),
+            ),
+            onWillPop: () async {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const HomeView()),
+                  (route) => false);
+              Get.find<MyDrawerController>().isActive = 1;
+              return Future.value(true); // Allow pop});
+            },
+          ));
+    });
   }
 }
 
@@ -67,7 +73,7 @@ class TravelViewBody extends StatelessWidget {
         const SizedBox(height: 20),
         BottomButton(
             onPressed: () {
-              // controller.isAllSelected();
+              controller.checkIsAllSelected();
             },
             title: "Find a driver"),
       ],
