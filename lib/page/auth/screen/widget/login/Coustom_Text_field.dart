@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
-import 'package:indriveclone/core/constant/theme_app.dart';
 import 'package:indriveclone/page/auth/controller/login_controller.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
@@ -13,40 +12,38 @@ class CoustomTextFieldPhoneLgin extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return InternationalPhoneNumberInput(
-      cursorColor: Colors.white,
-      searchBoxDecoration: const InputDecoration(
-          focusedBorder:
-              UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-          border:
-              UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-          filled: true,
-          counterStyle: TextStyle(color: Colors.red),
-          fillColor: Colors.white,
-          focusColor: Colors.black,
-          labelStyle: TextStyle(fontSize: 20, color: AppColor.background_dark),
-          hintStyle: TextStyle(color: Colors.black)),
+      cursorColor: Colors.black,
+      searchBoxDecoration: InputDecoration(
+        labelText: "Search by Countery Key or Name",
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColor.setBackGrounColor()),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(color: AppColor.setBackGrounColor()),
+        ),
+        filled: true,
+      ),
 
       textStyle: const TextStyle(
-        // number which user will enter number
-        color: Colors.white,
         fontSize: 20,
       ),
       inputDecoration: InputDecoration(
         filled: true,
-        fillColor: AppColor.objectbackground,
-        hintStyle: AppTheme.themeEnglish.textTheme.labelSmall,
+        fillColor: AppColor.setBackGrounColor(),
+        hintStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: AppColor.setTextColor()),
         hintText: "phone".tr,
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.grey,
-          ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColor.setBackGrounColor()),
           borderRadius: BorderRadius.circular(15),
         ),
-        border: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.grey,
-          ),
+        focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(color: AppColor.setBackGrounColor()),
         ),
       ),
       selectorConfig: const SelectorConfig(
@@ -59,9 +56,9 @@ class CoustomTextFieldPhoneLgin extends GetView<LoginController> {
       ignoreBlank: true,
       autoValidateMode: AutovalidateMode.disabled,
       // style key number
-      selectorTextStyle: const TextStyle(
-          color: Colors.white, fontSize: 16, decoration: TextDecoration.none),
-      initialValue: PhoneNumber(isoCode: 'US'),
+      selectorTextStyle:
+          const TextStyle(fontSize: 16, decoration: TextDecoration.none),
+      initialValue: PhoneNumber(isoCode: 'EG'),
       textFieldController: TextEditingController(),
       formatInput: false,
       keyboardType:

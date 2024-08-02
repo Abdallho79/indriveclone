@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/class/my_coustm_text.dart';
-import 'package:indriveclone/page/main_widget.dart';
+import 'package:indriveclone/shared/widgets/main_widget.dart';
 import 'package:indriveclone/shared/bottomsheet/fare_bottom_sheet.dart';
 
 import '../../controller/home_controller.dart';
@@ -31,7 +31,7 @@ GetBuilder buildFareAndTimeSection(HomeController controller) {
             const SizedBox(height: 20),
             MyCoustomText(
               text: "Time: ${controller.time}",
-              color: Colors.white,
+              
               weight: FontWeight.bold,
               size: 20,
               textAlign: null,

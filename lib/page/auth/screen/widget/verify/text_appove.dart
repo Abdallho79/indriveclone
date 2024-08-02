@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:indriveclone/core/constant/theme_app.dart';
+import 'package:indriveclone/core/constant/color_app.dart';
 
 class TextAppove extends StatelessWidget {
   final String? phonenumber;
@@ -12,7 +12,7 @@ class TextAppove extends StatelessWidget {
       children: [
         Text(
           "entercode".tr,
-          style: AppTheme.themeEnglish.textTheme.bodyLarge,
+          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         const SizedBox(
@@ -20,7 +20,10 @@ class TextAppove extends StatelessWidget {
         ),
         Text(
           "wehavesent".tr,
-          style: AppTheme.themeEnglish.textTheme.bodyMedium,
+          style: TextStyle(
+              fontSize: 18,
+              color: AppColor.setTextColor(),
+              fontWeight: FontWeight.w500),
           textAlign: TextAlign.center,
         ),
         const SizedBox(
@@ -28,7 +31,10 @@ class TextAppove extends StatelessWidget {
         ),
         Text(
           "$phonenumber",
-          style: AppTheme.themeEnglish.textTheme.bodyMedium,
+          style: TextStyle(
+              fontSize: 18,
+              color: AppColor.setTextColor(),
+              fontWeight: FontWeight.w500),
           textAlign: TextAlign.center,
         ),
         const SizedBox(

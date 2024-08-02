@@ -3,29 +3,34 @@ import 'package:indriveclone/core/class/my_coustm_text.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/linkapi_app.dart';
 import 'package:indriveclone/page/find_driver/controller/find_driver_controller.dart';
+import 'package:indriveclone/page/find_driver/controller/find_driver_mab_controller.dart';
 import 'package:indriveclone/page/find_driver/screen/widget/find_driver_dialog.dart';
 
 class WorkerCard extends StatelessWidget {
   final FindDriverController controller;
+  final FindDriverMabController mapController;
   final int index;
 
-  const WorkerCard({required this.controller, required this.index, super.key});
+  const WorkerCard(
+      {required this.controller,
+      required this.index,
+      super.key,
+      required this.mapController});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColor.background_light,
+      color: AppColor.setBackGrounColor(),
       child: ListTile(
         onTap: () {
-          showWorkerDialog(context, controller, index);
+          showWorkerDialog(context, controller, mapController, index);
         },
         subtitle: Text(
           "${controller.drivers[index].distance!.toStringAsFixed(2)} km ",
-          style: const TextStyle(color: Colors.white, fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
         title: MyCoustomText(
           text: controller.drivers[index].driverName!,
-          color: Colors.white,
           weight: FontWeight.w600,
           size: 20,
           textAlign: TextAlign.start,

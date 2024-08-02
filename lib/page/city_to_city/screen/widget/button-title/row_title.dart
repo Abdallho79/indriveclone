@@ -19,7 +19,6 @@ class RowTitle extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
               ),
               textAlign: TextAlign.center,
               softWrap: true,
@@ -29,7 +28,9 @@ class RowTitle extends StatelessWidget {
         Expanded(
           flex: 1,
           child: IconButton(
-              icon: const Icon(Icons.close, color: Colors.white),
+              icon: const Icon(
+                Icons.close,
+              ),
               onPressed: onPressed),
         ),
       ],

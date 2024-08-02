@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
-import 'package:indriveclone/core/constant/theme_app.dart';
 
 class CoustomTextField extends StatelessWidget {
   final String? hinttext;
@@ -24,31 +23,34 @@ class CoustomTextField extends StatelessWidget {
     return SizedBox(
       height: 65,
       child: TextFormField(
+        cursorColor: AppColor.setCoursorColor(),
         enabled: (isEnable!),
         controller: controller,
         keyboardType: isNumber! ? TextInputType.number : TextInputType.text,
         validator: validator,
-        cursorColor: Colors.white,
-        style: isEnable!
-            ? const TextStyle(fontSize: 16, color: Colors.white)
-            : const TextStyle(fontSize: 16, color: AppColor.background_light),
+        style: TextStyle(fontSize: 16, color: AppColor.setTextColor()),
         decoration: InputDecoration(
           suffix: suffix,
           filled: true,
-          fillColor: isEnable!
-              ? AppColor.objectbackground
-              : const Color.fromARGB(255, 150, 151, 151),
-          hintStyle: AppTheme.themeEnglish.textTheme.labelSmall,
+          fillColor: AppColor.setBackGrounColor(),
+          hintStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+          ),
           hintText: "$hinttext".tr,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10.0),
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.grey),
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColor.setBackGrounColor()),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColor.setBackGrounColor()),
             borderRadius: BorderRadius.circular(15),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: const BorderSide(color: Colors.white),
+            borderSide: BorderSide(color: AppColor.setBackGrounColor()),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),

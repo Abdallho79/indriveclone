@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/page/freight/controller/freight_controller.dart';
 import 'package:indriveclone/page/freight/screen/widget/bottomsheet/vechicel_bottom_sheet.dart';
-import 'package:indriveclone/page/main_widget.dart';
+import 'package:indriveclone/shared/widgets/main_widget.dart';
 import 'package:indriveclone/shared/bottomsheet/comment_bottom_sheet.dart';
 
 class ShippingDetails extends StatelessWidget {

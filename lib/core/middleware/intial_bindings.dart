@@ -7,6 +7,6 @@ class InitialBindings extends Bindings {
   void dependencies() {
     // Start
     Get.put(Curd());
-    Get.put(MyDrawerController());
+    Get.lazyPut(() => MyDrawerController(), fenix: true);
   }
 }

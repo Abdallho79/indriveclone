@@ -4,14 +4,15 @@ import 'package:indriveclone/core/class/my_coustm_text.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/linkapi_app.dart';
 import 'package:indriveclone/page/find_driver/controller/find_driver_controller.dart';
+import 'package:indriveclone/page/find_driver/controller/find_driver_mab_controller.dart';
 
-void showWorkerDialog(
-    BuildContext context, FindDriverController controller, int index) {
+void showWorkerDialog(BuildContext context, FindDriverController controller,
+    FindDriverMabController mapController, int index) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        backgroundColor: AppColor.background_light,
+        backgroundColor: AppColor.setBackGrounColor(),
         contentPadding: EdgeInsets.zero,
         content: Container(
           padding: const EdgeInsets.all(30.0),
@@ -33,7 +34,6 @@ void showWorkerDialog(
               const SizedBox(height: 10),
               MyCoustomText(
                 text: "name: ${controller.drivers[index].driverName}",
-                color: Colors.white,
                 weight: FontWeight.w600,
                 size: 20,
                 textAlign: TextAlign.start,
@@ -42,7 +42,6 @@ void showWorkerDialog(
               MyCoustomText(
                 text:
                     "Distance to reach you: ${controller.drivers[index].distance!.toStringAsFixed(2)} Km",
-                color: Colors.white,
                 weight: FontWeight.normal,
                 size: 16,
                 textAlign: TextAlign.start,
@@ -50,7 +49,6 @@ void showWorkerDialog(
               const SizedBox(height: 10),
               MyCoustomText(
                 text: "Car Brand: ${controller.drivers[index].driverCarModel}",
-                color: Colors.white,
                 weight: FontWeight.normal,
                 size: 16,
                 textAlign: TextAlign.center,
@@ -59,7 +57,6 @@ void showWorkerDialog(
               MyCoustomText(
                 text:
                     "Car Plate: ${controller.drivers[index].driverCarLicensePlate}",
-                color: Colors.white,
                 weight: FontWeight.normal,
                 size: 16,
                 textAlign: TextAlign.center,
@@ -68,7 +65,6 @@ void showWorkerDialog(
               MyCoustomText(
                 text:
                     "phone number: ${controller.drivers[index].driverPhoneNumber}",
-                color: Colors.white,
                 weight: FontWeight.normal,
                 size: 16,
                 textAlign: TextAlign.center,
@@ -86,7 +82,6 @@ void showWorkerDialog(
                       },
                       child: const MyCoustomText(
                         text: "Order",
-                        color: Colors.white,
                         weight: FontWeight.normal,
                         size: 16,
                         textAlign: TextAlign.center,
@@ -102,14 +97,13 @@ void showWorkerDialog(
                           backgroundColor:
                               WidgetStatePropertyAll(Colors.blue[400])),
                       onPressed: () {
-                        controller.changeCameraPosition(
+                        mapController.changeCameraPosition(
                             controller.drivers[index].driverLatitude!,
                             controller.drivers[index].driverLongitude!);
                         Get.back();
                       },
                       child: const MyCoustomText(
                         text: "View",
-                        color: Colors.white,
                         weight: FontWeight.normal,
                         size: 16,
                         textAlign: TextAlign.center,

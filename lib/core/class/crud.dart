@@ -16,8 +16,8 @@ class Curd {
     if (!(response.statusCode == 200 || response.statusCode == 201)) {
       return left(StatusRequest.serverfailure);
     }
-    Map responsebody = jsonDecode(response.body);
 
+    Map responsebody = jsonDecode(response.body);
     return right(responsebody);
   }
 
@@ -29,6 +29,9 @@ class Curd {
     File? image, [
     String? namerequest,
   ]) async {
+    if (!await checkInternet()) {
+      return left(StatusRequest.offlinefailure);
+    }
     // التأكد من أن [namerequest] معين لـ "file" إذا لم يتم توفيره
     namerequest ??= "file";
 
@@ -74,6 +77,57 @@ class Curd {
     } catch (e) {
       // التعامل مع أي استثناءات قد تحدث أثناء عملية الطلب
       return const Left(StatusRequest.serverfailure); // إعادة فشل الخادم
+    }
+  }
+
+  Future<Either<StatusRequest, Map>> addRequestWithImages(
+    String url,
+    Map<String, String> data,
+    List<File> images, [
+    String namerequest = "file",
+  ]) async {
+    if (!await checkInternet()) {
+      return const Left(StatusRequest.offlinefailure);
+    }
+    var uri = Uri.parse(url);
+
+    var request = http.MultipartRequest("POST", uri);
+
+    for (var i = 0; i < images.length; i++) {
+      var length = await images[i].length();
+      var stream = http.ByteStream(images[i].openRead());
+      var multipartFile = http.MultipartFile(
+        namerequest + i.toString(),
+        stream,
+        length,
+        filename: basename(images[i].path),
+      );
+      request.files.add(multipartFile);
+      print("Added file: ${images[i].path}");
+    }
+
+    data.forEach((key, value) {
+      request.fields[key] = value.toString();
+    });
+
+    try {
+      print("Sending request...");
+      var myrequest = await request.send();
+
+      var response = await http.Response.fromStream(myrequest);
+      print("Response received with status: ${response.statusCode}");
+      print("Response body: ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print("Parsing response body...");
+        Map responsebody = jsonDecode(response.body);
+        return Right(responsebody);
+      } else {
+        return const Left(StatusRequest.serverfailure);
+      }
+    } catch (e) {
+      print("Exception: $e");
+      return const Left(StatusRequest.serverfailure);
     }
   }
 }

@@ -3,12 +3,10 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:indriveclone/core/class/status_request.dart';
 import 'package:indriveclone/core/function/polyline.dart';
-import 'package:indriveclone/core/services/services.dart';
 
 import '../../../shared/mixin/google_map_services_controller.dart';
 
 class MapHomeController extends GetxController with CoustomGoogleMapMixIn {
-  MyServices myServices = Get.find();
   Set<Polyline> polylineSet = {};
   double? distance;
   double? time;
@@ -21,6 +19,13 @@ class MapHomeController extends GetxController with CoustomGoogleMapMixIn {
 
   void changeContainerStatus(bool isCameraMoving) {
     isContainerActive = isCameraMoving;
+    update();
+  }
+
+  clearAllProgreess() {
+    polylineSet.clear();
+    markers.clear();
+    update();
   }
 
   changeStatusRequset(StatusRequest status) {

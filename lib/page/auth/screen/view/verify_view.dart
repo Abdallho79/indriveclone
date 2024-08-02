@@ -12,26 +12,39 @@ class VerifyView extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(VerifyController());
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
+      appBar: AppBar(),
+      body: GetBuilder<VerifyController>(
+        builder: (controller) => HandlingDataView(
+          statusRequest: controller.statusRequest,
+          onRefresh: controller.isThereInternet,
+          widget: _buildListView(controller),
         ),
-        body: GetBuilder<VerifyController>(
-            builder: (controller) => HandlingDataView(
-                  statusRequest: controller.statusRequest,
-                  onRefresh: controller.isThereInternet,
-                  widget: ListView(
-                    padding: const EdgeInsets.all(15),
-                    children: [
-                      TextAppove(
-                        phonenumber: controller.phoneNumber,
-                      ),
-                      OtpText(
-                        onSubmit: (code) {
-                          controller.onSubmit(code);
-                        },
-                      ),
-                    ],
-                  ),
-                )));
+      ),
+    );
+  }
+
+  ListView _buildListView(VerifyController controller) {
+    return ListView(
+      padding: const EdgeInsets.all(15),
+      children: [
+        _buildTextApprove(controller),
+        const SizedBox(height: 20),
+        _buildOtpText(controller),
+      ],
+    );
+  }
+
+  Widget _buildTextApprove(VerifyController controller) {
+    return TextAppove(
+      phonenumber: controller.phoneNumber,
+    );
+  }
+
+  Widget _buildOtpText(VerifyController controller) {
+    return OtpText(
+      onSubmit: (code) {
+        controller.onSubmit(code);
+      },
+    );
   }
 }

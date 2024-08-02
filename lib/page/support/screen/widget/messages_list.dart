@@ -13,9 +13,14 @@ class MessageList extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: controller.getMessagesStream(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
+          );
+        }
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return const Center(
+            child: Text("No messages found..."),
           );
         }
         controller.processMessages(snapshot.data!);
@@ -40,23 +45,24 @@ class MessageList extends StatelessWidget {
                             left: 10, top: 10, bottom: 10, right: 100),
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                        color: isSentByMe
-                            ? AppColor.background_light
-                            : Colors.grey,
-                        borderRadius: !isSentByMe
-                            ? const BorderRadius.only(
-                                bottomLeft: Radius.circular(15),
-                                bottomRight: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                              )
-                            : const BorderRadius.only(
-                                bottomLeft: Radius.circular(15),
-                                bottomRight: Radius.circular(15),
-                                topLeft: Radius.circular(15),
-                              )),
+                      color: isSentByMe
+                          ? AppColor.setBackGrounColor()
+                          : Colors.grey,
+                      borderRadius: !isSentByMe
+                          ? const BorderRadius.only(
+                              bottomLeft: Radius.circular(15),
+                              bottomRight: Radius.circular(15),
+                              topRight: Radius.circular(15),
+                            )
+                          : const BorderRadius.only(
+                              bottomLeft: Radius.circular(15),
+                              bottomRight: Radius.circular(15),
+                              topLeft: Radius.circular(15),
+                            ),
+                    ),
                     child: Text(
                       message["text"]!,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(),
                     ),
                   ),
                 );

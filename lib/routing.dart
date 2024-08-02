@@ -9,27 +9,30 @@ import 'package:indriveclone/page/find_driver/screen/view/find_driver_view.dart'
 import 'package:indriveclone/page/find_driver/screen/view/tracking_to_home.dart';
 import 'package:indriveclone/page/freight/screen/view/freight_view.dart';
 import 'package:indriveclone/page/history/screen/view/history_view.dart';
+import 'package:indriveclone/page/history/screen/view/reicipe_view.dart';
 import 'package:indriveclone/page/history/screen/view/ride_details_view.dart';
 import 'package:indriveclone/page/home/screen/view/home_view.dart';
-import 'package:indriveclone/page/my_map.dart';
+import 'package:indriveclone/page/settings/screen/view/change_mobile_number.dart';
+import 'package:indriveclone/page/settings/screen/view/change_number_verify.dart';
+import 'package:indriveclone/page/settings/screen/view/terms_and_rules.dart';
+import 'package:indriveclone/shared/map_details.dart/my_map.dart';
 import 'package:indriveclone/page/profile/screen/view/provile_view.dart';
 import 'package:indriveclone/page/settings/screen/view/settings_view.dart';
 import 'package:indriveclone/page/support/screen/view/support_view.dart';
 // import 'package:indriveclone/test.dart';
 
 List<GetPage<dynamic>>? getPages = [
-  // GetPage(
-  //     name: "/", page: () => const IconTest()),
+  // GetPage(name: "/", page: () => const TestPage()),
   GetPage(
-      name: "/", page: () => const LoginView(),
-      
-      middlewares: [MyMiddaleWare()]
-      
-      ),
+      name: "/", page: () => const LoginView(), middlewares: [MyMiddaleWare()]),
   GetPage(
       name: AppRoute.trackingtohome,
       page: () => const TrackingToUserHomeView()),
   GetPage(name: AppRoute.finddriver, page: () => const FindDriverView()),
+  GetPage(name: AppRoute.rulesandterms, page: () => const RulesAndTermsPage()),
+  GetPage(name: AppRoute.changephoneverifyview, page: () => const ChangePhoneVerifyView()),
+  GetPage(name: AppRoute.changephonenumber, page: () => const ChangePhoneNumberPage()),
+  GetPage(name: AppRoute.viewReicipe, page: () => ReicipeView()),
   GetPage(name: AppRoute.profileview, page: () => ProfileView()),
   GetPage(name: AppRoute.map, page: () => const GoogleMapChooseLocation()),
   GetPage(name: AppRoute.support, page: () => const SupportView()),

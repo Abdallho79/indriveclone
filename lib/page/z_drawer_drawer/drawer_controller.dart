@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
+import 'package:indriveclone/core/constant/share_app.dart';
+import 'package:indriveclone/core/services/services.dart';
 
 class MyDrawerController extends GetxController {
   int isActive = 1;
+  MyServices myServices = Get.find();
+  late String username;
+  String photoPath = "";
+
+  void updateData(String name, String path) {
+    username = name;
+    photoPath = path;
+    update();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    username = myServices.sharedPreferences.getString(AppSharedpref.userName)!;
+    photoPath = myServices.sharedPreferences.getString(AppSharedpref.photo)!;
+  }
 
   List<Map<String, dynamic>> categories = [
     {

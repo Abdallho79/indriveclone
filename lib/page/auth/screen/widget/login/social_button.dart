@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
-import 'package:indriveclone/core/constant/theme_app.dart';
 
 class SocialButton extends StatelessWidget {
   final void Function() onTap;
@@ -25,7 +24,7 @@ class SocialButton extends StatelessWidget {
         height: 55,
         width: Get.width,
         decoration: BoxDecoration(
-            color: AppColor.background_light,
+            color: AppColor.setBackGrounColor(),
             borderRadius: BorderRadius.circular(15)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +35,10 @@ class SocialButton extends StatelessWidget {
             ),
             Text(
               keytitle.tr,
-              style: AppTheme.themeEnglish.textTheme.bodyMedium,
+              style: TextStyle(
+                  fontSize: 18,
+                  color: AppColor.setTextColor(),
+                  fontWeight: FontWeight.w500),
             ),
           ],
         ),

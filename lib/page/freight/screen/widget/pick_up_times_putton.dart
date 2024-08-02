@@ -12,7 +12,7 @@ class PickupTimeButtons extends StatelessWidget {
     return GetBuilder<FreightController>(
       builder: (controller) => Row(
         children: [
-          TimeElevatedButton(
+          _buildTimeButton(
             onPressed: () {
               controller.changePickUpStatus(1);
               controller.selectedDate = "";
@@ -22,7 +22,7 @@ class PickupTimeButtons extends StatelessWidget {
             isActivenumber: 1,
           ),
           const SizedBox(width: 15),
-          TimeElevatedButton(
+          _buildTimeButton(
             onPressed: () {
               controller.changePickUpStatus(2);
               controller.selectedDate = "";
@@ -32,16 +32,18 @@ class PickupTimeButtons extends StatelessWidget {
             isActivenumber: 2,
           ),
           const SizedBox(width: 15),
-          TimeElevatedButton(
+          _buildTimeButton(
             onPressed: () {
               controller.generateDays();
-              Get.bottomSheet(DateBottomSheet(
-                controller: controller,
-                isTravel: false,
-              ));
+              Get.bottomSheet(
+                DateBottomSheet(
+                  controller: controller,
+                  isTravel: false,
+                ),
+              );
               controller.changePickUpStatus(3);
             },
-            text: controller.allDate == ""
+            text: controller.allDate.isEmpty
                 ? "Schedule delivery"
                 : controller.allDate,
             isActive: controller.pickuptime,
@@ -49,6 +51,20 @@ class PickupTimeButtons extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  TimeElevatedButton _buildTimeButton({
+    required VoidCallback onPressed,
+    required String text,
+    required int isActive,
+    required int isActivenumber,
+  }) {
+    return TimeElevatedButton(
+      onPressed: onPressed,
+      text: text,
+      isActive: isActive,
+      isActivenumber: isActivenumber,
     );
   }
 }

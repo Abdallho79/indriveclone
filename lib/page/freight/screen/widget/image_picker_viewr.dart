@@ -15,7 +15,6 @@ class ImagePickerAndViewer extends StatelessWidget {
       children: [
         const MyCoustomText(
           text: "Picture of your cargo",
-          color: Colors.white,
           weight: FontWeight.normal,
           size: 16,
           textAlign: TextAlign.start,
@@ -33,11 +32,10 @@ class ImagePickerAndViewer extends StatelessWidget {
                 onPressed: () {
                   Get.bottomSheet(const PictureOptionsBottomSheetAdd());
                 },
-                color: AppColor.background_light,
+                color: AppColor.setBackGrounColor(),
                 child: const Icon(
                   Icons.add,
                   size: 40,
-                  color: Colors.white,
                 ),
               ),
               Expanded(
@@ -47,14 +45,14 @@ class ImagePickerAndViewer extends StatelessWidget {
                       : ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: controller.imagesList.length,
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () {
-                              Get.bottomSheet(PictureOptionsBottomSheetImage(
-                                index: index,
-                              ));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10),
+                          itemBuilder: (context, index) => Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: InkWell(
+                              onTap: () {
+                                Get.bottomSheet(PictureOptionsBottomSheetImage(
+                                  index: index,
+                                ));
+                              },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(18),
                                 child: Image.file(

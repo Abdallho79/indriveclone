@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_title.dart';
 import 'package:indriveclone/page/freight/controller/freight_controller.dart';
 
@@ -8,14 +9,14 @@ class VechielBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FreightController controller = Get.put(FreightController());
+    FreightController controller = Get.find();
 
     return Container(
-      height: 300,
+      height: 260,
       // padding: EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: Color.fromRGBO(33, 33, 33, 1),
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: AppColor.setBackGrounColor(),
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
@@ -24,7 +25,9 @@ class VechielBottomSheet extends StatelessWidget {
         children: <Widget>[
           RowTitle(
             title: "Which vechicle is suitable for you cargo?",
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
           ),
           const SizedBox(height: 10),
           const SizedBox(height: 10),
@@ -41,7 +44,6 @@ class VechielBottomSheet extends StatelessWidget {
             car: controller.isNaal,
             carnumber: 1,
           ),
-          const SizedBox(height: 10),
           VehicleOption(
             vehicleName: "Compact car",
             description:
@@ -85,15 +87,14 @@ class VehicleOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       color: car == carnumber
-          ? const Color(0xff0C4769)
-          : const Color.fromRGBO(33, 33, 33, 1),
+          ? AppColor.setIsActiveLightColor()
+          : AppColor.setBackGrounColor(),
       onPressed: onTap,
       child: Row(
         children: <Widget>[
           Icon(
             vehicleIcon,
             size: 50,
-            color: Colors.white,
           ),
           const SizedBox(width: 30),
           Expanded(
@@ -104,25 +105,22 @@ class VehicleOption extends StatelessWidget {
                   vehicleName,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
                       fontSize: 16,
                       decoration: TextDecoration.none),
                 ),
-                const SizedBox(height: 5),
                 Text(
                   description,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey[300],
+                      color: AppColor.setWhiteAndBlack(),
                       fontSize: 14,
                       decoration: TextDecoration.none),
                 ),
-                const SizedBox(height: 5),
                 Text(
                   dimensions,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                      color: AppColor.setWhiteAndBlack(),
                       fontSize: 12,
                       decoration: TextDecoration.none),
                 ),

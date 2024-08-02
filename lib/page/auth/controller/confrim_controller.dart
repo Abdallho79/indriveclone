@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:indriveclone/core/class/handling_status_request.dart';
 import 'package:indriveclone/core/class/status_request.dart';
+import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
+import 'package:indriveclone/core/function/coustom_print.dart';
 import 'package:indriveclone/core/services/services.dart';
 import 'package:indriveclone/page/auth/data/remote/login.dart';
 
@@ -16,9 +18,8 @@ class ConfrimController extends GetxController {
   MyServices myServices = Get.find();
   TextEditingController? nameController;
   TextEditingController? emailController;
-  TextEditingController? phoneController;
   String? phoneNumber;
-  int? id;
+  String? id;
   Map userData = {};
   bool isNumberTrue = false;
   GoogleSignIn googleSignIn = GoogleSignIn();
@@ -41,7 +42,16 @@ class ConfrimController extends GetxController {
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == "success") {
         emailController!.text = response["data"]["users_google"];
-        id = response["data"]["users_id"];
+        id = response["data"]["users_id"].toString();
+        PrintString("response", response);
+        Get.toNamed(AppRoute.verifyview, arguments: {
+          "isgoogle": true,
+          "number": phoneNumber,
+          "name": nameController!.text,
+          "email": emailController!.text,
+          "id": id,
+          "photoUrl": response["data"]["users_photo"]
+        });
         statusRequest = StatusRequest.nodatafailure;
       }
     }
@@ -52,16 +62,10 @@ class ConfrimController extends GetxController {
     if (isNumberTrue) {
       if (formstate.currentState!.validate()) {
         await addUser();
-        Get.toNamed(AppRoute.verifyview, arguments: {
-          "isgoogle": true,
-          "number": phoneNumber,
-          "name": nameController!.text,
-          "email": emailController!.text,
-          "id": id
-        });
       }
     } else {
-      Get.snackbar("failure", "Enter corect number", colorText: Colors.white);
+      Get.snackbar("failure", "Enter corect number",
+          colorText: AppColor.setCoursorColor());
     }
   }
 
@@ -69,7 +73,6 @@ class ConfrimController extends GetxController {
   void onInit() {
     nameController = TextEditingController();
     emailController = TextEditingController();
-    phoneController = TextEditingController();
     userData = Get.arguments["data"];
     nameController!.text = userData["name"];
     emailController!.text = userData["email"];
@@ -81,7 +84,6 @@ class ConfrimController extends GetxController {
   void dispose() {
     nameController!.dispose();
     emailController!.dispose();
-    phoneController!.dispose();
     super.dispose();
   }
 }

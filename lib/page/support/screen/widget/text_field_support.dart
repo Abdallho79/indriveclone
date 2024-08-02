@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:indriveclone/core/constant/color_app.dart';
-import 'package:indriveclone/core/constant/theme_app.dart';
 
 class CoustomTextFieldSupport extends StatelessWidget {
   final String? hinttext;
@@ -17,12 +16,16 @@ class CoustomTextFieldSupport extends StatelessWidget {
       height: 40,
       child: TextFormField(
         controller: controller,
-        cursorColor: Colors.white,
-        style: const TextStyle(fontSize: 16, color: Colors.white),
+        style: const TextStyle(
+          fontSize: 16,
+        ),
         decoration: InputDecoration(
           filled: true,
-          fillColor: AppColor.objectbackground,
-          hintStyle: AppTheme.themeEnglish.textTheme.labelSmall,
+          fillColor: AppColor.setBackGrounColor(),
+          hintStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Colors.grey[400]),
           hintText: hinttext,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
@@ -32,7 +35,7 @@ class CoustomTextFieldSupport extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: const BorderSide(color: Colors.white),
+            borderSide: const BorderSide(),
           ),
         ),
       ),

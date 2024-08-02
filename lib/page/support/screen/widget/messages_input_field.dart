@@ -32,6 +32,7 @@ class MessageInputField extends StatelessWidget {
               controller.saveMessage();
               if (controller.messageTextFromApp != "") {
                 controller.firebaseFirestore.collection("messages").add({
+                  "id": controller.myServices.sharedPreferences.getString("id"),
                   "text": controller.messageTextFromApp,
                   "sender": controller.phoneNumberFromApp,
                   "time": FieldValue.serverTimestamp()
@@ -41,7 +42,6 @@ class MessageInputField extends StatelessWidget {
             },
             icon: const Icon(
               Icons.arrow_forward,
-              color: Colors.white,
             ),
           )
         ],

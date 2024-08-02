@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:indriveclone/core/class/handling_status_request.dart';
 import 'package:indriveclone/core/class/status_request.dart';
+import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
 import 'package:indriveclone/core/function/check_internet.dart';
+import 'package:indriveclone/core/services/services.dart';
+import 'package:indriveclone/page/city_to_city/data/local/find_driver_data.dart';
 import 'package:indriveclone/shared/mixin/required_deatils.dart';
 
 class TravelController extends GetxController with RequiredDeatils {
-  List isThereTravel = [];
+  Map data = {};
+  FindDriverCityToCityData findDriverCityToCityData =
+      FindDriverCityToCityData(Get.find());
+  MyServices myServices = Get.find();
 
   Future<void> isThereInternet() async {
     if (await checkInternet()) {
@@ -31,6 +38,60 @@ class TravelController extends GetxController with RequiredDeatils {
     }
     calcMinFareTravel();
     update();
+  }
+
+  Future<void> findDriverTravel() async {
+    if (fromLat != null && toLat != null) {
+      int type = 0;
+      if (isPrivteRide) {
+        type = 1;
+      }
+      data = {
+        "userid": myServices.sharedPreferences.getString("id").toString(),
+        "userTime": "$selectedDateHour ,$allDate",
+        "distance": distanceInKm.toString(),
+        "cost": fare.toString(),
+        "from_lat": fromLat.toString(),
+        "from_long": fromLong.toString(),
+        "from_name": fromName,
+        "to_lat": toLat.toString(),
+        "to_long": toLong.toString(),
+        "to_name": toName,
+        "number_of_passengers": numberPassengersCounter.toString(),
+        "type": type.toString(),
+        "comment": comment,
+      };
+      updataStatus(StatusRequest.loading);
+      var response = await findDriverCityToCityData.findDriver(data);
+
+      statusRequest = handlingStatusRequestData(response);
+      if (statusRequest == StatusRequest.success) {
+        if (response['status'] == "success") {
+          Get.snackbar("Success", "You have saved a travel",
+              colorText: AppColor.setCoursorColor());
+          Get.offAllNamed(AppRoute.travelview);
+        } else {
+          statusRequest = StatusRequest.nodatafailure;
+        }
+      }
+      update();
+    } else {
+      Get.snackbar("Error", "Please enter all data",
+          colorText: AppColor.setCoursorColor());
+    }
+  }
+
+  @override
+  void goToFindDriver() async {
+    if (fromName.isEmpty ||
+        toName.isEmpty ||
+        selectedDate.isEmpty ||
+        fare == 0) {
+      Get.snackbar("Failure", "Please enter all fields",
+          colorText: AppColor.setCoursorColor());
+    } else {
+      await findDriverTravel();
+    }
   }
 
   @override
@@ -70,23 +131,8 @@ class TravelController extends GetxController with RequiredDeatils {
 
   addLoading() async {
     updataStatus(StatusRequest.loading);
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
     updataStatus(StatusRequest.success);
-  }
-
-  @override
-  void goToFindDriver() {
-    if (fromName.isEmpty ||
-        toName.isEmpty ||
-        selectedDate.isEmpty ||
-        fare == 0) {
-      Get.snackbar("Failure", "Please enter all fields",
-          colorText: Colors.white);
-    } else {
-      Get.snackbar("Success", "You have saved a travel",
-          colorText: Colors.white);
-      Get.offAllNamed(AppRoute.travelview);
-    }
   }
 
   @override
@@ -143,11 +189,5 @@ class TravelController extends GetxController with RequiredDeatils {
   }
 
   @override
-  void checkIsAllSelected() {
-    if (fromName != "" && toName != "" && allDate != "") {
-      Get.offAllNamed(AppRoute.travelview);
-    } else {
-      Get.snackbar("Error", "Please enter all data", colorText: Colors.white);
-    }
-  }
+  void checkIsAllSelected() {}
 }

@@ -5,6 +5,7 @@ class AppRoute {
   // Drawer
   static const String homeview = "/home";
   static const String rideDetails = "/rideDetails";
+  static const String viewReicipe = "/viewReicipe";
   static const String historyview = "/history";
   static const String travelview = "/travelview";
   static const String frieghtview = "/frieghtview";
@@ -16,4 +17,7 @@ class AppRoute {
   static const String finddriver = "/finddriver";
   static const String trackingtohome = "/trackingtohome";
   //
+  static const String rulesandterms = "/RulesAndTermsPage";
+  static const String changephonenumber = "/changephonenumber";
+  static const String changephoneverifyview = "/changephoneverifyview";
 }

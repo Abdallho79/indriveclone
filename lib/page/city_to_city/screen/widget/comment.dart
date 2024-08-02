@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/page/city_to_city/controller/travel_controller.dart';
-import 'package:indriveclone/page/main_widget.dart';
+import 'package:indriveclone/shared/widgets/main_widget.dart';
 import 'package:indriveclone/shared/bottomsheet/comment_bottom_sheet.dart';
 
 class CommentsWidget extends StatelessWidget {

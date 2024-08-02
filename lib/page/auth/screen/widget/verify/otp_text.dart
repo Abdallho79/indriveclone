@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:indriveclone/core/constant/color_app.dart';
 
 class OtpText extends StatelessWidget {
   final Function(String) onSubmit;
@@ -11,10 +12,8 @@ class OtpText extends StatelessWidget {
       fieldWidth: 30,
       showCursor: false,
       margin: const EdgeInsets.symmetric(horizontal: 5),
-      borderRadius: BorderRadius.circular(15),
       numberOfFields: 6,
-      borderColor: const Color.fromARGB(255, 12, 46, 196),
-      onCodeChanged: (String code) {},
+      borderColor: AppColor.setTextColor(),
       onSubmit: onSubmit,
     );
   }

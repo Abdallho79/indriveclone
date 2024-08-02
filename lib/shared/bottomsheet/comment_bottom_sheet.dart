@@ -16,11 +16,11 @@ class CommentBottomSheet extends StatelessWidget {
     FreightController commentsController = Get.put(FreightController());
 
     return Container(
-      height: 350,
+      height: 380,
       padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: Color.fromRGBO(33, 33, 33, 1),
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: AppColor.setBackGrounColor(),
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
@@ -45,8 +45,7 @@ class CommentBottomSheet extends StatelessWidget {
                     maxLines: 5,
                     maxLength: 500,
                     enableIMEPersonalizedLearning: true,
-                    cursorColor: Colors.white,
-                    style: const TextStyle(color: Colors.white, fontSize: 18),
+                    style: const TextStyle(fontSize: 18),
                     decoration: InputDecoration(
                       hintText:
                           "For example: wardrobe 150/210 cm and five boxes with",
@@ -54,18 +53,18 @@ class CommentBottomSheet extends StatelessWidget {
                           fontSize: 18,
                           color: Colors.grey,
                           fontWeight: FontWeight.w400),
-                      fillColor: AppColor.background_light,
+                      fillColor: AppColor.setBackGrounColor(),
                       filled: true,
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
-                          color: Colors.white,
+                        borderSide: BorderSide(
+                          color: AppColor.setIsActiveLightColor(),
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
-                          color: Colors.white,
+                        borderSide: BorderSide(
+                          color: AppColor.setIsActiveLightColor(),
                         ),
                       ),
                     ),

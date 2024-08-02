@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/class/handling_status_request.dart';
 import 'package:indriveclone/core/class/status_request.dart';
+import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
 import 'package:indriveclone/core/function/check_internet.dart';
 import 'package:indriveclone/core/function/google_signin.dart';
@@ -19,7 +20,8 @@ class LoginController extends GetxController {
 
   String? email;
   String? phoneNumber;
-  int? id;
+  String? id;
+  String? photoUrl;
 
   bool isPhoneNumberTrue = false;
 
@@ -43,7 +45,8 @@ class LoginController extends GetxController {
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == "success") {
         email = response["data"]["users_google"];
-        id = response["data"]["users_id"];
+        id = response["data"]["users_id"].toString();
+        photoUrl = response["data"]["users_photo"];
       } else {
         statusRequest = StatusRequest.nodatafailure;
       }
@@ -60,10 +63,15 @@ class LoginController extends GetxController {
           "name": nameController!.text,
           "email": email,
           "id": id,
+          "photoUrl" : photoUrl ,
         });
       }
     } else {
-      Get.snackbar("failure", "Enter correct number", colorText: Colors.white);
+      Get.snackbar(
+        "failure",
+        "Enter correct number",
+        colorText: AppColor.setCoursorColor(),
+      );
     }
   }
 

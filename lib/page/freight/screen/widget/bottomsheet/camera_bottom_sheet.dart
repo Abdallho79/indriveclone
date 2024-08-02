@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_title.dart';
 import 'package:indriveclone/page/freight/controller/freight_controller.dart';
 
@@ -9,11 +10,12 @@ class PictureOptionsBottomSheetAdd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FreightController controller = Get.put(FreightController());
+    FreightController controller = Get.find();
+
     return Container(
       height: 200,
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: AppColor.setBackGrounColor(),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20.0),
           topRight: Radius.circular(20.0),
@@ -23,24 +25,29 @@ class PictureOptionsBottomSheetAdd extends StatelessWidget {
         children: [
           RowTitle(
             title: "Picture of your cargo",
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
           ),
           const SizedBox(
             height: 20,
           ),
           ListTile(
-            leading: const Icon(Icons.camera_alt, color: Colors.white),
-            title: const Text('Camera',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
+            leading: const Icon(
+              Icons.camera_alt,
+            ),
+            title: const Text('Camera', style: TextStyle(fontSize: 18)),
             onTap: () {
               controller.pickImage(ImageSource.camera);
               Get.back();
             },
           ),
           ListTile(
-            leading: const Icon(Icons.photo, color: Colors.white),
+            leading: const Icon(
+              Icons.photo,
+            ),
             title: const Text('Choose from gallery',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
+                style: TextStyle(fontSize: 18)),
             onTap: () {
               controller.pickImage(ImageSource.gallery);
 
@@ -59,11 +66,11 @@ class PictureOptionsBottomSheetImage extends StatelessWidget {
   const PictureOptionsBottomSheetImage({super.key, required this.index});
   @override
   Widget build(BuildContext context) {
-    FreightController controller = Get.put(FreightController());
+    FreightController controller = Get.find();
     return Container(
       height: 250,
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: AppColor.setBackGrounColor(),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20.0),
           topRight: Radius.circular(20.0),
@@ -71,23 +78,31 @@ class PictureOptionsBottomSheetImage extends StatelessWidget {
       ),
       child: ListView(
         children: [
-           RowTitle(title: "Picture of your cargo", onPressed: () {  },),
+          RowTitle(
+            title: "Picture of your cargo",
+            onPressed: () {
+              Get.back();
+            },
+          ),
           const SizedBox(
             height: 20,
           ),
           ListTile(
-            leading: const Icon(Icons.camera_alt, color: Colors.white),
-            title: const Text('Retake',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
+            leading: const Icon(
+              Icons.camera_alt,
+            ),
+            title: const Text('Retake', style: TextStyle(fontSize: 18)),
             onTap: () {
               controller.updateImage(index, ImageSource.camera);
               Get.back();
             },
           ),
           ListTile(
-            leading: const Icon(Icons.photo, color: Colors.white),
+            leading: const Icon(
+              Icons.photo,
+            ),
             title: const Text('Choose from gallery',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
+                style: TextStyle(fontSize: 18)),
             onTap: () {
               controller.updateImage(index, ImageSource.gallery);
 
@@ -95,9 +110,10 @@ class PictureOptionsBottomSheetImage extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.delete, color: Colors.white),
-            title: const Text('Delete',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
+            leading: const Icon(
+              Icons.delete,
+            ),
+            title: const Text('Delete', style: TextStyle(fontSize: 18)),
             onTap: () {
               controller.removeImage(index);
               Get.back();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:indriveclone/core/constant/color_app.dart';
 
 class MyCoustomText extends StatelessWidget {
-  final Color? color;
   final FontWeight weight;
   final double size;
   final String text;
@@ -9,7 +9,6 @@ class MyCoustomText extends StatelessWidget {
   const MyCoustomText(
       {super.key,
       required this.text,
-      required this.color,
       required this.weight,
       required this.size,
       required this.textAlign});
@@ -23,10 +22,10 @@ class MyCoustomText extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       textAlign: textAlign,
       style: TextStyle(
-          color: color,
           fontSize: size,
           fontWeight: weight,
-          decoration: TextDecoration.none),
+          decoration: TextDecoration.none,
+          color: AppColor.setWhiteAndBlack()),
     );
   }
 }

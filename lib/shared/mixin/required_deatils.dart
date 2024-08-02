@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/class/status_request.dart';
+import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/core/function/coustom_print.dart';
 import 'package:indriveclone/core/function/polyline.dart';
 import 'package:intl/intl.dart';
@@ -49,11 +50,11 @@ mixin RequiredDeatils {
     if (isFrom) {
       fromLat = lat;
       fromLong = long;
-      fromName = name;
+      fromName = name == "" ? "Doesn't named" : name;
     } else {
       toLat = lat;
       toLong = long;
-      toName = name;
+      toName = name == "" ? "Doesn't named" : name;
     }
     if (isFright!) {
       if (fromLat != null && toLat != null) {
@@ -82,7 +83,6 @@ mixin RequiredDeatils {
   }
 
   void calcMinFareTravel() {
-
     minfare =
         (distanceInKm * 5).toInt() + numberPassengersShow * 5 + PrivteRidefare;
     fare = minfare;
@@ -105,7 +105,7 @@ mixin RequiredDeatils {
       } else {
         recommendedFare = "Recommended :  ";
         Get.snackbar("Error", "Fare can't be less than $minfare",
-            colorText: Colors.white);
+            colorText: AppColor.setCoursorColor());
       }
     } else {
       recommendedFare = "Recommended :  ";

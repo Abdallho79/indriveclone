@@ -19,8 +19,8 @@ class TimeElevatedButton extends StatelessWidget {
     return ElevatedButton(
         style: ButtonStyle(
             backgroundColor: WidgetStatePropertyAll(isActive == isActivenumber
-                ? Colors.white
-                : AppColor.background_light),
+                ? AppColor.setIsActiveLightColor()
+                : AppColor.setBackGrounColor()),
             padding: const WidgetStatePropertyAll(
                 EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
             shape: WidgetStatePropertyAll(RoundedRectangleBorder(
@@ -28,9 +28,6 @@ class TimeElevatedButton extends StatelessWidget {
         onPressed: onPressed,
         child: MyCoustomText(
             text: text,
-            color: isActive == isActivenumber
-                ? AppColor.background_light
-                : Colors.white,
             weight: FontWeight.bold,
             size: 14,
             textAlign: TextAlign.center));

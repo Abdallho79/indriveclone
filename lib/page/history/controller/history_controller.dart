@@ -1,113 +1,130 @@
-// ignore_for_file: deprecated_member_use
-
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:indriveclone/core/constant/image_app.dart';
+import 'package:indriveclone/core/class/handling_status_request.dart';
+import 'package:indriveclone/core/class/status_request.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
+import 'package:indriveclone/core/function/coustom_print.dart';
+import 'package:indriveclone/page/history/data/local/histroy_in_city_model.dart';
+import 'package:indriveclone/page/history/data/remote/histroy_in_city_data.dart';
+import 'package:indriveclone/shared/mixin/google_map_services_controller.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
-class HistoryController extends GetxController {
-  // قائمة تفاصيل الركوب
-  List rideDetails = [
-    {
-      "icon": Icons.circle,
-      "text": "El-Galaa (El Mansoura)",
-      "color": Colors.green
-    },
-    {
-      "icon": Icons.circle,
-      "text": "Sallant (El Mansoura)",
-      "color": Colors.red
-    },
-  ];
-
-  // عنصر التحكم في خرائط جوجل
-  Completer<GoogleMapController>? googleMapController;
-
-  // علامات الخرائط
+class HistoryController extends GetxController with CoustomGoogleMapMixIn {
+  StatusRequest statusRequest = StatusRequest.none;
+  HistroyInCityViewData histroyInCityViewData =
+      HistroyInCityViewData(Get.find());
   List<Marker> markers = [];
-
-  // إحداثيات الخطوط المتعددة
   List<LatLng> polylineCoordinates = [];
-
-  // مجموعة الخطوط المتعددة
+  List<TravelInCityDetailsModel> data = [];
   Set<Polyline> polylines = {};
+  List<List<Marker>> allMarkers = [];
+  List<Set<Polyline>> allPolyLines = [];
+  int offSet = 0;
 
-  // أسلوب الخريطة الداكنة
-  String? darkMapStyle;
+  late String Date;
 
-  // تحميل أسلوب الخريطة
-  Future _loadMapStyles() async {
-    darkMapStyle = await rootBundle.loadString(AppImage.darkmabtheme);
-    final controller = await googleMapController!.future;
-    controller.setMapStyle(darkMapStyle);
-  }
-
-  // الانتقال إلى تفاصيل الركوب
-  void goToDetials() {
-    Get.toNamed(AppRoute.rideDetails);
-  }
-
-  // الموقع الافتراضي للكاميرا
-  final CameraPosition initialPosition = const CameraPosition(
-    target: LatLng(31.024054, 31.417328),
-    zoom: 12.56,
-  );
-
-  @override
-  void onInit() {
-    super.onInit();
-    googleMapController = Completer<GoogleMapController>();
-    _addMarkers();
-    _drawPolyline();
-    _loadMapStyles(); // تحميل أسلوب الخريطة عند التهيئة
-  }
-
-  // إضافة العلامات إلى الخريطة
-  void _addMarkers() {
-    markers.addAll([
-      const Marker(
-        markerId: MarkerId("1"),
-        position: LatLng(31.024054, 31.417328),
-        infoWindow: InfoWindow(title: "Marker 1"),
-      ),
-      const Marker(
-        markerId: MarkerId("2"),
-        position: LatLng(31.030000, 31.420000),
-        infoWindow: InfoWindow(title: "Marker 2"),
-      ),
-    ]);
-
-    // تحديث الحالة بعد إضافة العلامات
+  changeStatusRequest(StatusRequest status) {
+    statusRequest = status;
     update();
   }
 
-  // رسم الخطوط المتعددة على الخريطة
-  void _drawPolyline() {
-    polylineCoordinates.addAll([
-      const LatLng(31.024054, 31.417328),
-      const LatLng(31.030000, 31.420000),
-    ]);
+  Future<void> getData() async {
+    changeStatusRequest(StatusRequest.loading);
+    var response = await histroyInCityViewData.findDriver(
+        myServices.sharedPreferences.getString("id")!, 0, 20);
+    statusRequest = handlingStatusRequestData(response);
+    if (statusRequest != StatusRequest.success) {
+      changeStatusRequest(statusRequest);
+      return;
+    }
+    if (response['status'] == "success") {
+      List responsedata = response["data"];
+      PrintString("respnsedata", responsedata);
+      data.addAll(
+          responsedata.map((e) => TravelInCityDetailsModel.fromJson(e)));
+      offSet += 10;
+      for (int i = 0; i < data.length; i++) {
+        addMarkers(i);
+        drawPolyline(i);
+        createTime(i);
+        update();
+      }
+      changeStatusRequest(StatusRequest.success);
+    } else {
+      PrintString("fail", "fail");
+      changeStatusRequest(StatusRequest.serverfailure);
+    }
+  }
 
+  createTime(int index) {
+    DateTime pastDate = DateTime.parse(data[index].travelStartTime!);
+    Date = timeago.format(pastDate);
+    PrintString("pastDate", timeago.format(pastDate));
+  }
+
+  void addMarkers(int index) async {
+    if (index < 0 || index >= data.length) {
+      PrintString("Error", "Index out of range");
+      return;
+    }
+    List<Marker> localMarkers = [];
+    localMarkers.add(
+      Marker(
+          markerId: const MarkerId("userfrom"),
+          position:
+              LatLng(data[index].travelFromLat!, data[index].travelFromLong!)),
+    );
+    localMarkers.add(
+      Marker(
+          markerId: const MarkerId("userto"),
+          position:
+              LatLng(data[index].travelToLat!, data[index].travelToLong!)),
+    );
+    allMarkers.add(localMarkers);
+  }
+
+  void drawPolyline(int index) {
+    if (index < 0 || index >= data.length) {
+      PrintString("Error", "Index out of range");
+      return;
+    }
+    polylineCoordinates = [];
+    polylineCoordinates.addAll([
+      LatLng(data[index].travelFromLat!, data[index].travelFromLong!),
+      LatLng(data[index].travelToLat!, data[index].travelToLong!),
+    ]);
+    Set<Polyline> polylines = {};
     polylines.add(Polyline(
-      polylineId: const PolylineId('polyline_1'),
+      polylineId: PolylineId('$index'),
       visible: true,
       points: polylineCoordinates,
       color: Colors.blue,
       width: 4,
     ));
-
-    // تحديث الحالة بعد إضافة الخطوط المتعددة
-    update();
+    allPolyLines.add(polylines);
+    PrintString("AllPolyLine", allPolyLines.length);
   }
 
-  // التعامل مع إنشاء الخريطة
-  void onMapCreated(GoogleMapController controller) {
-    if (!googleMapController!.isCompleted) {
-      googleMapController!.complete(controller);
-    }
+  void onMapCreated1(GoogleMapController controller, int index) {
+    googleMapController = controller;
+    super.loadMapStyles();
+  }
+
+  void goToDetails(int index) {
+    Get.toNamed(AppRoute.rideDetails,
+        arguments: {"selectedData": data[index], "date": Date});
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getData();
+  }
+
+  @override
+  onMapCreated(GoogleMapController controller) {
+    // TODO: implement onMapCreated
+    throw UnimplementedError();
   }
 }

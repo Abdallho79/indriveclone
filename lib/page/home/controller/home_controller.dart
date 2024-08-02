@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indriveclone/core/class/handling_status_request.dart';
 import 'package:indriveclone/core/class/status_request.dart';
+import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
 import 'package:indriveclone/core/function/check_internet.dart';
 import 'package:indriveclone/core/services/services.dart';
@@ -12,11 +13,12 @@ import 'package:indriveclone/page/home/data/remote/find_driver_data.dart';
 
 class HomeController extends GetxController with RequiredDeatils {
   MyServices myServices = Get.find();
-  FindDriverData findDriverData = FindDriverData(Get.find());
+  FindDriverInCityData findDriverData = FindDriverInCityData(Get.find());
   List<DriverModel> data = [];
   double distance = 0;
   double time = 0;
   bool isAllSelected = false;
+  String chooseCar = "Ride";
   MapHomeController mapController = Get.find();
 
   void _statusMethod(StatusRequest status) {
@@ -33,21 +35,40 @@ class HomeController extends GetxController with RequiredDeatils {
     update();
   }
 
-  Future<void> findDriver() async {
-    data.clear();
-    _statusMethod(StatusRequest.loading);
-    var response = await findDriverData.findDriver(fromLat!, fromLong!);
-    statusRequest = handlingStatusRequestData(response);
-    if (statusRequest == StatusRequest.success) {
-      if (response['status'] == "success") {
-        List responsedata = response["data"];
-        data.addAll(responsedata.map((e) => DriverModel.fromJson(e)));
-        goToFindDriver();
-      } else {
-        statusRequest = StatusRequest.nodatafailure;
-      }
-    }
+  cancelProgress() {
+    fromLat = null;
+    fromLong = null;
+    fromName = "";
+    toLat = null;
+    toLong = null;
+    toName = "";
+    isAllSelected = false;
+    mapController.clearAllProgreess();
     update();
+  }
+
+  Future<void> findDriver() async {
+    if (fromLat != null && toLat != null) {
+      data.clear();
+      _statusMethod(StatusRequest.loading);
+      var response =
+          await findDriverData.findDriver(fromLat!, fromLong!, chooseCar);
+      statusRequest = handlingStatusRequestData(response);
+      if (statusRequest == StatusRequest.success) {
+        if (response['status'] == "success") {
+          List responsedata = response["data"];
+          data.addAll(responsedata.map((e) => DriverModel.fromJson(e)));
+          goToFindDriver();
+        } else {
+          statusRequest = StatusRequest.nodatafailure;
+        }
+      }
+      update();
+    } else {
+      Get.snackbar(
+          "Error", "Please enter all data",
+          colorText:  AppColor.setCoursorColor());
+    }
   }
 
   @override
@@ -78,9 +99,16 @@ class HomeController extends GetxController with RequiredDeatils {
         "tolong": toLong,
         "fare": fare,
         "data": data,
+        "fromName": fromName,
+        "toName": toName,
+        "choosecar": chooseCar,
+        "time": Get.find<MapHomeController>().time,
+        "distance": Get.find<MapHomeController>().distance,
+        "po_set": Get.find<MapHomeController>().polylineSet,
       });
     } else {
-      Get.snackbar("Error", "Choose From & To", colorText: Colors.white);
+      Get.snackbar("Error", "Choose From & To",
+          colorText:  AppColor.setCoursorColor());
     }
   }
 
@@ -100,6 +128,11 @@ class HomeController extends GetxController with RequiredDeatils {
     } else {
       isAllSelected = false;
     }
+  }
+
+  void isCar(String count) {
+    chooseCar = count;
+    update(); // تأكد من استدعاء update() بشكل صحيح هنا
   }
 
   @override

@@ -15,7 +15,7 @@ class AddPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     ConfrimController confrimController = Get.find();
     return SizedBox(
-      width: 120,
+      width: 160,
       height: 120,
       child: Stack(
         alignment: Alignment.center,
@@ -23,7 +23,6 @@ class AddPhoto extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
-              color: AppColor.background_light,
             ),
           ),
           GetBuilder<ConfrimController>(builder: (controller) {
@@ -32,8 +31,9 @@ class AddPhoto extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
                 child: Image.file(
                   File(controller.selectedphoto!),
-                  height: 120,
                   width: 120,
+                  height: 120,
+                  fit: BoxFit.fill,
                 ),
               );
             } else {
@@ -49,8 +49,8 @@ class AddPhoto extends StatelessWidget {
             }
           }),
           Positioned(
-              bottom: 0,
-              right: 0,
+              bottom: -15,
+              left: Get.width / 2,
               child: IconButton(
                 onPressed: () {
                   Get.bottomSheet(TakePhoto("Take A photo", confrimController));
@@ -71,7 +71,7 @@ Container TakePhoto(String title, ConfrimController controller) {
   return Container(
     height: 160,
     decoration: BoxDecoration(
-      color: Colors.grey[900],
+      color: AppColor.setBackGrounColor(),
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(20.0),
         topRight: Radius.circular(20.0),
@@ -79,14 +79,15 @@ Container TakePhoto(String title, ConfrimController controller) {
     ),
     child: ListView(
       children: [
-         RowTitle(
-          title: "Take a photo"
-          ,onPressed: () {},
+        RowTitle(
+          title: "Take a photo",
+          onPressed: () {},
         ),
         ListTile(
-          leading: const Icon(Icons.camera_alt, color: Colors.white),
-          title: const Text('Camera',
-              style: TextStyle(color: Colors.white, fontSize: 18)),
+          leading: const Icon(
+            Icons.camera_alt,
+          ),
+          title: const Text('Camera', style: TextStyle(fontSize: 18)),
           onTap: () async {
             controller.file = await pickImageFromCamera();
             controller.isTherePhoto();
@@ -95,9 +96,11 @@ Container TakePhoto(String title, ConfrimController controller) {
           },
         ),
         ListTile(
-          leading: const Icon(Icons.photo, color: Colors.white),
-          title: const Text('Choose from gallery',
-              style: TextStyle(color: Colors.white, fontSize: 18)),
+          leading: const Icon(
+            Icons.photo,
+          ),
+          title:
+              const Text('Choose from gallery', style: TextStyle(fontSize: 18)),
           onTap: () async {
             controller.file = await pickFileFromStorage();
             controller.isTherePhoto();

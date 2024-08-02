@@ -1,27 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:indriveclone/core/constant/theme_app.dart';
+import 'package:indriveclone/core/constant/color_app.dart';
 import 'package:indriveclone/core/services/services.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocalController extends GetxController {
   MyServices myServices = Get.find();
   late Locale language;
-  ThemeData apptheme = AppTheme.themeEnglish;
-  changeLocale(String codeLocale) {
-    switch (codeLocale) {
+  late ThemeData apptheme;
+
+  saveTheme() {
+    myServices.sharedPreferences
+        .setString("theme", apptheme == ThemeData.dark() ? "dark" : "light");
+  }
+
+  getTheme() {
+    myServices.sharedPreferences.setString("theme", "light");
+    apptheme = myServices.sharedPreferences.getString("theme") == null
+        ? Get.theme
+        : myServices.sharedPreferences.getString("theme") == "dark"
+            ? ThemeData.dark()
+            : ThemeData.light();
+    saveTheme();
+    Get.changeTheme(apptheme);
+  }
+
+  getLocale() {
+    String locale = myServices.sharedPreferences.getString("locale") == null
+        ? Get.deviceLocale!.languageCode
+        : myServices.sharedPreferences.getString("locale")!;
+    switch (locale) {
       case "en":
-        language = Locale(codeLocale);
-        Get.updateLocale(language);
-        Get.changeTheme(AppTheme.themeEnglish);
+        language = Locale(locale);
         break;
       case "ar":
-        language = Locale(codeLocale);
-        Get.updateLocale(language);
-        Get.changeTheme(AppTheme.themeArabic);
+        language = Locale(locale);
         break;
       default:
+        language = const Locale("en");
     }
+    myServices.sharedPreferences.setString("locale", locale);
+    Get.updateLocale(language);
   }
 
   requestPermissoinLocation() async {
@@ -30,21 +49,22 @@ class LocalController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      Get.snackbar("notice", "Open Location Services", colorText: Colors.white);
+      Get.snackbar("notice", "Open Location Services",
+          colorText: AppColor.setCoursorColor());
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         Get.snackbar("notice", "Open Location Services",
-            colorText: Colors.white);
+            colorText: AppColor.setCoursorColor());
       }
     }
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
       Get.snackbar("notice",
           "You can't get a good expirence without location permission",
-          colorText: Colors.white);
+          colorText: AppColor.setCoursorColor());
     }
     await initialPosition();
   }
@@ -69,26 +89,9 @@ class LocalController extends GetxController {
 
   @override
   void onInit() {
+    getLocale();
+    getTheme();
     requestPermissoinLocation();
-    String locale = myServices.sharedPreferences.getString("locale") == null
-        ? Get.deviceLocale!.languageCode
-        : myServices.sharedPreferences.getString("locale")!;
-    switch (locale) {
-      case "en":
-        language = Locale(locale);
-        Get.updateLocale(language);
-        Get.changeTheme(AppTheme.themeEnglish);
-        break;
-      case "ar":
-        language = Locale(locale);
-        Get.updateLocale(language);
-        Get.changeTheme(AppTheme.themeArabic);
-        break;
-      default:
-        language = const Locale("en");
-        Get.updateLocale(language);
-        Get.changeTheme(AppTheme.themeEnglish);
-    }
     super.onInit();
   }
 }

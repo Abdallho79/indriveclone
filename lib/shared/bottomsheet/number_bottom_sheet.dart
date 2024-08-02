@@ -7,11 +7,13 @@ import 'package:indriveclone/page/city_to_city/screen/widget/button-title/button
 import 'package:indriveclone/page/city_to_city/screen/widget/button-title/row_title.dart';
 import 'package:indriveclone/shared/mixin/required_deatils.dart';
 
-// ignore: must_be_immutable
 class NumberPassengersBottomSheet extends StatelessWidget {
   final RequiredDeatils controller;
 
-  const NumberPassengersBottomSheet({super.key, required this.controller});
+  const NumberPassengersBottomSheet({
+    super.key,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class NumberPassengersBottomSheet extends StatelessWidget {
       height: 220,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: AppColor.setBackGrounColor(),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -32,6 +34,8 @@ class NumberPassengersBottomSheet extends StatelessWidget {
           RowTitle(
             title: "How many of you will go?",
             onPressed: () {
+              controller.numberPassengersCounter =
+                  controller.numberPassengersShow;
               Get.back();
             },
           ),
@@ -40,46 +44,47 @@ class NumberPassengersBottomSheet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                  style: const ButtonStyle(
-                      backgroundColor:
-                          WidgetStatePropertyAll(AppColor.background_light)),
-                  iconSize: 30,
-                  onPressed: () {
-                    controller.incrementPassengers();
-                  },
-                  icon: const Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  )),
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(
+                    AppColor.setIsActiveLightColor(),
+                  ),
+                ),
+                iconSize: 30,
+                onPressed: () {
+                  controller.incrementPassengers();
+                },
+                icon: const Icon(Icons.add),
+              ),
               GetBuilder<TravelController>(
                 builder: (controller) => MyCoustomText(
-                    text: "${controller.numberPassengersCounter}",
-                    color: Colors.white,
-                    weight: FontWeight.bold,
-                    size: 24,
-                    textAlign: TextAlign.center),
+                  text: "${controller.numberPassengersCounter}",
+                  weight: FontWeight.bold,
+                  size: 24,
+                  textAlign: TextAlign.center,
+                ),
               ),
               IconButton(
-                  style: const ButtonStyle(
-                      backgroundColor:
-                          WidgetStatePropertyAll(AppColor.background_light)),
-                  iconSize: 30,
-                  onPressed: () {
-                    controller.decrementPassengers();
-                  },
-                  icon: const Icon(
-                    Icons.remove,
-                    color: Colors.white,
-                  ))
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(
+                    AppColor.setIsActiveLightColor(),
+                  ),
+                ),
+                iconSize: 30,
+                onPressed: () {
+                  controller.decrementPassengers();
+                },
+                icon: const Icon(Icons.remove),
+              ),
             ],
           ),
           const Spacer(),
           BottomSheetButton(
-              onPressed: () {
-                controller.selectPassengers(controller.numberPassengersCounter);
-                Get.back();
-              },
-              title: "Done")
+            onPressed: () {
+              controller.selectPassengers(controller.numberPassengersCounter);
+              Get.back();
+            },
+            title: "Done",
+          ),
         ],
       ),
     );

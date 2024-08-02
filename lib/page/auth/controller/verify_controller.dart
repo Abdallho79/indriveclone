@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:indriveclone/core/class/status_request.dart';
 import 'package:indriveclone/core/constant/rout_app.dart';
 import 'package:indriveclone/core/function/check_internet.dart';
+import 'package:indriveclone/core/function/coustom_print.dart';
 import 'package:indriveclone/core/services/services.dart';
 
 class VerifyController extends GetxController {
@@ -14,7 +15,8 @@ class VerifyController extends GetxController {
   String? phoneNumber;
   String? username;
   String? email;
-  int? userid;
+  String? userid;
+  String? photoUrl;
 
   Future<void> isThereInternet() async {
     if (await checkInternet()) {
@@ -33,18 +35,21 @@ class VerifyController extends GetxController {
   }
 
   goToHomeView() async {
-    myservices.sharedPreferences.setInt("id", userid!);
+    myservices.sharedPreferences.setString("id", userid!);
     myservices.sharedPreferences.setString("email", email!);
     myservices.sharedPreferences.setString("phonenumber", phoneNumber!);
     myservices.sharedPreferences.setString("username", username!);
+    myservices.sharedPreferences.setString("photoUrl", photoUrl!);
+    PrintString("Photourl", photoUrl);
     Get.offAllNamed(AppRoute.homeview);
   }
 
   @override
   void onInit() {
     username = Get.arguments["name"];
-    email = Get.arguments["email"] ?? "You Don't enter any email";
+    email = Get.arguments["email"] ?? "";
     phoneNumber = Get.arguments["number"];
+    photoUrl = Get.arguments["photoUrl"] ?? "";
     userid = Get.arguments["id"];
     // phoneNumberSignUp(phoneNumber!);
 
@@ -66,6 +71,6 @@ class VerifyController extends GetxController {
   //       .then((value) {})
   //       .catchError((error) {
   //         Get.snackbar("Failure", "Failed to add user: $error",
-  //             colorText: Colors.white);
+  //             AppColor.setCoursorColor());
   //       });
   // }
